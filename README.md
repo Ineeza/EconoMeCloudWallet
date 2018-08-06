@@ -1,5 +1,7 @@
 # EconoMe Cloud Wallet
 
+[![CircleCI](https://circleci.com/gh/Ineeza/EconoMeCloudWallet.svg?style=svg)](https://circleci.com/gh/Ineeza/EconoMeCloudWallet)
+
 ## Requirements
 ```
 Node v8.11.3 (LTS)
