@@ -1,0 +1,5 @@
+docker ps | grep postgres | awk -F' ' '{print $1}' | xargs -I{} docker kill {}
+
+docker run --rm --name postgres \
+    -p 5432:5432 \
+    -d postgres:10.4

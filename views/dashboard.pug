@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 My Wallet Info
+        .container
+        .row
+          .col-xs-12
+            .table-responsive
+              table.table.table-bordered.table-hover(summary="")
+                thead
+                  tr
+                    th Ethereum Address
+                    th #{myWalletAddress}
+                tbody
+                  tr
+                    td ETH Balance
+                    td #{ethBalance} ETH
+                  tr
+                    td TSC Balance
+                    td #{tscBalance} TSC
+        button.btn.btn-success(type='submit') Download Keystore
+
+        h1.display-4.m-b-2 Send Token
+        // Send ERC20 token
+        form(method='POST' action='/tx')
+          div.form-group
+            label(for='recipient_address') To:
+            input#recipient_address.form-control(type='text', placeholder='0x...' name='recipientAddress')
+          div.form-group
+            label(for='tsc_amount') TSC Amount:
+            input#tsc_amount.form-control(type='text', placeholder='0' name='tscAmount')
+          div.form-group
+            label(for='password') Password:
+            input#password.form-control(type='password', placeholder='secret pharase' name='password')
+          div.form-group
+            input#name.form-control(type='hidden', name='name', value=userName)
+          button.btn.btn-primary(type='submit') Send

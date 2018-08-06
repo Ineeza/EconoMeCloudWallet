@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 EconoMe Cloud Wallet
+
+        // register form
+        form(method='POST' action='/users')
+          div.form-group
+            label(for='user_name') User Name:
+            input#name.form-control(type='text', placeholder='user name' name='name')
+          div.form-group
+            label(for='pw') Password:
+            input#pw.form-control(type='password' name='password')
+          button.btn.btn-primary(type='submit') Login
