@@ -2,7 +2,7 @@
 
 ## Requirements
 ```
-Node v8.11.3 (LTS) 
+Node v8.11.3 (LTS)
 ```
 
 ## Getting Started
@@ -13,14 +13,16 @@ psql -h localhost -U postgres
 ```
 
 ### Create database and tables
-read init.sql
+```
+psql -U postgres web_wallet < init.sql
+```
 
 #### Get generated login password
 In project directory run node
 ```
 const bcrypt = require('bcrypt')
 const pass = 'you password goes here'
-const saltRounds = 10 
+const saltRounds = 10
 bcrypt.hashSync(pass, saltRounds)
 ```
 
@@ -32,7 +34,6 @@ npm start
 
 ## Testing
 ```
-npm i -g mocha
+npm i mocha --save-dev
 npm test
 ```
-

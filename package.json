@@ -31,7 +31,8 @@
     "pug": "2.0.0-beta11",
     "socket.io": "^2.1.1",
     "web3": "^1.0.0-beta.34",
-    "winston": "^3.0.0"
+    "winston": "^3.0.0",
+    "websocket": "^1.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -44,6 +45,7 @@
     "eslint-plugin-promise": "latest",
     "eslint-plugin-standard": "latest",
     "jest": "^23.4.1",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.3"
   }
 }
