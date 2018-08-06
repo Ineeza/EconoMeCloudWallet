@@ -1,5 +1,8 @@
-docker ps | grep postgres | awk -F' ' '{print $1}' | xargs -I{} docker kill {}
+#!/bin/bash
 
-docker run --rm --name postgres \
-    -p 5432:5432 \
-    -d postgres:10.4
+docker stop postgres || true && docker rm postgres || true
+
+docker run --name postgres \
+    -e POSTGRES_DB=web_wallet \
+    -p ${POSTGRES_PORT:-5432}:5432 \
+    -d postgres:10.4-alpine

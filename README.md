@@ -8,7 +8,7 @@ Node v8.11.3 (LTS)
 ## Getting Started
 ### PostgreSQL on Docker
 ```
-./bin/postgresql_on_docker
+POSTGRES_PORT=5432 ./bin/postgresql_on_docker
 psql -h localhost -U postgres
 ```
 
