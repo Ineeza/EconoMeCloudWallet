@@ -36,4 +36,8 @@ npm start
 ```
 npm i mocha --save-dev
 npm test
+
+or
+mkdir junit
+MOCHA_FILE=junit/test-results.xml npm run test-report
 ```

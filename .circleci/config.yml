@@ -1,0 +1,53 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.11
+    steps:
+      - checkout
+      - run:
+          name: Install modules
+          command: npm i
+  test:
+    docker:
+      - image: node:8.11
+      - image: circleci/postgres:10.4-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: web_wallet
+    steps:
+      - checkout
+      - run:
+          name: Update package
+          command: apt update
+      - run:
+          name: Install psql
+          command: apt install -y postgresql-9.4
+      - run:
+          name: Wait for postgresql
+          command: ./.circleci/wait-for-it.sh localhost:5432
+      - run:
+          name: Create db schema
+          command: psql -h localhost -p 5432 -U postgres web_wallet < init.sql
+      - run:
+          name: Create test directory
+          command: mkdir junit
+      - run:
+          name: Install test module
+          command: npm i mocha mocha-junit-reporter
+      - run:
+          name: Test with report
+          command: npm run test-report
+          environment:
+            MOCHA_FILE: junit/test-results.xml
+      - store_test_results:
+          path: junit
+      - store_artifacts:
+          path: junit
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
