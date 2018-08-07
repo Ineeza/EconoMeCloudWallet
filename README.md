@@ -1,5 +1,7 @@
 # EconoMe Cloud Wallet
 
+[![CircleCI](https://circleci.com/gh/Ineeza/EconoMeCloudWallet.svg?style=svg)](https://circleci.com/gh/Ineeza/EconoMeCloudWallet)
+
 ## Requirements
 ```
 Node v8.11.3 (LTS)
@@ -8,7 +10,7 @@ Node v8.11.3 (LTS)
 ## Getting Started
 ### PostgreSQL on Docker
 ```
-./bin/postgresql_on_docker
+POSTGRES_PORT=5432 ./bin/postgresql_on_docker
 psql -h localhost -U postgres
 ```
 
@@ -36,4 +38,8 @@ npm start
 ```
 npm i mocha --save-dev
 npm test
+
+or
+mkdir junit
+MOCHA_FILE=junit/test-results.xml npm run test-report
 ```

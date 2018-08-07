@@ -1,6 +1,3 @@
-CREATE USER your_user_name SUPERUSER;
-CREATE DATABASE your_user_name WITH OWNER your_user_name;
-
 CREATE TABLE "session" (
 "sid" varchar NOT NULL COLLATE "default",
 "sess" json NOT NULL,
