@@ -1,8 +1,0 @@
-#!/bin/bash
-
-docker stop postgres || true && docker rm postgres || true
-
-docker run --name postgres \
-    -e POSTGRES_DB=web_wallet \
-    -p ${POSTGRES_PORT:-5432}:5432 \
-    -d postgres:10.4-alpine
