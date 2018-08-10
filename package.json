@@ -1,5 +1,5 @@
 {
-  "name": "custom-server-express",
+  "name": "econome-cloud-wallet",
   "version": "1.0.0",
   "scripts": {
     "dev": "node ./backend/server.js",
