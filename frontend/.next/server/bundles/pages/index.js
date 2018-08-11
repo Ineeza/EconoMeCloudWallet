@@ -81,73 +81,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_link__ = __webpack_require__("next/link");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_link___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_link__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tabler_react__ = __webpack_require__("tabler-react");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tabler_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tabler_react__);
 var _jsxFileName = "/Users/t/Code/EconomeCloudWallet/frontend/pages/index.js";
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("ul", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 5
-    }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("li", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6
-    }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
-    href: "/login",
-    as: "/login",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6
-    }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6
-    }
-  }, "Login"))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("li", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 7
-    }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
-    href: "/dashboard",
-    as: "/dashboard",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 7
-    }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 7
-    }
-  }, "Dashboard"))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("li", {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8
     }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
-    href: {
-      pathname: '/tokens',
-      query: {
-        id: '2'
-      }
-    },
-    as: "/tokens/2",
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+    className: "mdl-badge",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 9
     }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", {
+  }, "hello"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+    className: "example",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 13
+      lineNumber: 10
     }
-  }, "tokens #2"))));
-});
+  }, "hello"));
+}); //     <ul>
+//       <li><Link href='/login' as='/login'><a>Login</a></Link></li>
+//       <li><Link href='/dashboard' as='/dashboard'><a>Dashboard</a></Link></li>
+//       <li>
+//         <Link
+//           href={{pathname: '/tokens', query: { id: '2' }}}
+//           as='/tokens/2'
+//         >
+//           <a>tokens #2</a>
+//         </Link>
+//       </li>
+//     </ul>
+//     <Card>
+//       <Card.Header>
+//         <Card.Title>Card Title</Card.Title>
+//       </Card.Header>
+//       <Card.Body>
+//         <Button color="primary">A Button</Button>
+//       </Card.Body>
+//     </Card>
+//   </div>
+// )
+//
 
 /***/ }),
 
@@ -170,6 +151,13 @@ module.exports = require("next/link");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "tabler-react":
+/***/ (function(module, exports) {
+
+module.exports = require("tabler-react");
 
 /***/ })
 
