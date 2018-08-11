@@ -1,1 +1,3 @@
-export default () => <div>b</div>
+import { LoginPage } from "tabler-react"
+
+export default () => <div><LoginPage /></div>
