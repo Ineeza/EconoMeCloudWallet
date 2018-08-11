@@ -1,6 +1,7 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 
 import 'tabler-react/dist/Tabler.css'
+import './assets/brand/tabler.svg'
 
 export default class MyDocument extends Document {
   render() {
