@@ -39,8 +39,9 @@ class MainPage extends React.Component {
                items={
                  <React.Fragment>
                    <Nav.Item active value="Home" icon="globe" to='/login'></Nav.Item>
-                   <Nav.Item value="Home" icon="globe" to='/login'></Nav.Item>
-                   <Nav.Item value="Home" icon="globe" to='/login'></Nav.Item>
+                   <Nav.Item to="http://www.example.com">Page Two</Nav.Item>
+                   <Nav.Item value="Page Three" />
+                   <Nav.Item active icon="user">Page Four</Nav.Item>
                  </React.Fragment>
                }
              />
