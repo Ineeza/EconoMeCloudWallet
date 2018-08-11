@@ -72,7 +72,7 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./pages/index.js":
+/***/ "./pages/index.jsx":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83,7 +83,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_link___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_link__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tabler_react__ = __webpack_require__("tabler-react");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tabler_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tabler_react__);
-var _jsxFileName = "/Users/t/Code/EconomeCloudWallet/frontend/pages/index.js";
+var _jsxFileName = "/Users/t/Code/EconomeCloudWallet/frontend/pages/index.jsx";
 
 
 
@@ -91,51 +91,104 @@ var _jsxFileName = "/Users/t/Code/EconomeCloudWallet/frontend/pages/index.js";
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
+      lineNumber: 7
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
       lineNumber: 8
     }
-  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    className: "mdl-badge",
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("li", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 9
     }
-  }, "hello"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    className: "example",
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
+    href: "/login",
+    as: "/login",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    }
+  }, "Login"))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("li", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 10
     }
-  }, "hello"));
-}); //     <ul>
-//       <li><Link href='/login' as='/login'><a>Login</a></Link></li>
-//       <li><Link href='/dashboard' as='/dashboard'><a>Dashboard</a></Link></li>
-//       <li>
-//         <Link
-//           href={{pathname: '/tokens', query: { id: '2' }}}
-//           as='/tokens/2'
-//         >
-//           <a>tokens #2</a>
-//         </Link>
-//       </li>
-//     </ul>
-//     <Card>
-//       <Card.Header>
-//         <Card.Title>Card Title</Card.Title>
-//       </Card.Header>
-//       <Card.Body>
-//         <Button color="primary">A Button</Button>
-//       </Card.Body>
-//     </Card>
-//   </div>
-// )
-//
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
+    href: "/dashboard",
+    as: "/dashboard",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    }
+  }, "Dashboard"))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("li", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_link___default.a, {
+    href: {
+      pathname: '/tokens',
+      query: {
+        id: '2'
+      }
+    },
+    as: "/tokens/2",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16
+    }
+  }, "tokens #2")))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_tabler_react__["Card"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_tabler_react__["Card"].Header, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_tabler_react__["Card"].Title, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    }
+  }, "Card Title")), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_tabler_react__["Card"].Body, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 24
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_tabler_react__["Button"], {
+    color: "primary",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 25
+    }
+  }, "A Button"))));
+});
 
 /***/ }),
 
 /***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./pages/index.js");
+module.exports = __webpack_require__("./pages/index.jsx");
 
 
 /***/ }),

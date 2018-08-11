@@ -79,7 +79,7 @@ module.exports =
 
 /***/ }),
 
-/***/ "./pages/_document.js":
+/***/ "./pages/_document.jsx":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91,7 +91,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_document___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_document__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tabler_react_dist_Tabler_css__ = __webpack_require__("../node_modules/tabler-react/dist/Tabler.css");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tabler_react_dist_Tabler_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tabler_react_dist_Tabler_css__);
-var _jsxFileName = "/Users/t/Code/EconomeCloudWallet/frontend/pages/_document.js";
+var _jsxFileName = "/Users/t/Code/EconomeCloudWallet/frontend/pages/_document.jsx";
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -171,7 +171,7 @@ function (_Document) {
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./pages/_document.js");
+module.exports = __webpack_require__("./pages/_document.jsx");
 
 
 /***/ }),
