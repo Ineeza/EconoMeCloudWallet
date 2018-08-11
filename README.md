@@ -28,10 +28,16 @@ const saltRounds = 10
 bcrypt.hashSync(pass, saltRounds)
 ```
 
-### NodeJS
+### Development Mode
 ```
-npm i
-npm start
+yarn 
+yarn dev
+```
+
+### Production Mode
+```
+yarn build 
+yarn start
 ```
 
 ## Testing

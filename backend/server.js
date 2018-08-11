@@ -10,16 +10,16 @@ app.prepare()
   .then(() => {
     const server = express()
 
-    server.get('/a', (req, res) => {
+    server.get('/login', (req, res) => {
       return app.render(req, res, '/b', req.query)
     })
 
-    server.get('/b', (req, res) => {
+    server.get('/dashboard', (req, res) => {
       return app.render(req, res, '/a', req.query)
     })
 
-    server.get('/posts/:id', (req, res) => {
-      return app.render(req, res, '/posts', { id: req.params.id })
+    server.get('/tokens/:id', (req, res) => {
+      return app.render(req, res, '/tokens', { id: req.params.id })
     })
 
     server.get('*', (req, res) => {

@@ -1,9 +1,11 @@
-import React from 'react'
-import Link from 'next/link'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
+import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Link from 'next/link';
 
 const styles = theme => ({
   root: {
@@ -40,20 +42,3 @@ About.propTypes = {
 };
 
 export default withStyles(styles)(About);
-
-
-//export default () => (
-//  <ul>
-//    <li><Link href='/login' as='/login'><a>Login</a></Link></li>
-//    <li><Link href='/dashboard' as='/dashboard'><a>Dashboard</a></Link></li>
-//    <li>
-//      <Link
-//        href={{pathname: '/tokens', query: { id: '2' }}}
-//        as='/tokens/2'
-//      >
-//        <a>tokens #2</a>
-//      </Link>
-//    </li>
-//  </ul>
-//)
-

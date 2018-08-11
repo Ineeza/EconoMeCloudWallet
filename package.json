@@ -7,6 +7,9 @@
     "start": "NODE_ENV=production node ./backend/server.js"
   },
   "dependencies": {
+    "@material-ui/core": "latest",
+    "jss": "latest",
+    "prop-types": "latest",
     "express": "^4.14.0",
     "next": "^6.1.1",
     "react": "^16.4.2",
