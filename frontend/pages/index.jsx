@@ -13,42 +13,46 @@ import {
   Grid,
   Text,
   Icon,
+  Card,
+  Profile,
+  Container,
 } from "tabler-react"
 
-const navBarItems = [
-  { value: "Home", to: "/", icon: "home" },
-  { value: "Home2", to: "/", icon: "home" },
-  { value: "Home3", to: "/", icon: "home" },
-  { value: "Home4", to: "/", icon: "home" }
-]
-
 class MainPage extends React.Component {
-   render() {
-     return (
-       <div>
-         <Page>
-           <Page.Main>
-             <Site.Header>
-               <Site.Logo
-                 href='/'
-                 alt='EconoMe'
-                 src={logo}
-               />
-             </Site.Header>
-             <Nav
-               items={
-                 <React.Fragment>
-                   <Nav.Item active value="Home" icon="globe" to='/login'></Nav.Item>
-                   <Nav.Item value="Home" icon="globe" to='/login'></Nav.Item>
-                   <Nav.Item value="Home" icon="globe" to='/login'></Nav.Item>
-                 </React.Fragment>
-               }
-             />
-           </Page.Main>
-         </Page>
-       </div>
-     )
-   }
+  render(){
+    const titleStyle = {
+      fontSize: '30px'
+    }
+    return (
+      <div>
+        <Site>
+          <Site.Header><div style={titleStyle}>EconoMe</div></Site.Header>
+          <Site.Nav
+            items={
+              <React.Fragment>
+                <Nav.Item active value="Home" icon="globe" to='/login'></Nav.Item>
+                <Nav.Item value="Login" icon="log-in" to='/login'></Nav.Item>
+                <Nav.Item value="Register" icon="user-plus" to='/register'></Nav.Item>
+              </React.Fragment>
+            }
+          />
+          <Container>
+            <Page>
+              <Page.Header title="Dashboard"/>
+              <Card
+                title="Wallet Info"
+                body={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
+    deleniti fugit incidunt, iste, itaque minima neque pariatur
+    perferendis sed suscipit velit vitae voluptatem. A consequuntur,
+    deserunt eaque error nulla temporibus!`}
+              />
+            </Page>
+          </Container>
+          <Site.Footer copyright='Ineeza, Inc.'></Site.Footer>
+        </Site>
+      </div>
+    )
+  }
  }
 
 export default MainPage
