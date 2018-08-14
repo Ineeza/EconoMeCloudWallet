@@ -138,6 +138,11 @@ class MainPage extends React.Component {
                   </Table.Row>
                 </Table.Body>
               </Table>
+              <Button.List>
+                <Button block icon='plus' color='success' outline>
+                  Add new token
+                </Button>
+              </Button.List>
             </Card.Body>
           </Card>
         </Page>
