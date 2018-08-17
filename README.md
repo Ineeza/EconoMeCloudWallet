@@ -1,6 +1,6 @@
-# EconoMe Cloud Wallet
+[![CircleCI](https://circleci.com/gh/Ineeza/EconoMeCloudWallet.png?style=shield&circle-token=9015a64658bf6efb3602cddbf2eae547456731c3)](https://circleci.com/gh/Ineeza/EconoMeCloudWallet)
 
-[![CircleCI](https://circleci.com/gh/Ineeza/EconoMeCloudWallet.svg?style=svg)](https://circleci.com/gh/Ineeza/EconoMeCloudWallet)
+# EconoMe Cloud Wallet
 
 ## Requirements
 ```
