@@ -2,6 +2,7 @@ import React from 'react'
 import Router from 'react-router-dom'
 import Link from 'next/link'
 import logo from './images/Econome.png'
+import Modal from 'react-responsive-modal'
 
 import {
   Page,
@@ -20,8 +21,27 @@ import {
   Form,
 } from "tabler-react"
 
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center"
+}
+
 class MainPage extends React.Component {
+  state = {
+    open: false
+  }
+
+  onOpenModal = () => {
+    this.setState({ open: true })
+  }
+
+  onCloseModal = () => {
+    this.setState({ open: false })
+  }
+
   render(){
+    const { open } = this.state
+
     const titleStyle = {
       fontSize: '30px'
     }
@@ -37,117 +57,125 @@ class MainPage extends React.Component {
                 <Nav.Item value="Register" icon="user-plus" to='/register'></Nav.Item>
               </React.Fragment>
             }
-      />
-      <Container>
-        <Page>
-          <Page.Header title="Dashboard"/>
-          <Card>
-            <Card.Header>
-              <Card.Title>My wallet info</Card.Title>
-              <Card.Options>
-              </Card.Options>
-            </Card.Header>
-            <Card.Body>
-              <Form.Group label="Network">
-                <Form.Select>
-                  <option>Rinkeby</option>
-                  <option>Ropsten</option>
-                  <option>Kovan</option>
-                  <option>Mainnet</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group label="Ethereum Address">
-                <Form.Input
-                  name="eth-address"
-                  readOnly
-                  value="0xcb2c508ad5247df2ef60195fff8ae990adc16cbd"
-                />
-              </Form.Group>
-              <Form.Group label="ETH Balance">
-                <Form.Input
-                  name="eth-balance"
-                  readOnly
-                  value="0.999718636 ETH"
-                />
-              </Form.Group>
-              <Table hasOutline='true'>
-                <Table.Header>
-                  <Table.ColHeader>ERC20 Token Name</Table.ColHeader>
-                  <Table.ColHeader>Balance</Table.ColHeader>
-                </Table.Header>
-                <Table.Body>
-                  <Table.Row>
-                    <Table.Col>Tronix (TRX)</Table.Col>
-                    <Table.Col>1000</Table.Col>
-                    <Table.Col alignContent='right'>
-                      <Button.List>
-                        <Button color='primary'>Send</Button>
-                        <Button color='danger'>Remove</Button>
-                      </Button.List>
-                    </Table.Col>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Col>BNB (BNB)</Table.Col>
-                    <Table.Col>1000</Table.Col>
-                    <Table.Col alignContent='right'>
-                      <Button.List>
-                        <Button color='primary'>Send</Button>
-                        <Button color='danger'>Remove</Button>
-                      </Button.List>
-                    </Table.Col>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Col>OmiseGO (OMG)</Table.Col>
-                    <Table.Col>1000</Table.Col>
-                    <Table.Col alignContent='right'>
-                      <Button.List>
-                        <Button color='primary'>Send</Button>
-                        <Button color='danger'>Remove</Button>
-                      </Button.List>
-                    </Table.Col>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Col>VeChain (VEN)</Table.Col>
-                    <Table.Col>1000</Table.Col>
-                    <Table.Col alignContent='right'>
-                      <Button.List>
-                        <Button color='primary'>Send</Button>
-                        <Button color='danger'>Remove</Button>
-                      </Button.List>
-                    </Table.Col>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Col>ZRX (ZRX)</Table.Col>
-                    <Table.Col>1000</Table.Col>
-                    <Table.Col alignContent='right'>
-                      <Button.List>
-                        <Button color='primary'>Send</Button>
-                        <Button color='danger'>Remove</Button>
-                      </Button.List>
-                    </Table.Col>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Col>Maker (MKR)</Table.Col>
-                    <Table.Col>1000</Table.Col>
-                    <Table.Col alignContent='right'>
-                      <Button.List>
-                        <Button color='primary'>Send</Button>
-                        <Button color='danger'>Remove</Button>
-                      </Button.List>
-                    </Table.Col>
-                  </Table.Row>
-                </Table.Body>
-              </Table>
-              <Button.List>
-                <Button block icon='plus' color='success' outline>
-                  Add new token
-                </Button>
-              </Button.List>
-            </Card.Body>
-          </Card>
-        </Page>
-      </Container>
-      <Site.Footer copyright='Copyright © 2018 Ineeza, Inc.'></Site.Footer>
+          />
+          <Container>
+            <Page>
+              <Page.Header title="Dashboard"/>
+              <Card>
+                <Card.Header>
+                  <Card.Title>My wallet info</Card.Title>
+                  <Card.Options>
+                  </Card.Options>
+                </Card.Header>
+                <Card.Body>
+                  <Form.Group label="Network">
+                    <Form.Select>
+                      <option>Rinkeby</option>
+                      <option>Ropsten</option>
+                      <option>Kovan</option>
+                      <option>Mainnet</option>
+                    </Form.Select>
+                  </Form.Group>
+                  <Form.Group label="Ethereum Address">
+                    <Form.Input
+                      name="eth-address"
+                      readOnly
+                      value="0xcb2c508ad5247df2ef60195fff8ae990adc16cbd"
+                    />
+                  </Form.Group>
+                  <Form.Group label="ETH Balance">
+                    <Form.Input
+                      name="eth-balance"
+                      readOnly
+                      value="0.999718636 ETH"
+                    />
+                  </Form.Group>
+                  <Table hasOutline='true'>
+                    <Table.Header>
+                      <Table.ColHeader>ERC20 Token Name</Table.ColHeader>
+                      <Table.ColHeader>Balance</Table.ColHeader>
+                    </Table.Header>
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.Col>Tronix (TRX)</Table.Col>
+                        <Table.Col>1000</Table.Col>
+                        <Table.Col alignContent='right'>
+                          <Button.List>
+                            <Button color='primary'>Send</Button>
+                            <Button color='danger'>Remove</Button>
+                          </Button.List>
+                        </Table.Col>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Col>BNB (BNB)</Table.Col>
+                        <Table.Col>1000</Table.Col>
+                        <Table.Col alignContent='right'>
+                          <Button.List>
+                            <Button color='primary'>Send</Button>
+                            <Button color='danger'>Remove</Button>
+                          </Button.List>
+                        </Table.Col>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Col>OmiseGO (OMG)</Table.Col>
+                        <Table.Col>1000</Table.Col>
+                        <Table.Col alignContent='right'>
+                          <Button.List>
+                            <Button color='primary'>Send</Button>
+                            <Button color='danger'>Remove</Button>
+                          </Button.List>
+                        </Table.Col>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Col>VeChain (VEN)</Table.Col>
+                        <Table.Col>1000</Table.Col>
+                        <Table.Col alignContent='right'>
+                          <Button.List>
+                            <Button color='primary'>Send</Button>
+                            <Button color='danger'>Remove</Button>
+                          </Button.List>
+                        </Table.Col>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Col>ZRX (ZRX)</Table.Col>
+                        <Table.Col>1000</Table.Col>
+                        <Table.Col alignContent='right'>
+                          <Button.List>
+                            <Button color='primary'>Send</Button>
+                            <Button color='danger'>Remove</Button>
+                          </Button.List>
+                        </Table.Col>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Col>Maker (MKR)</Table.Col>
+                        <Table.Col>1000</Table.Col>
+                        <Table.Col alignContent='right'>
+                          <Button.List>
+                            <Button color='primary'>Send</Button>
+                            <Button color='danger'>Remove</Button>
+                          </Button.List>
+                        </Table.Col>
+                      </Table.Row>
+                    </Table.Body>
+                  </Table>
+                  <Button.List>
+                    <Button onClick={this.onOpenModal} block icon='plus' color='success' outline>
+                      Add new token
+                    </Button>
+                    <Modal open={open} onClose={this.onCloseModal} center>
+                      <h2>Simple centered modal</h2>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                        pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
+                        hendrerit risus, sed porttitor quam.
+                      </p>
+                    </Modal>
+                  </Button.List>
+                </Card.Body>
+              </Card>
+            </Page>
+          </Container>
+          <Site.Footer copyright='Copyright © 2018 Ineeza, Inc.'></Site.Footer>
         </Site>
       </div>
     )
