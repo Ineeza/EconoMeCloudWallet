@@ -2,7 +2,7 @@ import React from 'react'
 import Router from 'react-router-dom'
 import Link from 'next/link'
 import logo from './images/Econome.png'
-import Modal from 'react-responsive-modal'
+import Modal from 'react-modal'
 
 import {
   Page,
@@ -21,22 +21,26 @@ import {
   Form,
 } from "tabler-react"
 
-const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center"
-}
 
 class MainPage extends React.Component {
-  state = {
-    open: false
+  constructor () {
+    super()
+    this.state = {
+      showModal: false
+    }
+
+    Modal.setAppElement('body');
+
+    this.handleOpenModal = this.handleOpenModal.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
-  onOpenModal = () => {
-    this.setState({ open: true })
+  handleOpenModal () {
+    this.setState({ showModal: true });
   }
 
-  onCloseModal = () => {
-    this.setState({ open: false })
+  handleCloseModal () {
+    this.setState({ showModal: false });
   }
 
   render(){
@@ -52,15 +56,16 @@ class MainPage extends React.Component {
           <Site.Nav
             items={
               <React.Fragment>
-                <Nav.Item active value="Home" icon="globe" to='/login'></Nav.Item>
-                <Nav.Item value="Login" icon="log-in" to='/login'></Nav.Item>
-                <Nav.Item value="Register" icon="user-plus" to='/register'></Nav.Item>
+                <Nav.Item active value='Home' icon='home' to='/'></Nav.Item>
+                <Nav.Item value='Tokens' icon='database' to='/tokens'></Nav.Item>
+                <Nav.Item value='Login' icon='log-in' to='/login'></Nav.Item>
+                <Nav.Item value='Register' icon='user-plus' to='/register'></Nav.Item>
               </React.Fragment>
             }
           />
           <Container>
             <Page>
-              <Page.Header title="Dashboard"/>
+              <Page.Header title='Dashboard'/>
               <Card>
                 <Card.Header>
                   <Card.Title>My wallet info</Card.Title>
@@ -102,7 +107,6 @@ class MainPage extends React.Component {
                         <Table.Col alignContent='right'>
                           <Button.List>
                             <Button color='primary'>Send</Button>
-                            <Button color='danger'>Remove</Button>
                           </Button.List>
                         </Table.Col>
                       </Table.Row>
@@ -112,7 +116,6 @@ class MainPage extends React.Component {
                         <Table.Col alignContent='right'>
                           <Button.List>
                             <Button color='primary'>Send</Button>
-                            <Button color='danger'>Remove</Button>
                           </Button.List>
                         </Table.Col>
                       </Table.Row>
@@ -122,7 +125,6 @@ class MainPage extends React.Component {
                         <Table.Col alignContent='right'>
                           <Button.List>
                             <Button color='primary'>Send</Button>
-                            <Button color='danger'>Remove</Button>
                           </Button.List>
                         </Table.Col>
                       </Table.Row>
@@ -132,7 +134,6 @@ class MainPage extends React.Component {
                         <Table.Col alignContent='right'>
                           <Button.List>
                             <Button color='primary'>Send</Button>
-                            <Button color='danger'>Remove</Button>
                           </Button.List>
                         </Table.Col>
                       </Table.Row>
@@ -142,7 +143,6 @@ class MainPage extends React.Component {
                         <Table.Col alignContent='right'>
                           <Button.List>
                             <Button color='primary'>Send</Button>
-                            <Button color='danger'>Remove</Button>
                           </Button.List>
                         </Table.Col>
                       </Table.Row>
@@ -152,23 +152,34 @@ class MainPage extends React.Component {
                         <Table.Col alignContent='right'>
                           <Button.List>
                             <Button color='primary'>Send</Button>
-                            <Button color='danger'>Remove</Button>
                           </Button.List>
                         </Table.Col>
                       </Table.Row>
                     </Table.Body>
                   </Table>
                   <Button.List>
-                    <Button onClick={this.onOpenModal} block icon='plus' color='success' outline>
+                    <Button onClick={this.handleOpenModal} block icon='plus-circle' color='success' outline>
                       Add new token
                     </Button>
-                    <Modal open={open} onClose={this.onCloseModal} center>
-                      <h2>Simple centered modal</h2>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                        pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
-                        hendrerit risus, sed porttitor quam.
-                      </p>
+                    <Modal isOpen={this.state.showModal} contentLabel='Modal'>
+                      <Form.FieldSet>
+                        <Form.Group label="Contract Address" isRequired>
+                          <Form.Input name="contract-address" />
+                        </Form.Group>
+                        <Form.Group label="Token Name" isRequired>
+                          <Form.Input name="token-name" />
+                        </Form.Group>
+                        <Form.Group label="Symbol" isRequired>
+                          <Form.Input name="symbol" />
+                        </Form.Group>
+                        <Form.Group label="Decimal" isRequired>
+                          <Form.Input name="decimal" />
+                        </Form.Group>
+                      </Form.FieldSet>
+                      <Button.List align='center'>
+                        <Button onClick={this.handleCloseModal} icon='x-circle' color='secondary'>Cancel</Button>
+                        <Button onClick={this.handleCloseModal} icon='plus-circle' color='success'>Add a token</Button>
+                      </Button.List>
                     </Modal>
                   </Button.List>
                 </Card.Body>
@@ -180,6 +191,8 @@ class MainPage extends React.Component {
       </div>
     )
   }
- }
+}
+
+const props = {}
 
 export default MainPage

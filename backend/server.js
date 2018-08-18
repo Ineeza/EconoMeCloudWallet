@@ -22,9 +22,13 @@ app.prepare()
       return app.render(req, res, '/dashboard', req.query)
     })
 
-    server.get('/tokens/:id', (req, res) => {
-      return app.render(req, res, '/tokens', { id: req.params.id })
+    server.get('/tokens', (req, res) => {
+      return app.render(req, res, '/tokens', req.query)
     })
+
+//    server.get('/tokens/:id', (req, res) => {
+//      return app.render(req, res, '/tokens', { id: req.params.id })
+//    })
 
     server.get('*', (req, res) => {
       return handle(req, res)

@@ -24,7 +24,7 @@
     "react": "^16.4.2",
     "react-c3js": "^0.1.20",
     "react-dom": "^16.4.2",
-    "react-responsive-modal": "^3.2.0",
+    "react-modal": "^3.5.1",
     "react-router-dom": "^4.3.1",
     "tabler-react": "^1.18.0"
   }
