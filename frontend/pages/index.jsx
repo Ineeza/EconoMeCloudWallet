@@ -3,6 +3,7 @@ import Router from 'react-router-dom'
 import Link from 'next/link'
 import logo from './images/Econome.png'
 import Modal from 'react-modal'
+import AddTokenModal from '../components/add-token-modal/'
 
 import {
   Page,
@@ -19,33 +20,29 @@ import {
   Container,
   Table,
   Form,
-} from "tabler-react"
+} from 'tabler-react'
 
 
 class MainPage extends React.Component {
   constructor () {
     super()
     this.state = {
-      showModal: false
+      isAddTokenModal: false
     }
-
-    Modal.setAppElement('body');
-
     this.handleOpenModal = this.handleOpenModal.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
   handleOpenModal () {
-    this.setState({ showModal: true });
+    this.setState({ isAddTokenModal: true })
   }
 
   handleCloseModal () {
-    this.setState({ showModal: false });
+    this.setState({ isAddTokenModal: false })
   }
 
   render(){
     const { open } = this.state
-
     const titleStyle = {
       fontSize: '30px'
     }
@@ -161,26 +158,9 @@ class MainPage extends React.Component {
                     <Button onClick={this.handleOpenModal} block icon='plus-circle' color='success' outline>
                       Add new token
                     </Button>
-                    <Modal isOpen={this.state.showModal} contentLabel='Modal'>
-                      <Form.FieldSet>
-                        <Form.Group label="Contract Address" isRequired>
-                          <Form.Input name="contract-address" />
-                        </Form.Group>
-                        <Form.Group label="Token Name" isRequired>
-                          <Form.Input name="token-name" />
-                        </Form.Group>
-                        <Form.Group label="Symbol" isRequired>
-                          <Form.Input name="symbol" />
-                        </Form.Group>
-                        <Form.Group label="Decimal" isRequired>
-                          <Form.Input name="decimal" />
-                        </Form.Group>
-                      </Form.FieldSet>
-                      <Button.List align='center'>
-                        <Button onClick={this.handleCloseModal} icon='x-circle' color='secondary'>Cancel</Button>
-                        <Button onClick={this.handleCloseModal} icon='plus-circle' color='success'>Add a token</Button>
-                      </Button.List>
-                    </Modal>
+                    <AddTokenModal
+                      isAddTokenModal={this.state.isAddTokenModal}
+                      handleCloseModal={this.handleCloseModal}/>
                   </Button.List>
                 </Card.Body>
               </Card>
@@ -192,7 +172,5 @@ class MainPage extends React.Component {
     )
   }
 }
-
-const props = {}
 
 export default MainPage

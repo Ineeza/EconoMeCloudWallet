@@ -19,7 +19,7 @@ import {
   Container,
   Table,
   Form,
-} from "tabler-react"
+} from 'tabler-react'
 
 
 class TokenListPage extends React.Component {
@@ -29,18 +29,18 @@ class TokenListPage extends React.Component {
       showModal: false
     }
 
-    Modal.setAppElement('body');
+    Modal.setAppElement('body')
 
     this.handleOpenModal = this.handleOpenModal.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
   handleOpenModal () {
-    this.setState({ showModal: true });
+    this.setState({ showModal: true })
   }
 
   handleCloseModal () {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false })
   }
 
   render(){
