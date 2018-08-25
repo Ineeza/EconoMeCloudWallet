@@ -4,6 +4,7 @@ import Link from 'next/link'
 import logo from './images/Econome.png'
 import Modal from 'react-modal'
 import AddTokenModal from '../components/add-token-modal/'
+import SendTokenModal from '../components/send-token-modal/'
 
 import {
   Page,
@@ -22,22 +23,61 @@ import {
   Form,
 } from 'tabler-react'
 
-
 class MainPage extends React.Component {
   constructor () {
     super()
     this.state = {
-      isAddTokenModal: false
+      isAddTokenModal: false,
+      isSendTokenModal: false,
+      data: [{
+        id: 1,
+        tokenName: 'Tronix (TRX)',
+        balance: 1000
+      }, {
+        id: 2,
+        tokenName: 'BNB (BNB)',
+        balance: 300
+      }, {
+        id: 3,
+        tokenName: 'OmiseGO (OMG)',
+        balance: 500
+      }, {
+        id: 4,
+        tokenName: 'VeChain (VEN)',
+        balance: 7000
+      }, {
+        id: 5,
+        tokenName: 'ZRX (ZRX)',
+        balance: 1200
+      }, {
+        id: 6,
+        tokenName: 'Maker (MKR)',
+        balance: 15000
+      }]
     }
-    this.handleOpenModal = this.handleOpenModal.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
+
+    // Send-Token Modal
+    this.handleOpenSendTokenModal = this.handleOpenSendTokenModal.bind(this)
+    this.handleCloseSendTokenModal = this.handleCloseSendTokenModal.bind(this)
+
+    // Add-Token Modal
+    this.handleOpenAddTokenModal = this.handleOpenAddTokenModal.bind(this)
+    this.handleCloseAddTokenModal = this.handleCloseAddTokenModal.bind(this)
   }
 
-  handleOpenModal () {
+  handleOpenSendTokenModal () {
+    this.setState({ isSendTokenModal: true })
+  }
+
+  handleCloseSendTokenModal () {
+    this.setState({ isSendTokenModal: false })
+  }
+
+  handleOpenAddTokenModal () {
     this.setState({ isAddTokenModal: true })
   }
 
-  handleCloseModal () {
+  handleCloseAddTokenModal () {
     this.setState({ isAddTokenModal: false })
   }
 
@@ -46,6 +86,7 @@ class MainPage extends React.Component {
     const titleStyle = {
       fontSize: '30px'
     }
+
     return (
       <div>
         <Site>
@@ -98,69 +139,31 @@ class MainPage extends React.Component {
                       <Table.ColHeader>Balance</Table.ColHeader>
                     </Table.Header>
                     <Table.Body>
-                      <Table.Row>
-                        <Table.Col>Tronix (TRX)</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='primary'>Send</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>BNB (BNB)</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='primary'>Send</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>OmiseGO (OMG)</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='primary'>Send</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>VeChain (VEN)</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='primary'>Send</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>ZRX (ZRX)</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='primary'>Send</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>Maker (MKR)</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='primary'>Send</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
+                      {this.state.data.map(p =>{
+                         return(
+                           <Table.Row>
+                             <Table.Col>{ p.tokenName }</Table.Col>
+                             <Table.Col>{ p.balance }</Table.Col>
+                             <Table.Col alignContent='right'>
+                               <Button.List>
+                                 <Button onClick={this.handleOpenSendTokenModal} color='primary'>Send</Button>
+                                 <SendTokenModal
+                                   isSendTokenModal={this.state.isSendTokenModal}
+                                   handleCloseSendTokenModal={this.handleCloseSendTokenModal}/>
+                               </Button.List>
+                             </Table.Col>
+                           </Table.Row>
+                         )
+                      })}
                     </Table.Body>
                   </Table>
                   <Button.List>
-                    <Button onClick={this.handleOpenModal} block icon='plus-circle' color='success' outline>
+                    <Button onClick={this.handleOpenAddTokenModal} block icon='plus-circle' color='success' outline>
                       Add new token
                     </Button>
                     <AddTokenModal
                       isAddTokenModal={this.state.isAddTokenModal}
-                      handleCloseModal={this.handleCloseModal}/>
+                      handleCloseAddTokenModal={this.handleCloseAddTokenModal}/>
                   </Button.List>
                 </Card.Body>
               </Card>

@@ -21,8 +21,8 @@ export default class AddTokenModal extends React.Component {
           </Form.Group>
         </Form.FieldSet>
         <Button.List align='center'>
-          <Button onClick={this.props.handleCloseModal} icon='x-circle' color='secondary'>Cancel</Button>
-          <Button onClick={this.props.handleCloseModal} icon='plus-circle' color='success'>Add a token</Button>
+          <Button onClick={this.props.handleCloseAddTokenModal} icon='x-circle' color='secondary'>Cancel</Button>
+          <Button onClick={this.props.handleCloseAddTokenModal} icon='plus-circle' color='success'>Add a token</Button>
         </Button.List>
       </Modal>
     )
