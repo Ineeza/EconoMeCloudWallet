@@ -31,30 +31,47 @@ class MainPage extends React.Component {
       isSendTokenModal: false,
       data: [{
         id: 1,
-        tokenName: 'Tronix (TRX)',
+        tokenName: 'Tronix',
+        symbol: 'TRX',
+        decimal: 18,
         balance: 1000
       }, {
         id: 2,
-        tokenName: 'BNB (BNB)',
+        tokenName: 'BNB',
+        symbol: 'BNB',
+        decimal: 18,
         balance: 300
       }, {
         id: 3,
-        tokenName: 'OmiseGO (OMG)',
+        tokenName: 'OmiseGO',
+        symbol: 'OMG',
+        decimal: 18,
         balance: 500
       }, {
         id: 4,
-        tokenName: 'VeChain (VEN)',
-        balance: 7000
+        tokenName: 'VeChain',
+        symbol: 'VEN',
+        decimal: 18,
+       balance: 7000
       }, {
         id: 5,
-        tokenName: 'ZRX (ZRX)',
-        balance: 1200
+        tokenName: 'ZRX',
+        symbol: 'ZRX',
+        decimal: 18,
+       balance: 1200
       }, {
         id: 6,
-        tokenName: 'Maker (MKR)',
+        tokenName: 'Maker',
+        symbol: 'MKR',
+        decimal: 18,
         balance: 15000
-      }]
+      }],
+      navBarItems: [
+        { value: "Home", to: "/", icon: "home" },
+        { value: "Tokens", to: "/tokens", icon: "database" }
+      ]
     }
+
 
     // Send-Token Modal
     this.handleOpenSendTokenModal = this.handleOpenSendTokenModal.bind(this)
@@ -89,18 +106,11 @@ class MainPage extends React.Component {
 
     return (
       <div>
-        <Site>
-          <Site.Header><div style={titleStyle}>EconoMe Cloud Wallet</div></Site.Header>
-          <Site.Nav
-            items={
-              <React.Fragment>
-                <Nav.Item active value='Home' icon='home' to='/'></Nav.Item>
-                <Nav.Item value='Tokens' icon='database' to='/tokens'></Nav.Item>
-                <Nav.Item value='Login' icon='log-in' to='/login'></Nav.Item>
-                <Nav.Item value='Register' icon='user-plus' to='/register'></Nav.Item>
-              </React.Fragment>
-            }
-          />
+        <Site.Wrapper
+          headerProps={{alt: 'EconoMe', imageURL: 'https://www.publicdomainpictures.net/pictures/80000/velka/logo-banner.jpg'}}
+          navProps={{itemsObjects: this.state.navBarItems}}
+          footerProps={{copyright: 'Copyright © 2018 Ineeza, Inc.'}}
+        >
           <Container>
             <Page>
               <Page.Header title='Dashboard'/>
@@ -141,7 +151,7 @@ class MainPage extends React.Component {
                     <Table.Body>
                       {this.state.data.map(p =>{
                          return(
-                           <Table.Row>
+                           <Table.Row key={p.id}>
                              <Table.Col>{ p.tokenName }</Table.Col>
                              <Table.Col>{ p.balance }</Table.Col>
                              <Table.Col alignContent='right'>
@@ -169,8 +179,7 @@ class MainPage extends React.Component {
               </Card>
             </Page>
           </Container>
-          <Site.Footer copyright='Copyright © 2018 Ineeza, Inc.'></Site.Footer>
-        </Site>
+        </Site.Wrapper>
       </div>
     )
   }
