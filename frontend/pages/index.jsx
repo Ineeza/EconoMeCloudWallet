@@ -1,7 +1,8 @@
 import React from 'react'
 import Router from 'react-router-dom'
 import Link from 'next/link'
-import logo from './images/Econome.png'
+import logo from './images/econome-logo.png'
+console.log(logo)
 import Modal from 'react-modal'
 import AddTokenModal from '../components/add-token-modal/'
 import SendTokenModal from '../components/send-token-modal/'
@@ -107,7 +108,7 @@ class MainPage extends React.Component {
     return (
       <div>
         <Site.Wrapper
-          headerProps={{alt: 'EconoMe', imageURL: 'https://www.publicdomainpictures.net/pictures/80000/velka/logo-banner.jpg'}}
+          headerProps={{alt: 'EconoMe', imageURL: logo}}
           navProps={{itemsObjects: this.state.navBarItems}}
           footerProps={{copyright: 'Copyright © 2018 Ineeza, Inc.'}}
         >
