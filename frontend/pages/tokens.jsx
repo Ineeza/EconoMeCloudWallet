@@ -1,8 +1,8 @@
 import React from 'react'
 import Router from 'react-router-dom'
 import Link from 'next/link'
-import logo from './images/Econome.png'
-import Modal from 'react-modal'
+import AddTokenModal from '../components/add-token-modal/'
+import logo from './images/econome-logo.png'
 
 import {
   Page,
@@ -25,22 +25,63 @@ import {
 class TokenListPage extends React.Component {
   constructor () {
     super()
+
     this.state = {
-      showModal: false
+      isAddTokenModal: false,
+      data: [{
+        id: 1,
+        tokenName: 'Tronix',
+        symbol: 'TRX',
+        decimal: 18,
+        balance: 1000
+      }, {
+        id: 2,
+        tokenName: 'BNB',
+        symbol: 'BNB',
+        decimal: 18,
+        balance: 300
+      }, {
+        id: 3,
+        tokenName: 'OmiseGO',
+        symbol: 'OMG',
+        decimal: 18,
+        balance: 500
+      }, {
+        id: 4,
+        tokenName: 'VeChain',
+        symbol: 'VEN',
+        decimal: 18,
+        balance: 7000
+      }, {
+        id: 5,
+        tokenName: 'ZRX',
+        symbol: 'ZRX',
+        decimal: 18,
+        balance: 1200
+      }, {
+        id: 6,
+        tokenName: 'Maker',
+        symbol: 'MKR',
+        decimal: 18,
+        balance: 15000
+      }],
+      navBarItems: [
+        { value: "Home", to: "/", icon: "home" },
+        { value: "Tokens", to: "/tokens", icon: "database" }
+      ]
     }
 
-    Modal.setAppElement('body')
-
-    this.handleOpenModal = this.handleOpenModal.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
+    // Add-Token Modal
+    this.handleOpenAddTokenModal = this.handleOpenAddTokenModal.bind(this)
+    this.handleCloseAddTokenModal = this.handleCloseAddTokenModal.bind(this)
   }
 
-  handleOpenModal () {
-    this.setState({ showModal: true })
+  handleOpenAddTokenModal () {
+    this.setState({ isAddTokenModal: true })
   }
 
-  handleCloseModal () {
-    this.setState({ showModal: false })
+  handleCloseAddTokenModal () {
+    this.setState({ isAddTokenModal: false })
   }
 
   render(){
@@ -51,18 +92,11 @@ class TokenListPage extends React.Component {
     }
     return (
       <div>
-        <Site>
-          <Site.Header><div style={titleStyle}>EconoMe Cloud Wallet</div></Site.Header>
-          <Site.Nav
-            items={
-              <React.Fragment>
-                <Nav.Item value='Home' icon='home' to='/'></Nav.Item>
-                <Nav.Item active value='Tokens' icon='database' to='/tokens'></Nav.Item>
-                <Nav.Item value='Login' icon='log-in' to='/login'></Nav.Item>
-                <Nav.Item value='Register' icon='user-plus' to='/register'></Nav.Item>
-              </React.Fragment>
-            }
-          />
+        <Site.Wrapper
+          headerProps={{alt: 'EconoMe', imageURL: logo}}
+          navProps={{itemsObjects: this.state.navBarItems}}
+          footerProps={{copyright: 'Copyright © 2018 Ineeza, Inc.'}}
+        >
           <Container>
             <Page>
               <Page.Header title='ERC20 Tokens List'/>
@@ -71,121 +105,42 @@ class TokenListPage extends React.Component {
                   <Table hasOutline='true'>
                     <Table.Header>
                       <Table.ColHeader>Name</Table.ColHeader>
-                      <Table.ColHeader>Symbol</Table.ColHeader>
-                      <Table.ColHeader>Decimal</Table.ColHeader>
                       <Table.ColHeader>Balance</Table.ColHeader>
                     </Table.Header>
                     <Table.Body>
-                      <Table.Row>
-                        <Table.Col>Tronix</Table.Col>
-                        <Table.Col>TRX</Table.Col>
-                        <Table.Col>18</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
+                      {this.state.data.map(p =>{
+                        return(
+                          <Table.Row key={p.id}>
+                          <Table.Col>{ p.tokenName }</Table.Col>
+                          <Table.Col>{ p.balance }</Table.Col>
+                          <Table.Col alignContent='right'>
                           <Button.List>
-                            <Button color='success'>Edit</Button>
-                            <Button color='danger'>Remove</Button>
+                            <Button onClick={this.handleOpenSendTokenModal} color='danger'>Remove</Button>
                           </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>BNB</Table.Col>
-                        <Table.Col>BNB</Table.Col>
-                        <Table.Col>18</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='success'>Edit</Button>
-                            <Button color='danger'>Remove</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>OmiseGO</Table.Col>
-                        <Table.Col>OMG</Table.Col>
-                        <Table.Col>18</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='success'>Edit</Button>
-                            <Button color='danger'>Remove</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>VeChain</Table.Col>
-                        <Table.Col>VEN</Table.Col>
-                        <Table.Col>18</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='success'>Edit</Button>
-                            <Button color='danger'>Remove</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>ZRX</Table.Col>
-                        <Table.Col>ZRX</Table.Col>
-                        <Table.Col>18</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='success'>Edit</Button>
-                            <Button color='danger'>Remove</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Col>Maker</Table.Col>
-                        <Table.Col>MKR</Table.Col>
-                        <Table.Col>18</Table.Col>
-                        <Table.Col>1000</Table.Col>
-                        <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button color='success'>Edit</Button>
-                            <Button color='danger'>Remove</Button>
-                          </Button.List>
-                        </Table.Col>
-                      </Table.Row>
+                          </Table.Col>
+                         </Table.Row>
+                        )
+                      })}
                     </Table.Body>
                   </Table>
                   <Button.List>
-                    <Button onClick={this.handleOpenModal} block icon='plus-circle' color='success' outline>
-                      Add new token
-                    </Button>
-                    <Modal isOpen={this.state.showModal} contentLabel='Modal'>
-                      <Form.FieldSet>
-                        <Form.Group label="Contract Address" isRequired>
-                          <Form.Input name="contract-address" />
-                        </Form.Group>
-                        <Form.Group label="Token Name" isRequired>
-                          <Form.Input name="token-name" />
-                        </Form.Group>
-                        <Form.Group label="Symbol" isRequired>
-                          <Form.Input name="symbol" />
-                        </Form.Group>
-                        <Form.Group label="Decimal" isRequired>
-                          <Form.Input name="decimal" />
-                        </Form.Group>
-                      </Form.FieldSet>
-                      <Button.List align='center'>
-                        <Button onClick={this.handleCloseModal} icon='x-circle' color='secondary'>Cancel</Button>
-                        <Button onClick={this.handleCloseModal} icon='plus-circle' color='success'>Add a token</Button>
-                      </Button.List>
-                    </Modal>
+                    <Button.List align='center'>
+                      <Button onClick={this.handleOpenAddTokenModal} block icon='plus-circle' color='success' outline>
+                        Add new token
+                      </Button>
+                      <AddTokenModal
+                        isAddTokenModal={this.state.isAddTokenModal}
+                        handleCloseAddTokenModal={this.handleCloseAddTokenModal}/>
+                    </Button.List>
                   </Button.List>
                 </Card.Body>
               </Card>
             </Page>
           </Container>
-          <Site.Footer copyright='Copyright © 2018 Ineeza, Inc.'></Site.Footer>
-        </Site>
+        </Site.Wrapper>
       </div>
     )
   }
 }
-
-const props = {}
 
 export default TokenListPage
