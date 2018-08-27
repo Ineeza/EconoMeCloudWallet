@@ -2,7 +2,6 @@ import React from 'react'
 import Router from 'react-router-dom'
 import Link from 'next/link'
 import logo from './images/econome-logo.png'
-console.log(logo)
 import Modal from 'react-modal'
 import AddTokenModal from '../components/add-token-modal/'
 import SendTokenModal from '../components/send-token-modal/'
