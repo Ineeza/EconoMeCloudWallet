@@ -6,9 +6,12 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dir: './frontend', dev })
 const handle = app.getRequestHandler()
 
+const authRouter = require('./routes/auth')
+const apiRouter = require('./routes/api')
+
 app.prepare()
-  .then(() => {
-    const server = express()
+   .then(() => {
+    let server = express()
 
     server.get('/register', (req, res) => {
       return app.render(req, res, '/register', req.query)
@@ -26,13 +29,10 @@ app.prepare()
       return app.render(req, res, '/tokens', req.query)
     })
 
-    server.get('/test', (req, res) => {
-      res.json({
-        status : 'api server works fine!'
-      })
-    })
+    server.use('/auth', authRouter)
+    server.use('/api', apiRouter)
 
-    server.get('/hoge', (req, res) => {
+    server.get('/test', (req, res) => {
       res.json({
         status : 'api server works fine!'
       })
