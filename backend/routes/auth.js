@@ -1,15 +1,12 @@
 const express = require('express')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 
-router.get('/signup', (req, res, next) => {
+router.post('/signup', passport.authenticate('signup', { session: false }), async (req, res, next) => {
   res.json({
-    status : '/signup'
-  })
-})
-
-router.get('/login', (req, res, next) => {
-  res.json({
-    status : '/login'
+    message: 'Signup successful',
+    user: req.user
   })
 })
 

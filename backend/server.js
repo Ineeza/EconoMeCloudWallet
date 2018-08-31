@@ -6,6 +6,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dir: './frontend', dev })
 const handle = app.getRequestHandler()
 
+require('./middleware/passport');
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
 
