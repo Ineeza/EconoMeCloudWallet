@@ -37,7 +37,6 @@ passport.use('login', new LocalStrategy({
 
 passport.use(new JWTstrategy({
   secretOrKey: 'top_secret',
-  // we expect the user to send the token as a query paramater with the name 'secret_token'
   jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
 }, async (token, done) => {
   try {
