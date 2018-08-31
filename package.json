@@ -27,6 +27,7 @@
     "react-dom": "^16.4.2",
     "react-modal": "^3.5.1",
     "react-router-dom": "^4.3.1",
+    "sequelize": "^4.38.0",
     "tabler-react": "^1.18.0"
   },
   "devDependencies": {
