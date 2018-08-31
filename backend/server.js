@@ -26,6 +26,18 @@ app.prepare()
       return app.render(req, res, '/tokens', req.query)
     })
 
+    server.get('/test', (req, res) => {
+      res.json({
+        status : 'api server works fine!'
+      })
+    })
+
+    server.get('/hoge', (req, res) => {
+      res.json({
+        status : 'api server works fine!'
+      })
+    })
+
 //    server.get('/tokens/:id', (req, res) => {
 //      return app.render(req, res, '/tokens', { id: req.params.id })
 //    })

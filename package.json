@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "node ./backend/server.js",
+    "dev": "nodemon ./backend/server.js",
     "build": "next build frontend",
     "start": "NODE_ENV=production node ./backend/server.js"
   },
