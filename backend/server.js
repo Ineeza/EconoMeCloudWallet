@@ -13,6 +13,9 @@ app.prepare()
    .then(() => {
     let server = express()
 
+    server.use('/auth', authRouter)
+    server.use('/api', apiRouter)
+
     server.get('/register', (req, res) => {
       return app.render(req, res, '/register', req.query)
     })
@@ -29,18 +32,9 @@ app.prepare()
       return app.render(req, res, '/tokens', req.query)
     })
 
-    server.use('/auth', authRouter)
-    server.use('/api', apiRouter)
-
-    server.get('/test', (req, res) => {
-      res.json({
-        status : 'api server works fine!'
-      })
-    })
-
-//    server.get('/tokens/:id', (req, res) => {
-//      return app.render(req, res, '/tokens', { id: req.params.id })
-//    })
+   // server.get('/tokens/:id', (req, res) => {
+   //   return app.render(req, res, '/tokens', { id: req.params.id })
+   // })
 
     server.get('*', (req, res) => {
       return handle(req, res)
