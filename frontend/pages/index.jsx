@@ -72,7 +72,6 @@ class MainPage extends React.Component {
       ]
     }
 
-
     // Send-Token Modal
     this.handleOpenSendTokenModal = this.handleOpenSendTokenModal.bind(this)
     this.handleCloseSendTokenModal = this.handleCloseSendTokenModal.bind(this)
