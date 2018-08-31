@@ -13,7 +13,7 @@ updated_by    TEXT
 CREATE TABLE IF NOT EXISTS account (
 id         BIGSERIAL NOT NULL PRIMARY KEY,
 email      TEXT UNIQUE,
-username   TEXT,
+user_name   TEXT,
 password   TEXT,
 user_type  TEXT
 ) INHERITS(inherit_base_transaction);
@@ -27,7 +27,7 @@ content  TEXT
 /* Insert seed data */
 INSERT INTO account(
 email,
-username,
+user_name,
 password,
 user_type
 ) VALUES (
@@ -39,7 +39,7 @@ user_type
 
 INSERT INTO account(
 email,
-username,
+user_name,
 password,
 user_type
 ) VALUES (
@@ -51,7 +51,7 @@ user_type
 
 INSERT INTO account(
 email,
-username,
+user_name,
 password,
 user_type
 ) VALUES (
