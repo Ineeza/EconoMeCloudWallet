@@ -38,25 +38,25 @@ passport.use('signup', new LocalStrategy({
   }
 }))
 
-// passport.use('login', new LocalStrategy({
-//   usernameField: 'email',
-//   passwordField: 'password'
-// }, async (email, password, done) => {
-//   try {
-//     const user = await AccountModel.findOne({ email })
-//     if (!user) {
-//       return done(null, false, { message: 'User not found' })
-//     }
-//     const validate = await user.isValidPassword(password)
-//     if (!validate) {
-//       return done(null, false, { message: 'Wrong Password' })
-//     }
-//     return done(null, user, { message: 'Logged in Successfully' })
-//   } catch (error) {
-//     return done(error)
-//   }
-// }))
-//
+passport.use('login', new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+}, async (email, password, done) => {
+  try {
+    const account = await AccountModel.findOne({ email })
+    if (!account) {
+      return done(null, false, { message: 'Account not found' })
+    }
+    const validate = await bcrypt.compare(password, account.password)
+    if (!validate) {
+      return done(null, false, { message: 'Wrong Password' })
+    }
+    return done(null, account, { message: 'Logged in Successfully' })
+  } catch (error) {
+    return done(error)
+  }
+}))
+
 // passport.use(new JWTstrategy({
 //   secretOrKey: 'top_secret',
 //   jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
