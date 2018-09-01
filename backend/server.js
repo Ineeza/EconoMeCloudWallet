@@ -1,5 +1,6 @@
 const express = require('express')
 const next = require('next')
+const passport = require('passport')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -12,12 +13,12 @@ const apiRouter = require('./routes/api')
 
 app.prepare()
    .then(() => {
-    let server = express()
+     let server = express()
 
-    server.use('/auth', authRouter)
-    server.use('/api', apiRouter)
+     server.use('/auth', authRouter)
+     server.use('/api', passport.authenticate('jwt', { session : false }), apiRouter)
 
-    server.get('/register', (req, res) => {
+     server.get('/register', (req, res) => {
       return app.render(req, res, '/register', req.query)
     })
 

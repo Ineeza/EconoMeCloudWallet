@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/tx', (req, res, next) => {
+router.get('/profile', (req, res, next) => {
   res.json({
-    status : '/tx'
+    message: 'This is secure api',
+    account: req.user,
+    token: req.query.secret_token
   })
 })
 
