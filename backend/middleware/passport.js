@@ -13,6 +13,9 @@ const sequelize = new Sequelize('econome', 'postgres', '', {
     min: 0,
     acquire: 30000,
     idle: 10000
+  },
+  define: {
+    timestamps: false
   }
 })
 
@@ -23,9 +26,8 @@ passport.use('signup', new LocalStrategy({
   passwordField: 'password'
 }, async (email, password, done) => {
   try {
-    AccountModel.create({ email: email, password: password })
-      .spread((account, created) => {
-        console.log(account.get({ plain: true }))
+    AccountModel.findOrCreate({ where: { email: email }, defaults: { email: email, password: password } })
+      .then(account => {
         return done(null, account)
       })
   } catch (error) {
@@ -51,7 +53,7 @@ passport.use('signup', new LocalStrategy({
 //     return done(error)
 //   }
 // }))
-// 
+//
 // passport.use(new JWTstrategy({
 //   secretOrKey: 'top_secret',
 //   jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
