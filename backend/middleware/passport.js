@@ -30,7 +30,7 @@ passport.use('signup', new LocalStrategy({
     bcrypt.hash(password, 10).then((hash) => {
       AccountModel.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
         .then(account => {
-          return done(null, account)
+          return done(null, { email: email })
         })
     })
   } catch (error) {
@@ -57,13 +57,13 @@ passport.use('login', new LocalStrategy({
   }
 }))
 
-// passport.use(new JWTstrategy({
-//   secretOrKey: 'top_secret',
-//   jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
-// }, async (token, done) => {
-//   try {
-//     return done(null, token.user)
-//   } catch (error) {
-//     done(error)
-//   }
-// }))
+passport.use(new JWTstrategy({
+  secretOrKey: 'top_secret',
+  jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+}, async (token, done) => {
+  try {
+    return done(null, token.user)
+  } catch (error) {
+    done(error)
+  }
+}))
