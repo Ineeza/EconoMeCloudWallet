@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const JWTstrategy = require('passport-jwt').Strategy
@@ -26,10 +27,12 @@ passport.use('signup', new LocalStrategy({
   passwordField: 'password'
 }, async (email, password, done) => {
   try {
-    AccountModel.findOrCreate({ where: { email: email }, defaults: { email: email, password: password } })
-      .then(account => {
-        return done(null, account)
-      })
+    bcrypt.hash(password, 10).then((hash) => {
+      AccountModel.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
+        .then(account => {
+          return done(null, account)
+        })
+    })
   } catch (error) {
     done(error)
   }
