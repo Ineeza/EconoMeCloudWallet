@@ -12,13 +12,13 @@ const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
 
 app.prepare()
-   .then(() => {
-     let server = express()
+  .then(() => {
+    let server = express()
 
-     server.use('/auth', authRouter)
-     server.use('/api', passport.authenticate('jwt', { session : false }), apiRouter)
+    server.use('/auth', authRouter)
+    server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter)
 
-     server.get('/register', (req, res) => {
+    server.get('/register', (req, res) => {
       return app.render(req, res, '/register', req.query)
     })
 
@@ -34,9 +34,9 @@ app.prepare()
       return app.render(req, res, '/tokens', req.query)
     })
 
-   // server.get('/tokens/:id', (req, res) => {
-   //   return app.render(req, res, '/tokens', { id: req.params.id })
-   // })
+    // server.get('/tokens/:id', (req, res) => {
+    //   return app.render(req, res, '/tokens', { id: req.params.id })
+    // })
 
     server.get('*', (req, res) => {
       return handle(req, res)

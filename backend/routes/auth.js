@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 router.post('/signup', passport.authenticate('signup', { session: false }), async (req, res, next) => {
-  console.log('===== siginup ====')
-  console.log(req)
   res.json({
     message: 'Signup successful',
     account: req.user

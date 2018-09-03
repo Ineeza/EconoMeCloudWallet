@@ -43,7 +43,7 @@ passport.use('login', new LocalStrategy({
   passwordField: 'password'
 }, async (email, password, done) => {
   try {
-    const account = await AccountModel.findOne({ email })
+    const account = await AccountModel.findOne({ where: { email: email } })
     if (!account) {
       return done(null, false, { message: 'Account not found' })
     }
