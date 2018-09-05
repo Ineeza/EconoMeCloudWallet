@@ -1,6 +1,4 @@
 import React from 'react'
-import Router from 'react-router-dom'
-import Link from 'next/link'
 import AddTokenModal from '../components/add-token-modal/'
 import logo from './images/econome-logo.png'
 
@@ -8,19 +6,10 @@ import {
   Page,
   Site,
   Button,
-  Nav,
-  Dropdown,
-  Avatar,
-  Grid,
-  Text,
-  Icon,
   Card,
-  Profile,
   Container,
-  Table,
-  Form,
+  Table
 } from 'tabler-react'
-
 
 class TokenListPage extends React.Component {
   constructor () {
@@ -66,8 +55,8 @@ class TokenListPage extends React.Component {
         balance: 15000
       }],
       navBarItems: [
-        { value: "Home", to: "/", icon: "home" },
-        { value: "Tokens", to: "/tokens", icon: "database" }
+        { value: 'Home', to: '/', icon: 'home' },
+        { value: 'Tokens', to: '/tokens', icon: 'database' }
       ]
     }
 
@@ -84,22 +73,17 @@ class TokenListPage extends React.Component {
     this.setState({ isAddTokenModal: false })
   }
 
-  render(){
-    const { open } = this.state
-
-    const titleStyle = {
-      fontSize: '30px'
-    }
+  render () {
     return (
       <div>
         <Site.Wrapper
-          headerProps={{alt: 'EconoMe', imageURL: logo}}
-          navProps={{itemsObjects: this.state.navBarItems}}
-          footerProps={{copyright: 'Copyright © 2018 Ineeza, Inc.'}}
+          headerProps={{ alt: 'EconoMe', imageURL: logo }}
+          navProps={{ itemsObjects: this.state.navBarItems }}
+          footerProps={{ copyright: 'Copyright © 2018 Ineeza, Inc.' }}
         >
           <Container>
             <Page>
-              <Page.Header title='ERC20 Tokens List'/>
+              <Page.Header title='ERC20 Tokens List' />
               <Card>
                 <Card.Body>
                   <Table hasOutline='true'>
@@ -108,17 +92,17 @@ class TokenListPage extends React.Component {
                       <Table.ColHeader>Balance</Table.ColHeader>
                     </Table.Header>
                     <Table.Body>
-                      {this.state.data.map(p =>{
-                        return(
+                      {this.state.data.map(p => {
+                        return (
                           <Table.Row key={p.id}>
-                          <Table.Col>{ p.tokenName }</Table.Col>
-                          <Table.Col>{ p.balance }</Table.Col>
-                          <Table.Col alignContent='right'>
-                          <Button.List>
-                            <Button onClick={this.handleOpenSendTokenModal} color='danger'>Remove</Button>
-                          </Button.List>
-                          </Table.Col>
-                         </Table.Row>
+                            <Table.Col>{ p.tokenName }</Table.Col>
+                            <Table.Col>{ p.balance }</Table.Col>
+                            <Table.Col alignContent='right'>
+                              <Button.List>
+                                <Button onClick={this.handleOpenSendTokenModal} color='danger'>Remove</Button>
+                              </Button.List>
+                            </Table.Col>
+                          </Table.Row>
                         )
                       })}
                     </Table.Body>
@@ -130,7 +114,7 @@ class TokenListPage extends React.Component {
                       </Button>
                       <AddTokenModal
                         isAddTokenModal={this.state.isAddTokenModal}
-                        handleCloseAddTokenModal={this.handleCloseAddTokenModal}/>
+                        handleCloseAddTokenModal={this.handleCloseAddTokenModal} />
                     </Button.List>
                   </Button.List>
                 </Card.Body>
