@@ -11,20 +11,17 @@ require('./middleware/passport')
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
 
+var bodyParser = require('body-parser')
+
 app.prepare()
   .then(() => {
     let server = express()
 
-    server.use('/auth', authRouter)
+    server.use(bodyParser.json())
+    server.use(bodyParser.urlencoded())
+
+    server.use('/', authRouter(app, server))
     server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter)
-
-    server.get('/register', (req, res) => {
-      return app.render(req, res, '/register', req.query)
-    })
-
-    server.get('/login', (req, res) => {
-      return app.render(req, res, '/login', req.query)
-    })
 
     server.get('/dashboard', (req, res) => {
       return app.render(req, res, '/dashboard', req.query)

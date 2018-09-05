@@ -87,11 +87,6 @@ class MainPage extends React.Component {
   }
 
   render () {
-    const { open } = this.state
-    const titleStyle = {
-      fontSize: '30px'
-    }
-
     return (
       <div>
         <Site.Wrapper
