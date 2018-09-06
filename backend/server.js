@@ -18,7 +18,7 @@ app.prepare()
     let server = express()
 
     server.use(bodyParser.json())
-    server.use(bodyParser.urlencoded())
+    server.use(bodyParser.urlencoded({ extended: true }))
 
     server.use('/', authRouter(app, server))
     server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter)
