@@ -6,6 +6,7 @@ const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dir: './frontend', dev })
 const handle = app.getRequestHandler()
+console.log('===== DEV MODE: ' + dev + ' =====')
 
 require('./middleware/passport')
 const authRouter = require('./routes/auth')

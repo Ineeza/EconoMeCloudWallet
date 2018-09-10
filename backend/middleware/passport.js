@@ -5,21 +5,7 @@ const JWTstrategy = require('passport-jwt').Strategy
 const ExtractJWT = require('passport-jwt').ExtractJwt
 
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('econome', 'postgres', '', {
-  host: 'localhost',
-  dialect: 'postgres',
-  operatorsAliases: false,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-  define: {
-    timestamps: false
-  }
-})
-
+const sequelize = require('./sequelize')
 const AccountModel = require('../model/account')(sequelize, Sequelize.DataTypes)
 
 passport.use('signup', new LocalStrategy({
