@@ -45,7 +45,7 @@ passport.use('login', new LocalStrategy({
 
 passport.use(new JWTstrategy({
   secretOrKey: 'top_secret',
-  jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+  jwtFromRequest: ExtractJWT.fromHeader('X-ECW-ACCESS-TOKEN'.toLowerCase())
 }, async (token, done) => {
   try {
     return done(null, token.account)

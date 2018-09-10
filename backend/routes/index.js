@@ -36,7 +36,7 @@ module.exports = (app, server) => {
     })(req, res, next)
   })
 
-  server.get('/dashboard', (req, res) => {
+  server.get('/dashboard', passport.authenticate('jwt', { session: false }), (req, res) => {
     return app.render(req, res, '/dashboard', req.query)
   })
 
