@@ -10,6 +10,7 @@ frontend/.next
 *.env
 *.dev
 .DS_Store
+.node_version
 
 # Docker
 Dockerfile

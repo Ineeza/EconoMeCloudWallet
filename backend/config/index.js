@@ -1,11 +1,13 @@
-const env = process.env.NODE_ENV
+const env =
+    (process.env.ECW_ENV == undefined || process.env.ECW_ENV == '')
+    ? 'dev_env' : 'default_env'
 
-const development = require('./env/development')
-const production = require('./env/production')
+const dev_env = require('./env/development')
+const default_env = require('./env/default')
 
 const config = {
-  development,
-  production
+  dev_env,
+  default_env
 }
 
 module.exports = config[env]

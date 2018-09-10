@@ -1,7 +1,3 @@
-/* Initialize a database */
-DROP DATABASE IF EXISTS econome;
-CREATE DATABASE econome;
-
 /* Initialize tables */
 CREATE TABLE IF NOT EXISTS account (
 id            BIGSERIAL NOT NULL PRIMARY KEY,

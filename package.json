@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon ./backend/server.js",
+    "dev": "nodemon ./backend/server.js",
     "build": "next build frontend",
-    "start": "NODE_ENV=production node ./backend/server.js"
+    "start": "node ./backend/server.js"
   },
   "dependencies": {
     "@zeit/next-css": "^0.2.0",
@@ -16,7 +16,7 @@
     "express": "^4.14.0",
     "formik": "^1.0.2",
     "jsonwebtoken": "^8.3.0",
-    "next": "^6.1.1",
+    "next": "^6.1.2",
     "next-compose-plugins": "^2.1.1",
     "next-fonts": "^0.10.0",
     "next-images": "^0.10.6",
@@ -24,6 +24,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pg": "6.4.2",
     "postcss-css-variables": "^0.9.0",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.6.1",
@@ -33,7 +34,8 @@
     "react-modal": "^3.5.1",
     "react-router-dom": "^4.3.1",
     "sequelize": "^4.38.0",
-    "tabler-react": "^1.18.0"
+    "tabler-react": "^1.18.0",
+    "yarn": "^1.9.4"
   },
   "devDependencies": {
     "eslint": "latest",

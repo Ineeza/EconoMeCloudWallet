@@ -4,7 +4,7 @@
 
 ## Requirements
 ```
-Node v8.11.3 (LTS)
+Node v8.11.4 (LTS)
 ```
 
 ## Getting Started
@@ -16,6 +16,7 @@ psql -h localhost -U postgres
 
 ### Create database and tables
 ```
+createdb -U postgres econome
 psql -U postgres econome < init.sql
 ```
 
@@ -42,8 +43,9 @@ yarn dev
 
 ### Production Mode
 ```
+yarn
 yarn build 
-yarn start
+ECW_ENV=<environment name> yarn start
 ```
 
 ## Testing

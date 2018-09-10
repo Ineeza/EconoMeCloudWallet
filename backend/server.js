@@ -1,9 +1,12 @@
+console.log('===== ECW ENV: ' + process.env.ECW_ENV + ' =====')
+
+const os = require('os')
 const express = require('express')
 const next = require('next')
 const passport = require('passport')
 
 const port = parseInt(process.env.PORT, 10) || 3000
-const dev = process.env.NODE_ENV !== 'production'
+const dev= process.env.ECW_ENV !== 'production'
 const app = next({ dir: './frontend', dev })
 const handle = app.getRequestHandler()
 console.log('===== DEV MODE: ' + dev + ' =====')
@@ -20,6 +23,11 @@ app.prepare()
 
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
+
+    server.get('/_check', (req, res) => {
+      res.status(200)
+      return res.send('200 OK')
+    })
 
     server.use('/', authRouter(app, server))
     server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter)
@@ -42,6 +50,6 @@ app.prepare()
 
     server.listen(port, (err) => {
       if (err) throw err
-      console.log(`> Ready on http://localhost:${port}`)
+      console.log(`> Ready on http://${os.hostname}:${port}`)
     })
   })
