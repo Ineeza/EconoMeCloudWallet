@@ -4,13 +4,16 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 module.exports = (app, server) => {
+  server.get('/signup', (req, res, next) => {
+    return app.render(req, res, '/register', req.query)
+  })
+
   router.post('/signup',
     passport.authenticate('signup', { session: false }),
     async (req, res, next) => {
-      res.json({
-        message: 'Signup successful',
-        account: req.user
-      })
+      res.writeHead(302, { Location: '/login' })
+      res.end()
+      res.finished = true
     })
 
   router.post('/login', async (req, res, next) => {
@@ -23,13 +26,27 @@ module.exports = (app, server) => {
           if (error) return next(error)
           const body = { _id: account._id, email: account.email }
           const token = jwt.sign({ account: body }, 'top_secret')
-          return res.json({ token })
+          res.writeHead(302, { Location: '/' })
+          res.end()
+          res.finished = true
         })
       } catch (error) {
         return res.json({ error: 'Something happen' })
       }
     })(req, res, next)
   })
+
+  server.get('/dashboard', (req, res) => {
+    return app.render(req, res, '/dashboard', req.query)
+  })
+
+  server.get('/tokens', (req, res) => {
+    return app.render(req, res, '/tokens', req.query)
+  })
+
+  // server.get('/tokens/:id', (req, res) => {
+  //   return app.render(req, res, '/tokens', { id: req.params.id })
+  // })
 
   return router
 }

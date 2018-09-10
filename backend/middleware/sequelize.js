@@ -1,9 +1,6 @@
 const config = require('../config')
 const Sequelize = require('sequelize')
 
-console.log('==== CONFIG ====')
-console.log(config)
-
 const sequelize = new Sequelize(
   config.db.database,
   config.db.user,
