@@ -4,9 +4,6 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 module.exports = (app, server) => {
-  server.get('/', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    return app.render(req, res, '/', req.query)
-  })
 
   server.get('/signup', (req, res, next) => {
     return app.render(req, res, '/register', req.query)
@@ -20,19 +17,21 @@ module.exports = (app, server) => {
       res.finished = true
     })
 
-  router.post('/login', async (req, res, next) => {
+  server.get('/', (req, res, next) => {
+    return app.render(req, res, '/login', req.query)
+  })
+
+  router.post('/', async (req, res, next) => {
     passport.authenticate('login', async (err, account, info) => {
       try {
         if (err || !account) {
           return app.render(req, res, '/errors/error400page', req.query)
         }
-        req.login(account, { session: false }, async (error) => {
+        req.login(account, { session: false }, (error) => {
           if (error) return next(error)
           const body = { _id: account._id, email: account.email }
           const token = jwt.sign({ account: body }, 'top_secret')
-          res.writeHead(302, { Location: '/' })
-          res.end()
-          res.finished = true
+          return app.render(req, res, '/', req.query)
         })
       } catch (error) {
         return app.render(req, res, '/errors/error400page', req.query)
