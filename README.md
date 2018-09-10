@@ -16,7 +16,7 @@ psql -h localhost -U postgres
 
 ### Create database and tables
 ```
-psql -U postgres web_wallet < init.sql
+psql -U postgres econome < init.sql
 ```
 
 ### Genarate models from database
