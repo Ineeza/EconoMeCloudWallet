@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 module.exports = (app, server) => {
+  server.get('/', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    return app.render(req, res, '/', req.query)
+  })
+
   server.get('/signup', (req, res, next) => {
     return app.render(req, res, '/register', req.query)
   })
@@ -20,7 +24,7 @@ module.exports = (app, server) => {
     passport.authenticate('login', async (err, account, info) => {
       try {
         if (err || !account) {
-          return res.json({ error: 'Something happen' })
+          return app.render(req, res, '/errors/error400page', req.query)
         }
         req.login(account, { session: false }, async (error) => {
           if (error) return next(error)
@@ -31,7 +35,7 @@ module.exports = (app, server) => {
           res.finished = true
         })
       } catch (error) {
-        return res.json({ error: 'Something happen' })
+        return app.render(req, res, '/errors/error400page', req.query)
       }
     })(req, res, next)
   })

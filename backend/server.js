@@ -20,10 +20,6 @@ app.prepare()
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
 
-    server.get('/hoge', (req, res) => {
-      return res.json(req)
-    })
-
     server.use('/', indexRouter(app, server))
     server.use('/auth', authRouter(app, server))
     server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter)
