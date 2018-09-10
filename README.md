@@ -19,6 +19,12 @@ psql -h localhost -U postgres
 psql -U postgres web_wallet < init.sql
 ```
 
+### Genarate models from database
+```
+npm install -g pg@6.4.2 pg-hstore
+sequelize-auto -o "./backend/model" -d econome -h localhost -u postgres -p 5432 -e postgres
+```
+
 #### Get generated login password
 In project directory run node
 ```
@@ -28,10 +34,16 @@ const saltRounds = 10
 bcrypt.hashSync(pass, saltRounds)
 ```
 
-### NodeJS
+### Development Mode
 ```
-npm i
-npm start
+yarn 
+yarn dev
+```
+
+### Production Mode
+```
+yarn build 
+yarn start
 ```
 
 ## Testing

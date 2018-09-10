@@ -3,6 +3,9 @@ node_modules
 npm-debug.log
 junit/*
 
+# NextJS
+frontend/.next
+
 # Local development
 *.env
 *.dev
