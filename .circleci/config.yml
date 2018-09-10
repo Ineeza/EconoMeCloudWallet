@@ -10,40 +10,42 @@ jobs:
           command: npm i
   test:
     docker:
-      - image: node:8.11
+      - image: node:8-alpine
       - image: circleci/postgres:10.4-alpine
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_DB: web_wallet
+          POSTGRES_DB: econome
     steps:
       - checkout
       - run:
           name: Update package
           command: apt update
       - run:
-          name: Install psql
-          command: apt install -y postgresql-9.4
+          name: Install postgresql
+          command: apk --no-cache add postgresql;
       - run:
           name: Wait for postgresql
           command: ./.circleci/wait-for-it.sh localhost:5432
       - run:
           name: Create db schema
-          command: psql -h localhost -p 5432 -U postgres web_wallet < init.sql
-      - run:
-          name: Create test directory
-          command: mkdir junit
-      - run:
-          name: Install test module
-          command: npm i mocha mocha-junit-reporter
-      - run:
-          name: Test with report
-          command: npm run test-report
-          environment:
-            MOCHA_FILE: junit/test-results.xml
-      - store_test_results:
-          path: junit
-      - store_artifacts:
-          path: junit
+          command: |
+            createdb -h localhost -U postgres econome
+            psql -h localhost -U postgres econome < init.sql
+      # - run:
+      #     name: Create test directory
+      #     command: mkdir junit
+      # - run:
+      #     name: Install test module
+      #     command: npm i mocha mocha-junit-reporter
+      # - run:
+      #     name: Test with report
+      #     command: npm run test-report
+      #     environment:
+      #       MOCHA_FILE: junit/test-results.xml
+      # - store_test_results:
+      #     path: junit
+      # - store_artifacts:
+      #     path: junit
 
 workflows:
   version: 2
