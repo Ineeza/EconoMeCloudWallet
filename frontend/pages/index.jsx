@@ -13,6 +13,12 @@ import {
 } from 'tabler-react'
 
 class MainPage extends React.Component {
+  static getInitialProps ({ query: { jwt } }) {
+    console.log('===== getInitialProps JWT =====')
+    console.log(jwt)
+    return { jwt: jwt }
+  }
+
   constructor () {
     super()
     this.state = {
