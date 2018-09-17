@@ -13,9 +13,13 @@ const indexRouter = require('./routes/')
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
 
+const cors = require('cors')
+
 app.prepare()
   .then(() => {
     let server = express()
+
+    server.use(cors())
 
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
