@@ -1,4 +1,5 @@
 import React from 'react'
+import store from 'store'
 import logo from './images/econome-logo.png'
 import AddTokenModal from '../components/add-token-modal/'
 import SendTokenModal from '../components/send-token-modal/'
@@ -13,10 +14,11 @@ import {
 } from 'tabler-react'
 
 class MainPage extends React.Component {
-  static getInitialProps ({ query: { jwt } }) {
+  static async getInitialProps ({ query: { jwt } }) {
     console.log('===== getInitialProps JWT =====')
-    console.log(jwt)
-    return { jwt: jwt }
+    const accessToken = jwt
+    console.log(accessToken)
+    return { accessToken }
   }
 
   constructor () {
@@ -93,6 +95,10 @@ class MainPage extends React.Component {
   }
 
   render () {
+    console.log('==== ACCESS TOKEN ====')
+    const props = this.props
+    console.log(props.accessToken)
+    store.set('X-ECW-ACCESS-TOKEN', props.accessToken)
     return (
       <div>
         <Site.Wrapper

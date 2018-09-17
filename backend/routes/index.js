@@ -1,6 +1,7 @@
 const express = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const store = require('store')
 const router = express.Router()
 
 module.exports = (app, server) => {
@@ -16,11 +17,24 @@ module.exports = (app, server) => {
       res.finished = true
     })
 
-  server.get('/', (req, res, next) => {
-    return app.render(req, res, '/login', req.query)
+ // server.get('/', (req, res, next) => {
+ //  return app.render(req, res, '/', req.query)
+ //    passport.authenticate('login', async (err, account, info) => {
+ //      if (err || !account) {
+ //        return app.render(req, res, '/login', req.query)
+ //      }
+ //      return app.render(req, res, '/', req.query)
+ //    })
+ // })
+
+  router.get('/', (req, res) => {
+    // const storage = store.get('auth').jwt
+    console.log('===== GET / =====')
+    // console.log(storage)
+    return app.render(req, res, '/', req.query)
   })
 
-  router.post('/', async (req, res, next) => {
+  router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, account, info) => {
       try {
         if (err || !account) {
