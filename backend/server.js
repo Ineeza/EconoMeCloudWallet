@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
 const port = parseInt(process.env.PORT, 10) || 3000
-const dev= process.env.ECW_ENV !== 'production'
+const dev = process.env.ECW_ENV !== 'production'
 const app = next({ dir: './frontend', dev })
 const handle = app.getRequestHandler()
 

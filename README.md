@@ -43,7 +43,7 @@ yarn dev
 
 ### Production Mode
 ```
-yarn
+yarn install --production
 yarn build 
 ECW_ENV=<environment name> yarn start
 ```
