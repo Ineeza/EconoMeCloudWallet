@@ -2,6 +2,7 @@ const express = require('express')
 const next = require('next')
 const passport = require('passport')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -20,7 +21,7 @@ app.prepare()
     let server = express()
 
     server.use(cors())
-
+    server.use(cookieParser())
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
 

@@ -20,7 +20,7 @@
     "formik": "^1.0.2",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.3.0",
-    "next": "latest",
+    "next": "^6.1.2",
     "next-compose-plugins": "^2.1.1",
     "next-fonts": "^0.10.0",
     "next-images": "^0.10.6",

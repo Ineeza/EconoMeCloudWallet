@@ -3,21 +3,21 @@ import Modal from 'react-modal'
 import { Form, Button } from 'tabler-react'
 
 export default class AddTokenModal extends React.Component {
-  render() {
+  render () {
     return (
       <Modal isOpen={this.props.isAddTokenModal} contentLabel='Modal'>
         <Form.FieldSet>
-          <Form.Group label="Contract Address" isRequired>
-            <Form.Input name="contract-address" />
+          <Form.Group label='Contract Address' isRequired>
+            <Form.Input name='contract-address' />
           </Form.Group>
-          <Form.Group label="Token Name" isRequired>
-            <Form.Input name="token-name" />
+          <Form.Group label='Token Name' isRequired>
+            <Form.Input name='token-name' />
           </Form.Group>
-          <Form.Group label="Symbol" isRequired>
-            <Form.Input name="symbol" />
+          <Form.Group label='Symbol' isRequired>
+            <Form.Input name='symbol' />
           </Form.Group>
-          <Form.Group label="Decimal" isRequired>
-            <Form.Input name="decimal" />
+          <Form.Group label='Decimal' isRequired>
+            <Form.Input name='decimal' />
           </Form.Group>
         </Form.FieldSet>
         <Button.List align='center'>
