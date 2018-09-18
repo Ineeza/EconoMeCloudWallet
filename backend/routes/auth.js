@@ -4,10 +4,6 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 module.exports = (app, server) => {
-  server.get('/signup', (req, res, next) => {
-    return app.render(req, res, '/register', req.query)
-  })
-
   router.post('/signup',
     passport.authenticate('signup', { session: false }),
     async (req, res, next) => {
