@@ -1,6 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
 import { connect } from 'react-redux'
 import actions from '../../redux/actions'
 import logo from '../../static/econome-logo.png'
@@ -14,12 +12,6 @@ const mapStateToProps = (state) => (
 class BaseLayout extends React.Component {
   constructor (props) {
     super()
-    // <Link href='/'><a>Home</a></Link>
-    // {!isAuthenticated && <Link href='/login'><a>Sign In</a></Link>}
-    // {!isAuthenticated && <Link href='/signup'><a>Sign Up</a></Link>}
-    // {isAuthenticated && <li onClick={deauthenticate}><a>Sign Out</a></li>}
-    // <Link href='/whoami'><a>Who Am I</a></Link>
-
     let navBarItems = {}
     if (!props.isAuthenticated) {
       navBarItems = {
@@ -40,11 +32,6 @@ class BaseLayout extends React.Component {
         ]
       }
     }
-
-   // console.log('===== TEST =====')
-   // console.log(props)
-   // console.log(navBarItems)
-
     this.state = navBarItems
   }
   render () {
@@ -66,11 +53,9 @@ class BaseLayout extends React.Component {
   }
 }
 
-// { isAuthenticated, deauthenticate }
 BaseLayout.propTypes = {
   children: PropTypes.array,
-  isAuthenticated: PropTypes.bool,
-  deauthenticate: PropTypes.func
+  isAuthenticated: PropTypes.bool
 }
 
 export default connect(mapStateToProps, actions)(BaseLayout)

@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '../components/baselayout/'
-import actions from '../redux/actions'
 import cookie from 'js-cookie'
 
 cookie.remove('X-ECW-ACCESS-TOKEN')
