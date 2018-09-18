@@ -1,7 +1,9 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import Layout from '../components/baselayout/'
 import actions from '../redux/actions'
+import cookie from 'js-cookie'
+
+cookie.remove('X-ECW-ACCESS-TOKEN')
 
 const Logout = () => (
   <Layout>
@@ -11,7 +13,6 @@ const Logout = () => (
 
 Logout.getInitialProps = async (ctx) => {
   console.log('===== CONTEXT Logout =====')
-  actions.deauthenticate()
 }
 
-export default connect()(Logout)
+export default Logout
