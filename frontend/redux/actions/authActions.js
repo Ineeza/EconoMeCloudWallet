@@ -31,8 +31,9 @@ const reauthenticate = (token) => {
 
 // removing the token
 const deauthenticate = () => {
+  console.log('==== Deauthenticate ====')
   return (dispatch) => {
-    removeCookie('token')
+    removeCookie('X-ECW-ACCESS-TOKEN')
     Router.push('/')
     dispatch({ type: DEAUTHENTICATE })
   }

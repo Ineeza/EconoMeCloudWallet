@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import { API } from '../../config'
 import initialize from '../utils/initialize'
-import Layout from '../components/layout/'
+import Layout from '../components/baselayout/'
 
 const Whoami = ({ user }) => (
   <Layout title='Who Am I'>

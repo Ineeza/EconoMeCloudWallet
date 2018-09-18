@@ -1,7 +1,7 @@
 import React from 'react'
 import actions from '../redux/actions'
 import initialize from '../utils/initialize'
-import Layout from '../components/layout/'
+import BaseLayout from '../components/baselayout/'
 import { connect } from 'react-redux'
 
 class Signin extends React.Component {
@@ -24,7 +24,7 @@ class Signin extends React.Component {
 
   render () {
     return (
-      <Layout title='Sign In'>
+      <BaseLayout>
         <h3 className='title is-3'>Sign In</h3>
         <form
           onSubmit={this.handleSubmit.bind(this)}
@@ -72,7 +72,7 @@ class Signin extends React.Component {
             </p>
           </div>
         </form>
-      </Layout>
+      </BaseLayout>
     )
   }
 }
