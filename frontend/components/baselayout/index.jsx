@@ -43,7 +43,7 @@ class BaseLayout extends React.Component {
           footerProps={{ copyright: 'Copyright © 2018 Ineeza, Inc.' }}
         >
           <Page.Content>
-            <div className='has-text-centered'>
+            <div>
               { this.props.children }
             </div>
           </Page.Content>

@@ -1,10 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import initialize from '../utils/initialize'
+import BaseLayout from '../components/baselayout/'
 import AddTokenModal from '../components/add-token-modal/'
-import logo from './images/econome-logo.png'
 
 import {
   Page,
-  Site,
   Button,
   Card,
   Container,
@@ -12,9 +13,12 @@ import {
 } from 'tabler-react'
 
 class TokenListPage extends React.Component {
+  static getInitialProps (ctx) {
+    initialize(ctx)
+  }
+
   constructor () {
     super()
-
     this.state = {
       isAddTokenModal: false,
       data: [{
@@ -76,14 +80,9 @@ class TokenListPage extends React.Component {
   render () {
     return (
       <div>
-        <Site.Wrapper
-          headerProps={{ alt: 'EconoMe', imageURL: logo }}
-          navProps={{ itemsObjects: this.state.navBarItems }}
-          footerProps={{ copyright: 'Copyright © 2018 Ineeza, Inc.' }}
-        >
+        <BaseLayout>
           <Container>
             <Page>
-              <Page.Header title='ERC20 Tokens List' />
               <Card>
                 <Card.Body>
                   <Table hasOutline='true'>
@@ -121,10 +120,10 @@ class TokenListPage extends React.Component {
               </Card>
             </Page>
           </Container>
-        </Site.Wrapper>
+        </BaseLayout>
       </div>
     )
   }
 }
 
-export default TokenListPage
+export default connect()(TokenListPage)

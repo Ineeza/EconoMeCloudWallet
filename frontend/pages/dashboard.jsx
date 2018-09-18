@@ -1,12 +1,12 @@
 import React from 'react'
-import store from 'store'
-import logo from './images/econome-logo.png'
+import { connect } from 'react-redux'
+import initialize from '../utils/initialize'
+import BaseLayout from '../components/baselayout/'
 import AddTokenModal from '../components/add-token-modal/'
 import SendTokenModal from '../components/send-token-modal/'
 
 import {
   Page,
-  Site,
   Button,
   Card,
   Table,
@@ -14,11 +14,8 @@ import {
 } from 'tabler-react'
 
 class MainPage extends React.Component {
-  static async getInitialProps ({ query: { jwt } }) {
-    console.log('===== getInitialProps JWT =====')
-    const accessToken = jwt
-    console.log(accessToken)
-    return { accessToken }
+  static getInitialProps (ctx) {
+    initialize(ctx)
   }
 
   constructor () {
@@ -62,11 +59,7 @@ class MainPage extends React.Component {
         symbol: 'MKR',
         decimal: 18,
         balance: 15000
-      }],
-      navBarItems: [
-        { value: 'Home', to: '/', icon: 'home' },
-        { value: 'Tokens', to: '/tokens', icon: 'database' }
-      ]
+      }]
     }
 
     // Send-Token Modal
@@ -95,17 +88,9 @@ class MainPage extends React.Component {
   }
 
   render () {
-    console.log('==== ACCESS TOKEN ====')
-    const props = this.props
-    console.log(props.accessToken)
-    store.set('X-ECW-ACCESS-TOKEN', props.accessToken)
     return (
       <div>
-        <Site.Wrapper
-          headerProps={{ alt: 'EconoMe', imageURL: logo }}
-          navProps={{ itemsObjects: this.state.navBarItems }}
-          footerProps={{ copyright: 'Copyright © 2018 Ineeza, Inc.' }}
-        >
+        <BaseLayout>
           <Page.Content>
             <Card>
               <Card.Header>
@@ -171,10 +156,10 @@ class MainPage extends React.Component {
               </Card.Body>
             </Card>
           </Page.Content>
-        </Site.Wrapper>
+        </BaseLayout>
       </div>
     )
   }
 }
 
-export default MainPage
+export default connect()(MainPage)
