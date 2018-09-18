@@ -18,9 +18,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Update package
-          command: apt update
-      - run:
           name: Install postgresql
           command: apk --no-cache add postgresql;
       - run:
