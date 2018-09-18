@@ -31,6 +31,10 @@ app.prepare()
     server.get('*', (req, res) => {
       return handle(req, res)
     })
+    server.get('/_check', (req, res) => {
+      res.status(200)
+      return res.send('200 OK')
+    })
 
     server.listen(port, (err) => {
       if (err) throw err

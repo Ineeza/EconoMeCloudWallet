@@ -1,6 +1,11 @@
 const config = require('../config')
 const Sequelize = require('sequelize')
 
+if (process.env.ECW_ENV === undefined) {
+  console.log('==== CONFIG ====')
+  console.log(config)
+}
+
 const sequelize = new Sequelize(
   config.db.database,
   config.db.user,
