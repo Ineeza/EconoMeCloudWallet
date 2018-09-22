@@ -24,6 +24,7 @@ class Signup extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault()
+    this.props.authenticate({ email: this.state.email, password: this.state.password }, 'signup')
   }
 
   render () {

@@ -54,7 +54,7 @@ class BaseLayout extends React.Component {
 }
 
 BaseLayout.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.object,
   isAuthenticated: PropTypes.bool
 }
 

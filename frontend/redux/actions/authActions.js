@@ -9,16 +9,32 @@ const authenticate = ({ email, password }, type) => {
   if (type !== 'login' && type !== 'signup') {
     throw new Error('Wrong API call!')
   }
-  return (dispatch) => {
-    axios.post(`${API}/auth/${type}`, { email, password })
-      .then((response) => {
-        setCookie('X-ECW-ACCESS-TOKEN', response.data.token)
-        Router.push('/')
-        dispatch({ type: AUTHENTICATE, payload: response.data.token })
-      })
-      .catch((err) => {
-        throw new Error(err)
-      })
+
+  if (type === 'login') {
+    return (dispatch) => {
+      axios.post(`${API}/auth/${type}`, { email, password })
+        .then((response) => {
+          setCookie('X-ECW-ACCESS-TOKEN', response.data.token)
+          Router.push('/whoami')
+          dispatch({ type: AUTHENTICATE, payload: response.data.token })
+        })
+        .catch((err) => {
+          throw new Error(err)
+        })
+    }
+  }
+
+  if (type === 'signup') {
+    return (dispatch) => {
+      axios.post(`${API}/auth/${type}`, { email, password })
+        .then((response) => {
+          Router.push('/login')
+          dispatch({ type: AUTHENTICATE, payload: response.data.token })
+        })
+        .catch((err) => {
+          throw new Error(err)
+        })
+    }
   }
 }
 
