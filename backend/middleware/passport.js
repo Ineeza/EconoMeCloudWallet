@@ -7,6 +7,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt
 const Sequelize = require('sequelize')
 const sequelize = require('./sequelize')
 const AccountModel = require('../model/account')(sequelize, Sequelize.DataTypes)
+const KeystoreModel = require('../model/keystore')(sequelize, Sequelize.DataTypes)
 
 passport.use('signup', new LocalStrategy({
   usernameField: 'email',
