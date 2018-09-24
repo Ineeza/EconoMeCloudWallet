@@ -4,18 +4,22 @@ import axiosBase from 'axios'
 import { API } from '../../config'
 import initialize from '../utils/initialize'
 import Layout from '../components/baselayout/'
+import { Alert, Card } from 'tabler-react'
 
 const Whoami = ({ user }) => (
   <Layout title='Who Am I'>
-    {
-      (user && <h3 className='title is-3'>You are logged in as <strong className='is-size-2 has-text-primary'>{user}</strong>.</h3>) ||
-      <h3 className='title is-3 has-text-danger'>You are not authenticated.</h3>
-    }
+    <Card title='User Status'>
+      <Card.Body>
+        {
+          (user && <Alert type='success'>You are logged in as <strong>{user}</strong></Alert>) ||
+          <Alert type='danger'>You are not authenticated.</Alert>
+        }
+      </Card.Body>
+    </Card>
   </Layout>
 )
 
 Whoami.getInitialProps = async (ctx) => {
-  console.log('===== CONTEXT Whoami =====')
   initialize(ctx)
   const token = ctx.store.getState().authentication.token
   const axios = axiosBase.create({

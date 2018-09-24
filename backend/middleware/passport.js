@@ -8,6 +8,8 @@ const Sequelize = require('sequelize')
 const sequelize = require('./sequelize')
 const AccountModel = require('../model/account')(sequelize, Sequelize.DataTypes)
 const KeystoreModel = require('../model/keystore')(sequelize, Sequelize.DataTypes)
+const keythereum = require('keythereum')
+const ethereum = require('web3')
 
 passport.use('signup', new LocalStrategy({
   usernameField: 'email',
@@ -16,8 +18,21 @@ passport.use('signup', new LocalStrategy({
   try {
     bcrypt.hash(password, 10).then((hash) => {
       AccountModel.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
-        .then(account => {
-          return done(null, { email: email })
+        .spread((account, created) => {
+          const params = { keyBytes: 32, ivBytes: 16 }
+          const dk = keythereum.create(params)
+
+          // Pass userName and password as Http POST paramters
+          console.log('=== User Info ===')
+          console.log('Accoiunt ID: ' + account.id)
+
+          // Save keystore to database
+          const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
+          const keystoreStr = JSON.stringify(keyObject)
+          KeystoreModel.findOrCreate({ where: { account_id: account.id }, defaults: { account_id: account.id, content: keystoreStr } })
+            .then(keystore => {
+              return done(null, { email: email })
+            })
         })
     })
   } catch (error) {
