@@ -12,7 +12,7 @@ const authenticate = ({ email, password }, type) => {
 
   if (type === 'login') {
     return (dispatch) => {
-      axios.post(`${API}/auth/${type}`, { email, password })
+      axios.post(`/auth/${type}`, { email, password })
         .then((response) => {
           setCookie('X-ECW-ACCESS-TOKEN', response.data.token)
           Router.push('/whoami')
@@ -26,7 +26,7 @@ const authenticate = ({ email, password }, type) => {
 
   if (type === 'signup') {
     return (dispatch) => {
-      axios.post(`${API}/auth/${type}`, { email, password })
+      axios.post(`/auth/${type}`, { email, password })
         .then((response) => {
           Router.push('/login')
           dispatch({ type: AUTHENTICATE, payload: response.data.token })
