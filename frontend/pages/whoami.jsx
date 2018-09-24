@@ -30,7 +30,7 @@ Whoami.getInitialProps = async (ctx) => {
   if (token) {
     const response = await axios({
       method: 'GET',
-      url: `${API}/api/profile`
+      url: `/api/profile`
     })
     const user = response.data.account.email
     return {
