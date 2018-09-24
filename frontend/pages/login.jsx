@@ -38,7 +38,6 @@ class Login extends React.Component {
             <Form
               onSubmit={this.handleSubmit.bind(this)}
               className='container'
-              style={{ width: '540px' }}
             >
               <Form.FieldSet>
                 <Form.Group label='Unique Username' isRequired>
