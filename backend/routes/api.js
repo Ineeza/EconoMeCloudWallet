@@ -1,10 +1,10 @@
-
 const express = require('express')
 const router = express.Router()
 const keythereum = require('keythereum')
-const ethereum = require('web3')
 const Sequelize = require('sequelize')
-const sequelize = require('./sequelize')
+const sequelize = require('../middleware/sequelize')
+const Web3 = require('web3')
+const networks = require('../middleware/web3').networks
 const Account = require('../model/account')(sequelize, Sequelize.DataTypes)
 const Keystore = require('../model/keystore')(sequelize, Sequelize.DataTypes)
 const ERC20_TOKEN = require('../json/TestCoin.json')
@@ -25,9 +25,7 @@ router.get('/profile', (req, res, next) => {
 
 // TODO Testing
 router.get('/balance', (req, res, next) => {
-  console.log(req.user)
-  const account = req.user
-  Account.findOne({ where: { email: account.email } }).then(account => {
+  Account.findOne({ where: { email: req.user.email } }).then(account => {
     const userId = account.id
     Keystore.findOne({ where: { account_id: userId } }).then(keystore => {
       const myKeyObject = JSON.parse(keystore.content)
@@ -35,7 +33,9 @@ router.get('/balance', (req, res, next) => {
       console.log('My Wallet Address: ' + myWalletAddress)
 
       // Balance
-      const web3 = ethereum.web3
+      console.log('====== web3 ======')
+      console.log(networks)
+      const web3 = new Web3(new Web3.providers.HttpProvider(networks.rinkeby))
       web3.eth.getBalance(myWalletAddress, (error, weiBalance) => {
         if (!error) {
           const ethBalance = web3.utils.fromWei(weiBalance)

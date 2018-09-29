@@ -1,7 +1,3 @@
-const Web3 = require('web3')
-
-const RINKEBY_URL = 'https://rinkeby.infura.io/xyji23ngACpAtbvoO0MZ'
-
 const options = {
   kdf: 'pbkdf2',
   cipher: 'aes-128-ctr',
@@ -12,6 +8,15 @@ const options = {
   }
 }
 
-let web3 = new Web3(new Web3.providers.HttpProvider(RINKEBY_URL))
+const networks = {
+  mainnet: 'https://mainnet.infura.io/xyji23ngACpAtbvoO0MZ',
+  ropsten: 'https://ropsten.infura.io/xyji23ngACpAtbvoO0MZ',
+  rinkeby: 'https://rinkeby.infura.io/xyji23ngACpAtbvoO0MZ',
+  kovan: 'https://kovan.infura.io/xyji23ngACpAtbvoO0MZ',
+  infuranet: 'https://infuranet.infura.io/xyji23ngACpAtbvoO0MZ'
+}
 
-module.exports = (web3, options)
+module.exports = {
+  networks: networks,
+  options: options
+}
