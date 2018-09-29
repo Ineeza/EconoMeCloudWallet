@@ -23,7 +23,6 @@ router.get('/profile', (req, res, next) => {
   })
 })
 
-// TODO Testing
 router.get('/balance', (req, res, next) => {
   Account.findOne({ where: { email: req.user.email } }).then(account => {
     const userId = account.id
@@ -32,9 +31,6 @@ router.get('/balance', (req, res, next) => {
       let myWalletAddress = '0x' + myKeyObject.address
       console.log('My Wallet Address: ' + myWalletAddress)
 
-      // Balance
-      console.log('====== web3 ======')
-      console.log(networks)
       const web3 = new Web3(new Web3.providers.HttpProvider(networks.rinkeby))
       web3.eth.getBalance(myWalletAddress, (error, weiBalance) => {
         if (!error) {
