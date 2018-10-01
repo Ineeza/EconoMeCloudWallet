@@ -1,16 +1,53 @@
 version: 2
 jobs:
-  build:
+  build_and_deploy:
     docker:
-      - image: node:8.11
+      - image: 956277675395.dkr.ecr.ap-northeast-1.amazonaws.com/ecw-demo-app
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY_ID_ECR
+          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY_ECR
     steps:
       - checkout
       - run:
-          name: Install modules
-          command: npm i
+          name: Checkout infra repository
+          command: |
+            if [[ -d ~/infra ]]; then
+              cd ~/infra
+            else
+              mkdir ~/infra
+              cd ~/infra
+              git init
+              git remote add -f origin https://${GITHUB_USER}:${GITHUB_TOKEN}@${GITHUB_REPO_INFRA}
+              git config core.sparseCheckout true
+            fi
+            git pull origin ${GITHUB_REPO_INFRA_BRANCH:-master}
+
+      - run:
+          name: Install packages
+          command: |
+            apk --no-cache add py-pip jq
+            pip install awscli
+
+      - run:
+          name: Deploy
+          command: |
+            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_DEPLOY
+            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_DEPLOY
+            export ECW_ENV=demo
+            cd ~/infra/aws/ecs
+            ECW_APP=app make deploy
+
+      - save_cache:
+          key: ecw-{{ .Branch }}
+          paths:
+            - "~/infra"
+
   test:
     docker:
-      - image: node:8-alpine
+      - image: 956277675395.dkr.ecr.ap-northeast-1.amazonaws.com/ecw-demo-app
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY_ID_ECR
+          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY_ECR
       - image: circleci/postgres:10.4-alpine
         environment:
           POSTGRES_USER: postgres
@@ -24,10 +61,10 @@ jobs:
           name: Wait for postgresql
           command: ./.circleci/wait-for-it.sh localhost:5432
       - run:
-          name: Create db schema
+          name: Import DB scehma
           command: |
-            createdb -h localhost -U postgres econome
-            psql -h localhost -U postgres econome < init.sql
+            # Use flyway?
+            psql -h localhost -U postgres econome < db/V1__Init.sql
       # - run:
       #     name: Create test directory
       #     command: mkdir junit
@@ -46,13 +83,10 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  build_and_deploy_and_test:
     jobs:
-      - build:
+      - build_and_deploy:
           filters:
             branches:
               only: master
-      - test:
-          filters:
-            branches:
-              only: master
+      - test

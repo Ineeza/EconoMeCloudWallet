@@ -1,4 +1,3 @@
-/* Initialize tables */
 CREATE TABLE IF NOT EXISTS account (
 id            BIGSERIAL NOT NULL PRIMARY KEY,
 email         TEXT UNIQUE,
@@ -19,41 +18,4 @@ created_date  TIMESTAMP WITHOUT TIME ZONE default NOW(),
 updated_date  TIMESTAMP WITHOUT TIME ZONE,
 created_by    TEXT default current_user,
 updated_by    TEXT
-);
-
-/* Insert seed data */
-INSERT INTO account(
-email,
-user_name,
-password,
-user_type
-) VALUES (
-'account_1@example.com',
-'account_1',
-'$2a$10$AyapIgTC3hWgg9uKo3LuSOZNK/DFPPzD2AXhNdoMELYxQjw3qujau',
-'admin'
-);
-
-INSERT INTO account(
-email,
-user_name,
-password,
-user_type
-) VALUES (
-'account_2@example.com',
-'account_2',
-'$2a$10$AyapIgTC3hWgg9uKo3LuSOZNK/DFPPzD2AXhNdoMELYxQjw3qujau',
-'admin'
-);
-
-INSERT INTO account(
-email,
-user_name,
-password,
-user_type
-) VALUES (
-'account_3@example.com',
-'account_3',
-'$2a$10$AyapIgTC3hWgg9uKo3LuSOZNK/DFPPzD2AXhNdoMELYxQjw3qujau',
-'admin'
 );

@@ -37,7 +37,7 @@ bcrypt.hashSync(pass, saltRounds)
 
 ### Development Mode
 ```
-yarn 
+yarn install --development
 yarn dev
 ```
 
