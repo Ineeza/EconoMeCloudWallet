@@ -4,7 +4,6 @@ import initialize from '../utils/initialize'
 import BaseLayout from '../components/baselayout/'
 import AddTokenModal from '../components/add-token-modal/'
 import SendTokenModal from '../components/send-token-modal/'
-
 import {
   Page,
   Button,
