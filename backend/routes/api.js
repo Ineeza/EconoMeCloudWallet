@@ -4,6 +4,8 @@ const keythereum = require('keythereum')
 const Sequelize = require('sequelize')
 const sequelize = require('../middleware/sequelize')
 const Web3 = require('web3')
+const Tx = require('ethereumjs-tx')
+const { check, validationResult } = require('express-validator/check')
 const networks = require('../middleware/web3').networks
 const Account = require('../model/account')(sequelize, Sequelize.DataTypes)
 const Keystore = require('../model/keystore')(sequelize, Sequelize.DataTypes)
@@ -60,12 +62,58 @@ router.get('/balance', (req, res, next) => {
   })
 })
 
-router.post('/tx', (req, res, next) => {
-  console.log(req.user)
-  res.json({
-    message: 'This is secure api',
-    account: req.user,
-    token: req.query.secret_token
+router.post('/tx', [
+  check('password').exists(),
+  check('recipientAddress').exists(),
+  check('tscAmount').exists()
+], (req, res, next) => {
+  // Error handling
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() })
+  }
+  const account = req.user
+  Account.findOne({ where: { email: account.email } }).then(account => {
+    const web3 = new Web3(new Web3.providers.HttpProvider(networks.rinkeby))
+    console.log('==== POST /tx ====')
+    console.log(req.body)
+    const userId = account.id
+    const password = req.body.password
+    const recipientAddress = req.body.recipientAddress
+    const tscAmount = req.body.tscAmount
+
+    Keystore.findOne({ where: { account_id: userId } }).then(keystore => {
+      const myKeyObject = JSON.parse(keystore.content)
+      let myWalletAddress = '0x' + myKeyObject.address
+      console.log('My Wallet Address: ' + myWalletAddress)
+      // Nonce
+      web3.eth.getTransactionCount(myWalletAddress).then((nonce) => {
+        console.log('Nonce: ' + nonce)
+        // Private Key
+        const privateKey = keythereum.recover(password, myKeyObject)
+        console.log('Private Key: ' + privateKey.toString('base64'))
+        const contract = new web3.eth.Contract(ERC20_TOKEN.abi, CONTRACT_ADDRESS)
+        // Signed Transaction
+        let toAddress = recipientAddress
+        const amount = tscAmount * (10 ** DECIMAL)
+        const rawTransaction = {
+          'from': myWalletAddress,
+          'gasPrice': web3.utils.toHex(2 * 1e9),
+          'gasLimit': web3.utils.toHex(210000),
+          'to': CONTRACT_ADDRESS,
+          'value': '0x0',
+          'data': contract.methods.transfer(toAddress, amount).encodeABI(),
+          'nonce': web3.utils.toHex(nonce)
+        }
+        console.log(rawTransaction)
+        const transaction = new Tx(rawTransaction)
+        transaction.sign(privateKey)
+        web3.eth.sendSignedTransaction('0x' + transaction.serialize().toString('hex'))
+          .on('transactionHash', (hash) => res.json({ 'transactionHash': hash }))
+          .on('receipt', console.log)
+          .on('error', res.json({ 'error': 'something wrong' }))
+      })
+    })
   })
 })
 
