@@ -48,7 +48,7 @@
     "sequelize": "^4.39.0",
     "store": "^2.0.12",
     "tabler-react": "^1.18.0",
-    "web3": "^1.0.0-beta.36",
+    "web3": "1.0.0-beta.34",
     "yarn": "^1.10.1"
   },
   "devDependencies": {
