@@ -16,6 +16,7 @@ require('./middleware/passport')
 const indexRouter = require('./routes/')
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
+const tokenRouter = require('./routes/token')
 
 const cors = require('cors')
 
@@ -30,7 +31,8 @@ app.prepare()
 
     server.use('/', indexRouter(app, server))
     server.use('/auth', authRouter(app, server))
-    server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter)
+    server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter(app, server))
+    server.use('/api/token', passport.authenticate('jwt', { session: false }), tokenRouter(app, server))
     server.get('*', (req, res) => {
       return handle(req, res)
     })
