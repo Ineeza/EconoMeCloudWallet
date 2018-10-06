@@ -35,7 +35,6 @@ const Index = () => (
 )
 
 Index.getInitialProps = (ctx) => {
-  console.log('===== CONTEXT Index =====')
   initialize(ctx)
 }
 

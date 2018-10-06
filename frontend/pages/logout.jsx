@@ -16,7 +16,7 @@ const Logout = () => (
 )
 
 Logout.getInitialProps = async (ctx) => {
-  console.log('===== CONTEXT Logout =====')
+  console.log('===== Logout =====')
 }
 
 export default Logout
