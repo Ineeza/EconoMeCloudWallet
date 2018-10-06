@@ -10,7 +10,7 @@ const networks = require('../middleware/web3').networks
 const Account = require('../model/account')(sequelize, Sequelize.DataTypes)
 const Keystore = require('../model/keystore')(sequelize, Sequelize.DataTypes)
 const ERC20_TOKEN = require('../json/TestCoin.json')
-// const tokenRouter = require('./token')
+const tokenRouter = require('./token')
 
 // FIXME Get values from database
 const CONTRACT_ADDRESS = '0x66e3e42a6f0f2690a1a5207047c26f5f6d73ecdb'
@@ -18,10 +18,9 @@ const DECIMAL = 18
 
 module.exports = (app, server) => {
   // Routing secure api
-  // server.use('/token', tokenRouter(app, server))
+  router.use('/token', tokenRouter(app, server))
+
   router.get('/profile', (req, res, next) => {
-    console.log('===== profile =====')
-    console.log(req.user)
     res.json({
       message: 'This is secure api',
       account: req.user,
