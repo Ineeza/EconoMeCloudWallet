@@ -1,26 +1,30 @@
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('account', {
+  return sequelize.define('token', {
     id: {
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    email: {
-      type: DataTypes.TEXT,
+    account_id: {
+      type: DataTypes.BIGINT,
       allowNull: true,
       unique: true
     },
-    user_name: {
+    contract_address: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    password: {
+    name: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    user_type: {
+    symbol: {
       type: DataTypes.TEXT,
+      allowNull: true
+    },
+    decimal: {
+      type: DataTypes.BIGINT,
       allowNull: true
     },
     created_date: {
@@ -42,6 +46,6 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'account'
+    tableName: 'token'
   })
 }

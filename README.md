@@ -25,6 +25,10 @@ psql -U postgres econome < init.sql
 npm install -g pg@6.4.2 pg-hstore
 sequelize-auto -o "./backend/model" -d econome -h localhost -u postgres -p 5432 -e postgres
 ```
+If you want generate specific model from table,
+```
+sequelize-auto -o "./backend/model" -d econome -h localhost -u postgres -p 5432 -e postgres -t [tableName]
+```
 
 #### Get generated login password
 In project directory run node
