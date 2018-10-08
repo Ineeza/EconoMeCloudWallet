@@ -67,7 +67,7 @@ module.exports = (app, server) => {
     check('recipientAddress').exists(),
     check('tscAmount').exists()
   ], (req, res, next) => {
-  // Error handling
+    // Error handling
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() })
