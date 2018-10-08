@@ -1,14 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const keythereum = require('keythereum')
-const Sequelize = require('sequelize')
-const sequelize = require('../middleware/sequelize')
 const Web3 = require('web3')
 const Tx = require('ethereumjs-tx')
 const { check, validationResult } = require('express-validator/check')
+const { Account, Keystore } = require('../model')
 const networks = require('../middleware/web3').networks
-const Account = require('../model/account')(sequelize, Sequelize.DataTypes)
-const Keystore = require('../model/keystore')(sequelize, Sequelize.DataTypes)
 const ERC20_TOKEN = require('../json/TestCoin.json')
 const tokenRouter = require('./token')
 

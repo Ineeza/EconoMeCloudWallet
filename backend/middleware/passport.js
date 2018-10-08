@@ -3,13 +3,9 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const JWTstrategy = require('passport-jwt').Strategy
 const ExtractJWT = require('passport-jwt').ExtractJwt
-
-const Sequelize = require('sequelize')
-const sequelize = require('./sequelize')
-const AccountModel = require('../model/account')(sequelize, Sequelize.DataTypes)
-const KeystoreModel = require('../model/keystore')(sequelize, Sequelize.DataTypes)
 const keythereum = require('keythereum')
 const ethereum = require('web3')
+const { Account, Keystore } = require('../model')
 
 passport.use('signup', new LocalStrategy({
   usernameField: 'email',
@@ -17,7 +13,7 @@ passport.use('signup', new LocalStrategy({
 }, async (email, password, done) => {
   try {
     bcrypt.hash(password, 10).then((hash) => {
-      AccountModel.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
+      Account.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
         .spread((account, created) => {
           const params = { keyBytes: 32, ivBytes: 16 }
           const dk = keythereum.create(params)
@@ -29,7 +25,7 @@ passport.use('signup', new LocalStrategy({
           // Save keystore to database
           const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
           const keystoreStr = JSON.stringify(keyObject)
-          KeystoreModel.findOrCreate({ where: { account_id: account.id }, defaults: { account_id: account.id, content: keystoreStr } })
+          Keystore.findOrCreate({ where: { account_id: account.id }, defaults: { account_id: account.id, content: keystoreStr } })
             .then(keystore => {
               return done(null, { email: email })
             })
@@ -45,7 +41,7 @@ passport.use('login', new LocalStrategy({
   passwordField: 'password'
 }, async (email, password, done) => {
   try {
-    const account = await AccountModel.findOne({ where: { email: email } })
+    const account = await Account.findOne({ where: { email: email } })
     if (!account) {
       return done(null, false, { message: 'Account not found' })
     }

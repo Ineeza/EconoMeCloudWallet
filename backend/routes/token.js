@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { Account, Keystore, Token } = require('../model')
 
 module.exports = (app, server) => {
   router.get('/', (req, res, next) => {
