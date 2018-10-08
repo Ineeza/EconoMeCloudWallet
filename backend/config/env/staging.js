@@ -8,5 +8,5 @@ module.exports = {
     max: process.env.DB_MAX_CONNECTIONS,
     idleTimeoutMillis: process.env.DB_IDLE_TIMEOUT
   },
-  apiHost: 'https://dev.token-economy.io'
+  apiHost: 'https://stg.token-economy.io'
 }

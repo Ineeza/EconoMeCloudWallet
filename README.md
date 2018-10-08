@@ -14,10 +14,10 @@ POSTGRES_PORT=5432 ./bin/postgresql_on_docker
 psql -h localhost -U postgres
 ```
 
-### Create database and tables
+### Create initial database and tables
 ```
 createdb -U postgres econome
-psql -U postgres econome < init.sql
+psql -U postgres econome < db/V1__Init.sql
 ```
 
 ### Genarate models from database
@@ -39,16 +39,16 @@ const saltRounds = 10
 bcrypt.hashSync(pass, saltRounds)
 ```
 
-### Development Mode
+### Local Development Mode
 ```
-yarn 
-yarn dev
+yarn
+yarn local
 ```
 
 ### Production Mode
 ```
 yarn install --production
-yarn build 
+yarn build
 ECW_ENV=<environment name> yarn start
 ```
 

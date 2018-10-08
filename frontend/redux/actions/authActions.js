@@ -1,7 +1,6 @@
 import Router from 'next/router'
 import axios from 'axios'
 import { AUTHENTICATE, DEAUTHENTICATE } from '../types'
-import { API } from '../../../config'
 import { setCookie, removeCookie } from '../../utils/cookie'
 
 // gets token from the api and stores it in the redux store and in cookie

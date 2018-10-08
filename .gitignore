@@ -2,6 +2,7 @@
 node_modules
 npm-debug.log
 junit/*
+package-lock.json
 
 # NextJS
 frontend/.next

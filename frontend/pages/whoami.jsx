@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
-import { API } from '../../config'
+import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import Layout from '../components/baselayout/'
 import { Alert, Card } from 'tabler-react'
@@ -23,15 +23,13 @@ Whoami.getInitialProps = async (ctx) => {
   initialize(ctx)
   const token = ctx.store.getState().authentication.token
   const axios = axiosBase.create({
+    baseURL: apiHost,
     headers: {
       'X-ECW-ACCESS-TOKEN': token
     }
   })
   if (token) {
-    const response = await axios({
-      method: 'GET',
-      url: `http://localhost:3000/api/profile`
-    })
+    const response = await axios.get(`/api/profile`)
     const user = response.data.account.email
     return {
       user
