@@ -7,5 +7,6 @@ module.exports = {
     port: process.env.DB_PORT,
     max: process.env.DB_MAX_CONNECTIONS,
     idleTimeoutMillis: process.env.DB_IDLE_TIMEOUT
-  }
+  },
+  apiHost: 'https://token-economy.io'
 }
