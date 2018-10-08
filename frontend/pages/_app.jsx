@@ -6,8 +6,6 @@ import { initStore } from '../redux/'
 
 export default withRedux(initStore, { debug: true })(class MyApp extends App {
   static async getInitialProps ({ Component, ctx }) {
-    console.log('===== CONTEXT =====')
-    console.log('isServer: ' + ctx.isServer)
     return {
       pageProps: {
         // Call page-level getInitialProps
