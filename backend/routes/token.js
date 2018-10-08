@@ -5,32 +5,30 @@ module.exports = (app, server) => {
   router.get('/', (req, res, next) => {
     res.json({
       message: 'Get token',
-      account: req.user,
-      token: req.query.secret_token
+      account: req.user
     })
   })
 
   router.post('/', (req, res, next) => {
     res.json({
       message: 'Post token',
-      account: req.user,
-      token: req.query.secret_token
+      account: req.user
     })
   })
 
-  router.patch('/', (req, res, next) => {
+  router.patch('/:id', (req, res, next) => {
     res.json({
       message: 'Patch token',
       account: req.user,
-      token: req.query.secret_token
+      resourceId: req.params.id
     })
   })
 
-  router.delete('/', (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     res.json({
       message: 'Delete token',
       account: req.user,
-      token: req.query.secret_token
+      resourceId: req.params.id
     })
   })
 
