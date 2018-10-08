@@ -23,7 +23,7 @@ updated_by    TEXT
 
 CREATE TABLE IF NOT EXISTS token (
 id                BIGSERIAL NOT NULL PRIMARY KEY,
-account_id        BIGINT UNIQUE,
+account_id        BIGINT,
 contract_address  TEXT,
 name              TEXT,
 symbol            TEXT,

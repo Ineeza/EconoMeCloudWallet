@@ -8,8 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     account_id: {
       type: DataTypes.BIGINT,
-      allowNull: true,
-      unique: true
+      allowNull: true
     },
     contract_address: {
       type: DataTypes.TEXT,
