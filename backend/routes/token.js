@@ -1,13 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const { check, validationResult } = require('express-validator/check')
-const { Account, Keystore, Token } = require('../model')
+const { Account, Token } = require('../model')
 
 module.exports = (app, server) => {
   router.get('/', (req, res, next) => {
-    res.json({
-      message: 'Get token',
-      account: req.user
+    Account.findOne({ where: { email: req.user.email } }).then(account => {
+      Token.findAll().then(tokens => {
+        res.json({
+          message: 'Get token',
+          account: req.user,
+          tokens: tokens
+        })
+      })
     })
   })
 
