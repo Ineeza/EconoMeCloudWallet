@@ -4,7 +4,7 @@
 
 ## Requirements
 ```
-Node v8.11.4 (LTS)
+Node v8 (LTS)
 ```
 
 ## Getting Started
