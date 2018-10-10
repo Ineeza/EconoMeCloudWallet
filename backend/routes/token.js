@@ -48,10 +48,27 @@ module.exports = (app, server) => {
   })
 
   router.patch('/:id', (req, res, next) => {
-    res.json({
-      message: 'Patch token',
-      account: req.user,
-      resourceId: req.params.id
+    Account.findOne({ where: { email: req.user.email } }).then(account => {
+      Token.update({
+        account_id: account.id,
+        contract_address: req.body.contractAddress,
+        name: req.body.name,
+        symbol: req.body.symbol,
+        decimal: req.body.decimal
+      }, {
+        returning: true,
+        where: {
+          id: req.params.id,
+          account_id: account.id
+        }
+      }).then((token) => {
+        res.json({
+          message: 'Patch token',
+          account: req.user,
+          resourceId: req.params.id,
+          token: token
+        })
+      }).catch(next)
     })
   })
 
