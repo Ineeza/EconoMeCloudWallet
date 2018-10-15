@@ -73,10 +73,19 @@ module.exports = (app, server) => {
   })
 
   router.delete('/:id', (req, res, next) => {
-    res.json({
-      message: 'Delete token',
-      account: req.user,
-      resourceId: req.params.id
+    Account.findOne({ where: { email: req.user.email } }).then(account => {
+      Token.destroy({
+        where: {
+          id: req.params.id,
+          account_id: account.id
+        }
+      }).then((result) => {
+        res.json({
+          message: 'Delete token',
+          account: req.user,
+          resourceId: req.params.id
+        })
+      })
     })
   })
 
