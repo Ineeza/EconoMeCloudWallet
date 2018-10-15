@@ -5,6 +5,7 @@
   "scripts": {
     "local": "nodemon ./backend/server.js",
     "build": "next build frontend",
+    "flow": "flow",
     "start": "node ./backend/server.js"
   },
   "dependencies": {
@@ -53,14 +54,18 @@
     "yarn": "^1.10.1"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "eslint": "^5.6.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
+    "eslint-plugin-flowtype": "^3.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
+    "flow-bin": "^0.83.0",
     "nodemon": "^1.18.3"
   }
 }

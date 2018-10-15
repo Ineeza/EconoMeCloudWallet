@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
@@ -6,7 +7,7 @@ import initialize from '../utils/initialize'
 import Layout from '../components/baselayout/'
 import { Alert, Card } from 'tabler-react'
 
-const Whoami = ({ user }) => (
+const Whoami = ({ user }: string) => (
   <Layout title='Who Am I'>
     <Card title='User Status'>
       <Card.Body>
