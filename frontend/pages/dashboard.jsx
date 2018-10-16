@@ -117,9 +117,6 @@ class MainPage extends React.Component {
                 <Form.Group label='Network'>
                   <Form.Select>
                     <option>Rinkeby</option>
-                    <option>Ropsten</option>
-                    <option>Kovan</option>
-                    <option>Mainnet</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Group label='Ethereum Address'>
