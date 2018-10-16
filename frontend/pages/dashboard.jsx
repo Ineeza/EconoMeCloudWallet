@@ -15,7 +15,7 @@ import {
 } from 'tabler-react'
 
 class MainPage extends React.Component {
-  static getInitialProps (ctx) {
+  static async getInitialProps (ctx) {
     initialize(ctx)
     const token = ctx.store.getState().authentication.token
     const axios = axiosBase.create({
@@ -25,10 +25,8 @@ class MainPage extends React.Component {
       }
     })
     if (token) {
-      const response = axios.get(`/api/balance`)
+      const response = await axios.get(`/api/balance`)
       const wallet = response.data
-      console.log('==== InitialProps: GET /api/balance ====')
-      console.log(wallet)
       return {
         wallet
       }
@@ -128,14 +126,14 @@ class MainPage extends React.Component {
                   <Form.Input
                     name='eth-address'
                     readOnly
-                    value='0xcb2c508ad5247df2ef60195fff8ae990adc16cbd'
+                    value={this.props.wallet.myWalletAddress}
                   />
                 </Form.Group>
                 <Form.Group label='ETH Balance'>
                   <Form.Input
                     name='eth-balance'
                     readOnly
-                    value='0.999718636 ETH'
+                    value={this.props.wallet.ethBalance}
                   />
                 </Form.Group>
                 <Table hasOutline='true'>
