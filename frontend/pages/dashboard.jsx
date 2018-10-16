@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import axiosBase from 'axios'
+import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/baselayout/'
 import AddTokenModal from '../components/add-token-modal/'
@@ -15,6 +17,22 @@ import {
 class MainPage extends React.Component {
   static getInitialProps (ctx) {
     initialize(ctx)
+    const token = ctx.store.getState().authentication.token
+    const axios = axiosBase.create({
+      baseURL: apiHost,
+      headers: {
+        'X-ECW-ACCESS-TOKEN': token
+      }
+    })
+    if (token) {
+      const response = axios.get(`/api/balance`)
+      const wallet = response.data
+      console.log('==== InitialProps: GET /api/balance ====')
+      console.log(wallet)
+      return {
+        wallet
+      }
+    }
   }
 
   constructor () {
@@ -122,8 +140,11 @@ class MainPage extends React.Component {
                 </Form.Group>
                 <Table hasOutline='true'>
                   <Table.Header>
-                    <Table.ColHeader>ERC20 Token Name</Table.ColHeader>
-                    <Table.ColHeader>Balance</Table.ColHeader>
+                    <Table.Row>
+                      <Table.ColHeader>ERC20 Token Name</Table.ColHeader>
+                      <Table.ColHeader>Balance</Table.ColHeader>
+                      <Table.ColHeader></Table.ColHeader>
+                    </Table.Row>
                   </Table.Header>
                   <Table.Body>
                     {this.state.data.map(p => {
