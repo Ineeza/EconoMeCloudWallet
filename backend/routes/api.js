@@ -4,7 +4,7 @@ const keythereum = require('keythereum')
 const Web3 = require('web3')
 const Tx = require('ethereumjs-tx')
 const { check, validationResult } = require('express-validator/check')
-const { Account, Keystore } = require('../model')
+const { Account, Keystore, Token } = require('../model')
 const networks = require('../middleware/web3').networks
 const ERC20_TOKEN = require('../json/TestCoin.json')
 const tokenRouter = require('./token')
@@ -44,11 +44,14 @@ module.exports = (app, server) => {
                 console.log('=== Balance ===')
                 console.log('ETH Balance: ' + ethBalance)
                 console.log('TSC Balance: ' + tscBalance)
-                res.json({
-                  userId: userId,
-                  myWalletAddress: myWalletAddress,
-                  ethBalance: ethBalance,
-                  tscBalance: tscBalance.toString()
+                Token.findAll().then(tokens => {
+                  res.json({
+                    userId: userId,
+                    myWalletAddress: myWalletAddress,
+                    ethBalance: ethBalance,
+                    tscBalance: tscBalance.toString(),
+                    tokens: tokens
+                  })
                 })
               } else {
                 console.error(error)
