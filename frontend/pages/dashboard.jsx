@@ -133,7 +133,7 @@ class MainPage extends React.Component {
                     value={this.props.wallet.ethBalance}
                   />
                 </Form.Group>
-                <Table hasOutline='true'>
+                <Table hasOutline='true' responsive='true'>
                   <Table.Header>
                     <Table.Row>
                       <Table.ColHeader>ERC20 Token Name</Table.ColHeader>

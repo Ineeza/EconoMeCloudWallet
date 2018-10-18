@@ -101,7 +101,7 @@ class TokenListPage extends React.Component {
             <Page>
               <Card>
                 <Card.Body>
-                  <Table hasOutline='true'>
+                  <Table hasOutline='true' responsive='true'>
                     <Table.Header>
                       <Table.Row>
                         <Table.ColHeader>Name</Table.ColHeader>
