@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import axiosBase from 'axios'
+import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/baselayout/'
 import AddTokenModal from '../components/add-token-modal/'
@@ -13,8 +15,22 @@ import {
 } from 'tabler-react'
 
 class TokenListPage extends React.Component {
-  static getInitialProps (ctx) {
+  static async getInitialProps (ctx) {
     initialize(ctx)
+    const token = ctx.store.getState().authentication.token
+    const axios = axiosBase.create({
+      baseURL: apiHost,
+      headers: {
+        'X-ECW-ACCESS-TOKEN': token
+      }
+    })
+    if (token) {
+      const response = await axios.get(`/api/token`)
+      const tokens = response.data.tokens
+      return {
+        tokens
+      }
+    }
   }
 
   constructor () {
@@ -87,15 +103,22 @@ class TokenListPage extends React.Component {
                 <Card.Body>
                   <Table hasOutline='true'>
                     <Table.Header>
-                      <Table.ColHeader>Name</Table.ColHeader>
-                      <Table.ColHeader>Balance</Table.ColHeader>
+                      <Table.Row>
+                        <Table.ColHeader>Name</Table.ColHeader>
+                        <Table.ColHeader>Symbol</Table.ColHeader>
+                        <Table.ColHeader>Decimal</Table.ColHeader>
+                        <Table.ColHeader>Address</Table.ColHeader>
+                        <Table.ColHeader>Action</Table.ColHeader>
+                      </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {this.state.data.map(p => {
+                      {this.props.tokens.map(p => {
                         return (
                           <Table.Row key={p.id}>
-                            <Table.Col>{ p.tokenName }</Table.Col>
-                            <Table.Col>{ p.balance }</Table.Col>
+                            <Table.Col>{ p.name }</Table.Col>
+                            <Table.Col>{ p.symbol }</Table.Col>
+                            <Table.Col>{ p.decimal }</Table.Col>
+                            <Table.Col>{ p.contract_address }</Table.Col>
                             <Table.Col alignContent='right'>
                               <Button.List>
                                 <Button onClick={this.handleOpenSendTokenModal} color='danger'>Remove</Button>

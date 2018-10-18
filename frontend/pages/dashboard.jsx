@@ -142,11 +142,11 @@ class MainPage extends React.Component {
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
-                    {this.state.data.map(p => {
+                    {this.props.wallet.tokens.map(p => {
                       return (
                         <Table.Row key={p.id}>
-                          <Table.Col>{ p.tokenName }</Table.Col>
-                          <Table.Col>{ p.balance }</Table.Col>
+                          <Table.Col>{ p.name }</Table.Col>
+                          <Table.Col>0</Table.Col>
                           <Table.Col alignContent='right'>
                             <Button.List>
                               <Button onClick={this.handleOpenSendTokenModal} color='primary'>Send</Button>
