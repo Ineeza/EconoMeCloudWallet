@@ -1,4 +1,4 @@
-console.log('===== ECW ENV: ' + process.env.ECW_ENV + ' =====')
+// console.log('===== ECW ENV: ' + process.env.ECW_ENV + ' =====')
 
 const os = require('os')
 const express = require('express')

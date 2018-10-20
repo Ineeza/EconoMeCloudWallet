@@ -76,6 +76,7 @@
     "flow-bin": "^0.83.0",
     "jest": "^23.6.0",
     "jest-repl": "^23.6.0",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "supertest": "^3.3.0"
   }
 }
