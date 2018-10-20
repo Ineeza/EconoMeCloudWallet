@@ -18,28 +18,27 @@ const indexRouter = require('./routes/')
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
 
-app.prepare()
-  .then(() => {
-    let server = express()
+module.exports = app.prepare().then(() => {
+  let server = express()
 
-    server.use(cors())
-    server.use(cookieParser())
-    server.use(bodyParser.json())
-    server.use(bodyParser.urlencoded({ extended: true }))
+  server.use(cors())
+  server.use(cookieParser())
+  server.use(bodyParser.json())
+  server.use(bodyParser.urlencoded({ extended: true }))
 
-    server.use('/', indexRouter(app, server))
-    server.use('/auth', authRouter(app, server))
-    server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter(app, server))
-    server.get('*', (req, res) => {
-      return handle(req, res)
-    })
-    server.get('/_check', (req, res) => {
-      res.status(200)
-      return res.send('200 OK')
-    })
-
-    server.listen(port, (err) => {
-      if (err) throw err
-      console.log(`> Ready on http://${os.hostname}:${port}`)
-    })
+  server.use('/', indexRouter(app, server))
+  server.use('/auth', authRouter(app, server))
+  server.use('/api', passport.authenticate('jwt', { session: false }), apiRouter(app, server))
+  server.get('*', (req, res) => {
+    return handle(req, res)
   })
+  server.get('/_check', (req, res) => {
+    res.status(200)
+    return res.send('200 OK')
+  })
+
+  server.listen(port, (err) => {
+    if (err) throw err
+    console.log(`> Ready on http://${os.hostname}:${port}`)
+  })
+})

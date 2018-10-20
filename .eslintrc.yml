@@ -4,5 +4,5 @@ extends:
   - plugin:flowtype/recommended
 plugins:
   - flowtype
-env: 
- "jest/globals": true
+#env: 
+# "jest/globals": true

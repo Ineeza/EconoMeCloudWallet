@@ -4,13 +4,14 @@
   "license": "UNLICENSED",
   "scripts": {
     "local": "nodemon ./backend/server.js",
-    "test": "jest",
+    "test": "ava --verbose",
     "build": "next build frontend",
     "flow": "flow",
     "start": "node ./backend/server.js"
   },
   "jest": {
-    "testRegex": "__tests__/.*.test.js"
+    "testRegex": "__tests__/.*.test.js",
+    "testEnvironment": "node"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -58,6 +59,8 @@
     "yarn": "^1.10.1"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
+    "ava-http": "^1.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
