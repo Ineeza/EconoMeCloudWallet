@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "local": "nodemon ./backend/server.js",
-    "test": "ava --verbose",
+    "test": "ECW_ENV=test jest",
     "build": "next build frontend",
     "flow": "flow",
     "start": "node ./backend/server.js"
@@ -79,6 +79,7 @@
     "flow-bin": "^0.83.0",
     "jest": "^23.6.0",
     "jest-repl": "^23.6.0",
+    "node-fetch": "^2.2.0",
     "nodemon": "^1.18.3",
     "supertest": "^3.3.0"
   }
