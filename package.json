@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "local": "nodemon ./backend/server.js",
-    "test": "ECW_ENV=test jest",
+    "test": "ECW_ENV=test jest --verbose",
     "build": "next build frontend",
     "flow": "flow",
     "start": "node ./backend/server.js"

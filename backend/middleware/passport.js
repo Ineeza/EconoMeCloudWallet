@@ -19,8 +19,7 @@ passport.use('signup', new LocalStrategy({
           const dk = keythereum.create(params)
 
           // Pass userName and password as Http POST paramters
-          console.log('=== User Info ===')
-          console.log('Accoiunt ID: ' + account.id)
+          console.log('Account ID: ' + account.id)
 
           // Save keystore to database
           const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
