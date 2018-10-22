@@ -1,5 +1,6 @@
 import Router from 'next/router'
-import axios from 'axios'
+import axiosBase from 'axios'
+import { apiHost } from '../../../backend/config'
 import { AUTHENTICATE, DEAUTHENTICATE } from '../types'
 import { setCookie, removeCookie } from '../../utils/cookie'
 
@@ -11,6 +12,9 @@ const authenticate = ({ email, password }, type) => {
 
   if (type === 'login') {
     return (dispatch) => {
+      const axios = axiosBase.create({
+        baseURL: apiHost
+      })
       axios.post(`/auth/${type}`, { email, password })
         .then((response) => {
           setCookie('X-ECW-ACCESS-TOKEN', response.data.token)
