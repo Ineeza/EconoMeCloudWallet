@@ -29,6 +29,9 @@ const authenticate = ({ email, password }, type) => {
 
   if (type === 'signup') {
     return (dispatch) => {
+      const axios = axiosBase.create({
+        baseURL: apiHost
+      })
       axios.post(`/auth/${type}`, { email, password })
         .then((response) => {
           Router.push('/login')
