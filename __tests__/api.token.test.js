@@ -22,7 +22,36 @@ beforeAll((done) => {
       Keystore.findOrCreate({
         where: { account_id: account.id },
         defaults: { account_id: account.id, content: keystoreStr }
-      }).then(keystore => { done() })
+      }).then(keystore => {
+        Token.bulkCreate([
+          {
+            account_id: account.id,
+            contract_address: '0x66e3e42a6f0f2690a1a5207047c26f5f6d73ecdb',
+            name: 'Test Coin 1',
+            symbol: 'TSC1',
+            decimal: 18
+          },
+          {
+            account_id: account.id,
+            contract_address: '0x66e3e42a6f0f2690a1a5207047c26f5f6d73ecdb',
+            name: 'Test Coin 2',
+            symbol: 'TSC2',
+            decimal: 18
+          },
+          {
+            account_id: account.id,
+            contract_address: '0x66e3e42a6f0f2690a1a5207047c26f5f6d73ecdb',
+            name: 'Test Coin 3',
+            symbol: 'TSC3',
+            decimal: 18
+          }
+        ]).then(() => {
+          return Token.findAll()
+        }).then(tokens => {
+          console.log(tokens)
+          done()
+        })
+      })
     })
   })
 })
