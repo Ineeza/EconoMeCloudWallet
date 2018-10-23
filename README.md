@@ -4,7 +4,9 @@
 
 ## Requirements
 ```
-Node v8 (LTS)
+Node: 8.12.0 (LTS)
+Yarn: 1.10.1
+npm: 6.4.1
 ```
 
 ## Getting Started
@@ -30,19 +32,23 @@ If you want generate specific model from table,
 sequelize-auto -o "./backend/model" -d econome -h localhost -u postgres -p 5432 -e postgres -t [tableName]
 ```
 
-#### Get generated login password
-In project directory run node
-```
-const bcrypt = require('bcrypt')
-const pass = 'you password goes here'
-const saltRounds = 10
-bcrypt.hashSync(pass, saltRounds)
-```
-
 ### Local Development Mode
 ```
 yarn
 yarn local
+```
+
+### Testing
+
+#### Create database for test
+```
+createdb -U postgres test_econome
+psql -U postgres test_econome < db/V1__Init.sql
+```
+
+#### Run test
+```
+yarn test
 ```
 
 ### Production Mode
@@ -52,12 +58,3 @@ yarn build
 ECW_ENV=<environment name> yarn start
 ```
 
-## Testing
-```
-npm i mocha --save-dev
-npm test
-
-or
-mkdir junit
-MOCHA_FILE=junit/test-results.xml npm run test-report
-```
