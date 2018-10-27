@@ -27,6 +27,12 @@ beforeAll((done) => {
   })
 })
 
+afterAll(() => {
+  // Delete all records
+  Keystore.destroy({ where: {}, truncate: true })
+  Account.destroy({ where: {}, truncate: true })
+})
+
 test('[GET /api/balance] return token balances', (done) => {
   request(app)
     .post('/auth/login')
