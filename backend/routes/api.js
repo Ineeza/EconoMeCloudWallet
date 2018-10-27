@@ -37,25 +37,38 @@ module.exports = (app, server) => {
         web3.eth.getBalance(myWalletAddress, (error, weiBalance) => {
           if (!error) {
             const ethBalance = web3.utils.fromWei(weiBalance)
-            const contract = new web3.eth.Contract(ERC20_TOKEN.abi, CONTRACT_ADDRESS)
-            contract.methods.balanceOf(myWalletAddress).call((error, tokenBalance) => {
-              if (!error) {
-                const tscBalance = tokenBalance / (10 ** DECIMAL)
-                console.log('=== Balance ===')
-                console.log('ETH Balance: ' + ethBalance)
-                console.log('TSC Balance: ' + tscBalance)
-                Token.findAll().then(tokens => {
-                  res.json({
-                    userId: userId,
-                    myWalletAddress: myWalletAddress,
-                    ethBalance: ethBalance,
-                    tscBalance: tscBalance.toString(),
-                    tokens: tokens
+
+            Token.findAll().then(tokens => {
+              // Prepare promises for parallel requests
+              let promises = []
+              tokens.forEach((token) => {
+                const contract = new web3.eth.Contract(ERC20_TOKEN.abi, token.contract_address)
+                const promise = new Promise((resolve, reject) =>
+                  contract.methods.balanceOf(myWalletAddress).call((error, balance) => {
+                    if (!error) {
+                      resolve(balance)
+                    } else {
+                      console.error(error)
+                    }
                   })
+                )
+                promises.push(promise)
+              })
+
+              Promise.all(promises).then(balances => {
+                let tokensWithBalances = []
+                for (var i in tokens) {
+                  const data = { info: tokens[i] }
+                  const object = Object.assign({ balance: balances[i] / (10 ** tokens[i].decimal) }, data)
+                  tokensWithBalances.push(object)
+                }
+                res.json({
+                  userId: userId,
+                  myWalletAddress: myWalletAddress,
+                  ethBalance: ethBalance,
+                  tokens: tokensWithBalances
                 })
-              } else {
-                console.error(error)
-              }
+              })
             })
           } else {
             console.error(error)

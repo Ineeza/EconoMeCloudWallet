@@ -144,9 +144,9 @@ class MainPage extends React.Component {
                   <Table.Body>
                     {this.props.wallet.tokens.map(p => {
                       return (
-                        <Table.Row key={p.id}>
-                          <Table.Col>{ p.name }</Table.Col>
-                          <Table.Col>0</Table.Col>
+                        <Table.Row key={p.info.id}>
+                          <Table.Col>{p.info.name}</Table.Col>
+                          <Table.Col>{p.balance}</Table.Col>
                           <Table.Col alignContent='right'>
                             <Button.List>
                               <Button onClick={this.handleOpenSendTokenModal} color='primary'>Send</Button>
