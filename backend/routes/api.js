@@ -81,7 +81,8 @@ module.exports = (app, server) => {
   router.post('/tx', [
     check('password').exists(),
     check('recipientAddress').exists(),
-    check('tscAmount').exists()
+    check('amount').exists(),
+    check('contractAddress').exists()
   ], (req, res, next) => {
     // Error handling
     const errors = validationResult(req)
@@ -94,10 +95,11 @@ module.exports = (app, server) => {
       const userId = account.id
       const password = req.body.password
       const recipientAddress = req.body.recipientAddress
-      const tscAmount = req.body.tscAmount
+      const amount = req.body.amount
+      const contractAddress = req.body.contractAddress
       console.log('userId: ' + userId)
       console.log('recipientAddress: ' + recipientAddress)
-      console.log('tscAmount: ' + tscAmount)
+      console.log('amount: ' + amount)
 
       Keystore.findOne({ where: { account_id: userId } }).then(keystore => {
         const myKeyObject = JSON.parse(keystore.content)
@@ -105,7 +107,7 @@ module.exports = (app, server) => {
         console.log('My Wallet Address: ' + myWalletAddress)
         // Nonce
         const web3 = new Web3(new Web3.providers.HttpProvider(networks.rinkeby))
-        const contract = new web3.eth.Contract(ERC20_TOKEN.abi, CONTRACT_ADDRESS)
+        const contract = new web3.eth.Contract(ERC20_TOKEN.abi, contractAddress)
         web3.eth.getTransactionCount(myWalletAddress).then((nonce) => {
           console.log('Nonce: ' + nonce)
           // Private Key
@@ -113,9 +115,9 @@ module.exports = (app, server) => {
           console.log('contract: ' + contract)
           // Signed Transaction
           let toAddress = recipientAddress
-          const amount = tscAmount * (10 ** DECIMAL)
+          const decimalAmount = amount * (10 ** DECIMAL)
           console.log('===== Creating Transaction =====')
-          console.log('  amount: ' + amount)
+          console.log('  amount: ' + decimalAmount)
           console.log('  toAddress: ' + toAddress)
           console.log('  gasPrice: ' + web3.utils.toHex(4.8 * 1e9))
           console.log('  gasLimit: ' + web3.utils.toHex(210000))
@@ -127,7 +129,7 @@ module.exports = (app, server) => {
             'gasLimit': web3.utils.toHex(210000),
             'to': CONTRACT_ADDRESS,
             'value': '0x0',
-            'data': contract.methods.transfer(toAddress, amount).encodeABI(),
+            'data': contract.methods.transfer(toAddress, decimalAmount).encodeABI(),
             'nonce': web3.utils.toHex(nonce)
           }
           const transaction = new Tx(rawTransaction)
