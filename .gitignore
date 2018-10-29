@@ -3,6 +3,7 @@ node_modules
 npm-debug.log
 junit/*
 package-lock.json
+yarn-error.log
 
 # NextJS
 frontend/.next
