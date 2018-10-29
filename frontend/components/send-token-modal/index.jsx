@@ -3,15 +3,18 @@ import Modal from 'react-modal'
 import { Form, Button } from 'tabler-react'
 
 export default class SendTokenModal extends React.Component {
-  render() {
+  render () {
     return (
       <Modal isOpen={this.props.isSendTokenModal} contentLabel='Modal'>
         <Form.FieldSet>
-          <Form.Group label="Recipient Address" isRequired>
-            <Form.Input name="recipient-address" />
+          <Form.Group label='Recipient Address' isRequired>
+            <Form.Input name='recipient-address' />
           </Form.Group>
-          <Form.Group label="Amount" isRequired>
-            <Form.Input name="amount" />
+          <Form.Group label='Amount' isRequired>
+            <Form.Input name='amount' />
+          </Form.Group>
+          <Form.Group label='Password' isRequired>
+            <Form.Input name='password' />
           </Form.Group>
         </Form.FieldSet>
         <Button.List align='center'>

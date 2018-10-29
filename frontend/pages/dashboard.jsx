@@ -133,6 +133,13 @@ class MainPage extends React.Component {
                     value={this.props.wallet.ethBalance}
                   />
                 </Form.Group>
+                <Button.List>
+                  <Button onClick={this.handleOpenSendTokenModal} block color='primary'>Send ETH</Button>
+                  <SendTokenModal
+                    isSendTokenModal={this.state.isSendTokenModal}
+                    handleCloseSendTokenModal={this.handleCloseSendTokenModal} />
+                </Button.List>
+                <hr />
                 <Table hasOutline='true' responsive='true'>
                   <Table.Header>
                     <Table.Row>
