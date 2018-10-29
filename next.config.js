@@ -7,13 +7,12 @@ const webpack = require('webpack')
 module.exports =
     withCSS(withImages(withFonts({
 
-        webpack: (config, { dev }) => {
-            config.plugins.push(
-                new webpack.DefinePlugin({
-                    'process.env.ECW_ENV': JSON.stringify(process.env.ECW_ENV),
-                })
-            )
-            return config
-        }
+      webpack: (config, { dev }) => {
+        config.plugins.push(
+          new webpack.DefinePlugin({
+            'process.env.ECW_ENV': JSON.stringify(process.env.ECW_ENV)
+          })
+        )
+        return config
+      }
     })))
-
