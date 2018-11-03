@@ -1,5 +1,5 @@
 import React from 'react'
-import actions from '../redux/actions'
+import actions from '../actions'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
 import { connect } from 'react-redux'

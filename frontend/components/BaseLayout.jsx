@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../redux/actions'
+import actions from '../actions'
 import logo from '../static/econome-logo.png'
 import { Page, Site } from 'tabler-react'
 import PropTypes from 'prop-types'

@@ -1,8 +1,8 @@
 import Router from 'next/router'
 import axiosBase from 'axios'
-import { apiHost } from '../../../backend/config'
-import { AUTHENTICATE, DEAUTHENTICATE } from '../types'
-import { setCookie, removeCookie } from '../../utils/cookie'
+import { apiHost } from '../../backend/config'
+import { AUTHENTICATE, DEAUTHENTICATE } from '../constants/types'
+import { setCookie, removeCookie } from '../utils/cookie'
 
 // gets token from the api and stores it in the redux store and in cookie
 const authenticate = ({ email, password }, type) => {

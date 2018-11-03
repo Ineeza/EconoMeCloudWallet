@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../redux/actions'
+import actions from '../actions'
 import initialize from '../utils/initialize'
 import Layout from '../components/BaseLayout'
 import {
