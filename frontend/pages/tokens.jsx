@@ -2,10 +2,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
-import { apiHost } from '../../../backend/config'
-import initialize from '../../utils/initialize'
-import BaseLayout from '../../components/BaseLayout'
-import AddTokenModal from '../../components/AddTokenModal'
+import { apiHost } from '../../backend/config'
+import initialize from '../utils/initialize'
+import BaseLayout from '../components/BaseLayout'
+import AddTokenModal from '../components/AddTokenModal'
 
 // $FlowFixMe
 import { Page, Button, Card, Container, Table } from 'tabler-react'
