@@ -7,14 +7,8 @@ import initialize from '../../utils/initialize'
 import BaseLayout from '../../components/baselayout/'
 import AddTokenModal from '../../components/add-token-modal/'
 
-import {
-  Page,
-  Button,
-  Card,
-  Container,
-  Table
 // $FlowFixMe
-} from 'tabler-react'
+import { Page, Button, Card, Container, Table } from 'tabler-react'
 
 type Props = {
   tokens: Array<Object>
