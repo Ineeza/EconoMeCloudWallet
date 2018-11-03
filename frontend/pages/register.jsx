@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../redux/actions'
 import initialize from '../utils/initialize'
-import Layout from '../components/baselayout'
+import Layout from '../components/BaseLayout'
 import {
   Button,
   Card,

@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import { apiHost } from '../../../backend/config'
 import initialize from '../../utils/initialize'
-import BaseLayout from '../../components/baselayout/'
-import AddTokenModal from '../../components/add-token-modal/'
-import SendTokenModal from '../../components/send-token-modal/'
+import BaseLayout from '../../components/BaseLayout'
+import AddTokenModal from '../../components/AddTokenModal'
+import SendTokenModal from '../../components/SendTokenModal'
 import {
   Page,
   Button,

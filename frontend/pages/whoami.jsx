@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
-import Layout from '../components/baselayout/'
+import Layout from '../components/BaseLayout'
 // $FlowFixMe
 import { Alert, Card } from 'tabler-react'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../components/baselayout/'
+import Layout from '../components/BaseLayout'
 import cookie from 'js-cookie'
 import { Alert, Card } from 'tabler-react'
 

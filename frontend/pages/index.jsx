@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import initialize from '../utils/initialize'
-import BaseLayout from '../components/baselayout'
+import BaseLayout from '../components/BaseLayout'
 import titleImg from '../static/wallet.png'
 import { Card } from 'tabler-react'
 
