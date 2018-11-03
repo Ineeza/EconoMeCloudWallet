@@ -1,8 +1,14 @@
+// @flow
 import React from 'react'
 import Modal from 'react-modal'
 import { Form, Button } from 'tabler-react'
 
-export default class AddTokenModal extends React.Component {
+type Props = {
+  isAddTokenModal: PropTypes.boolean,
+  handleCloseAddTokenModal: PropTypes.boolean
+}
+
+export default class AddTokenModal extends React.Component<Props> {
   render () {
     return (
       <Modal isOpen={this.props.isAddTokenModal} contentLabel='Modal'>
