@@ -40,6 +40,13 @@ yarn local
 
 ### Testing
 
+#### Check flow types
+```
+yarn global add flow-typed
+flow-typed install
+yarn flow
+```
+
 #### Create database for test
 ```
 createdb -U postgres test_econome
