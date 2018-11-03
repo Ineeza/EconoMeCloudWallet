@@ -38,43 +38,7 @@ class MainPage extends React.Component {
     this.state = {
       isAddTokenModal: false,
       isSendTokenModal: false,
-      data: [{
-        id: 1,
-        tokenName: 'Tronix',
-        symbol: 'TRX',
-        decimal: 18,
-        balance: 1000
-      }, {
-        id: 2,
-        tokenName: 'BNB',
-        symbol: 'BNB',
-        decimal: 18,
-        balance: 300
-      }, {
-        id: 3,
-        tokenName: 'OmiseGO',
-        symbol: 'OMG',
-        decimal: 18,
-        balance: 500
-      }, {
-        id: 4,
-        tokenName: 'VeChain',
-        symbol: 'VEN',
-        decimal: 18,
-        balance: 7000
-      }, {
-        id: 5,
-        tokenName: 'ZRX',
-        symbol: 'ZRX',
-        decimal: 18,
-        balance: 1200
-      }, {
-        id: 6,
-        tokenName: 'Maker',
-        symbol: 'MKR',
-        decimal: 18,
-        balance: 15000
-      }]
+      data: []
     }
   }
 
