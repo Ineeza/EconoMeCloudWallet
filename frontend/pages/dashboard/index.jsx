@@ -76,29 +76,23 @@ class MainPage extends React.Component {
         balance: 15000
       }]
     }
-
-    // Send-Token Modal
-    this.handleOpenSendTokenModal = this.handleOpenSendTokenModal.bind(this)
-    this.handleCloseSendTokenModal = this.handleCloseSendTokenModal.bind(this)
-
-    // Add-Token Modal
-    this.handleOpenAddTokenModal = this.handleOpenAddTokenModal.bind(this)
-    this.handleCloseAddTokenModal = this.handleCloseAddTokenModal.bind(this)
   }
 
-  handleOpenSendTokenModal () {
+  // Send-Token Modal
+  handleOpenSendTokenModal = () => {
     this.setState({ isSendTokenModal: true })
   }
 
-  handleCloseSendTokenModal () {
+  handleCloseSendTokenModal = () => {
     this.setState({ isSendTokenModal: false })
   }
 
-  handleOpenAddTokenModal () {
+  // Add-Token Modal
+  handleOpenAddTokenModal = () => {
     this.setState({ isAddTokenModal: true })
   }
 
-  handleCloseAddTokenModal () {
+  handleCloseAddTokenModal = () => {
     this.setState({ isAddTokenModal: false })
   }
 

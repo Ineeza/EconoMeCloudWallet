@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
@@ -12,9 +13,19 @@ import {
   Card,
   Container,
   Table
+// $FlowFixMe
 } from 'tabler-react'
 
-class TokenListPage extends React.Component {
+type Props = {
+  tokens: Array<Object>
+}
+
+type State = {
+  isAddTokenModal: boolean,
+  navBarItems: Array<Object>
+}
+
+class TokenListPage extends React.Component<Props, State> {
   static async getInitialProps (ctx) {
     initialize(ctx)
     const token = ctx.store.getState().authentication.token
@@ -43,17 +54,13 @@ class TokenListPage extends React.Component {
         { value: 'Tokens', to: '/tokens', icon: 'database' }
       ]
     }
-
-    // Add-Token Modal
-    this.handleOpenAddTokenModal = this.handleOpenAddTokenModal.bind(this)
-    this.handleCloseAddTokenModal = this.handleCloseAddTokenModal.bind(this)
   }
 
-  handleOpenAddTokenModal () {
+  handleOpenAddTokenModal = () => {
     this.setState({ isAddTokenModal: true })
   }
 
-  handleCloseAddTokenModal () {
+  handleCloseAddTokenModal = () => {
     this.setState({ isAddTokenModal: false })
   }
 
@@ -85,7 +92,7 @@ class TokenListPage extends React.Component {
                             <Table.Col>{ p.contract_address }</Table.Col>
                             <Table.Col alignContent='right'>
                               <Button.List>
-                                <Button onClick={this.handleOpenSendTokenModal} color='danger'>Remove</Button>
+                                <Button onClick={this.handleOpenAddTokenModal} color='danger'>Remove</Button>
                               </Button.List>
                             </Table.Col>
                           </Table.Row>

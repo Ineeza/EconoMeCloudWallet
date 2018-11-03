@@ -1,11 +1,12 @@
 // @flow
 import React from 'react'
 import Modal from 'react-modal'
+// $FlowFixMe
 import { Form, Button } from 'tabler-react'
 
 type Props = {
-  isAddTokenModal: PropTypes.boolean,
-  handleCloseAddTokenModal: PropTypes.boolean
+  isAddTokenModal: boolean,
+  handleCloseAddTokenModal: Function
 }
 
 export default class AddTokenModal extends React.Component<Props> {

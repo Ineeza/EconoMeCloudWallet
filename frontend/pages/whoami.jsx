@@ -5,9 +5,10 @@ import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import Layout from '../components/baselayout/'
+// $FlowFixMe
 import { Alert, Card } from 'tabler-react'
 
-const Whoami = ({ user }: string) => (
+const Whoami = ({ user }: Object) => (
   <Layout title='Who Am I'>
     <Card title='User Status'>
       <Card.Body>
