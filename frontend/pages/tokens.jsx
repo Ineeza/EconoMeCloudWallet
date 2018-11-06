@@ -2,6 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
+import actions from '../actions'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
@@ -17,6 +18,10 @@ type State = {
   isAddTokenModal: boolean,
   navBarItems: Array<Object>
 }
+
+const mapStateToProps = (state) => (
+  { tokens: state.addToken.tokens }
+)
 
 class TokenListPage extends React.Component<Props, State> {
   static async getInitialProps (ctx) {
@@ -37,11 +42,11 @@ class TokenListPage extends React.Component<Props, State> {
     }
   }
 
-  constructor () {
+  constructor (props) {
     super()
     this.state = {
       isAddTokenModal: false,
-      data: [],
+      data: props.tokens,
       navBarItems: [
         { value: 'Home', to: '/', icon: 'home' },
         { value: 'Tokens', to: '/tokens', icon: 'database' }
@@ -76,7 +81,7 @@ class TokenListPage extends React.Component<Props, State> {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {this.props.tokens.map(p => {
+                      {this.state.data.map(p => {
                         return (
                           <Table.Row key={p.id}>
                             <Table.Col>{ p.name }</Table.Col>
@@ -113,4 +118,4 @@ class TokenListPage extends React.Component<Props, State> {
   }
 }
 
-export default connect()(TokenListPage)
+export default connect(mapStateToProps, actions)(TokenListPage)
