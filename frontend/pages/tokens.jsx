@@ -53,7 +53,7 @@ class TokenListPage extends React.Component<Props, State> {
     super(props, context)
     this.state = {
       isAddTokenModal: false,
-      tokens: [],
+      tokens: props.tokens,
       navBarItems: [
         { value: 'Home', to: '/', icon: 'home' },
         { value: 'Tokens', to: '/tokens', icon: 'database' }
@@ -69,8 +69,12 @@ class TokenListPage extends React.Component<Props, State> {
     this.setState({ isAddTokenModal: false })
   }
 
-  handleSubmit = () => {
+  addToken = () => {
     this.props.addToken()
+  }
+
+  removeToken = () => {
+    this.props.removeToken()
   }
 
   render () {
@@ -101,7 +105,7 @@ class TokenListPage extends React.Component<Props, State> {
                             <Table.Col>{ p.contract_address }</Table.Col>
                             <Table.Col alignContent='right'>
                               <Button.List>
-                                <Button onClick={this.handleSubmit} color='danger'>Remove</Button>
+                                <Button onClick={this.removeToken} color='danger'>Remove</Button>
                               </Button.List>
                             </Table.Col>
                           </Table.Row>
@@ -111,7 +115,7 @@ class TokenListPage extends React.Component<Props, State> {
                   </Table>
                   <Button.List>
                     <Button.List align='center'>
-                      <Button onClick={this.handleSubmit} block icon='plus-circle' color='success' outline>
+                      <Button onClick={this.addToken} block icon='plus-circle' color='success' outline>
                         Add new token
                       </Button>
                       <AddTokenModal
