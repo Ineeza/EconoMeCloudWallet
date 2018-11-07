@@ -4,7 +4,7 @@ import tokenReducer from './tokenReducer'
 
 const rootReducer = combineReducers({
   authentication: authReducer,
-  addToken: tokenReducer
+  tokenList: tokenReducer
 })
 
 export default rootReducer

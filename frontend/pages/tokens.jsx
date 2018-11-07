@@ -2,6 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
+import { bindActionCreators } from 'redux'
 import actions from '../actions'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
@@ -19,9 +20,15 @@ type State = {
   navBarItems: Array<Object>
 }
 
-const mapStateToProps = (state) => (
-  { tokens: state.addToken.tokens }
-)
+const mapStateToProps = (state) => {
+  return {
+    tokens: state.tokenList.tokens
+  }
+}
+
+const mapDispachToProps = (dispatch) => {
+  return bindActionCreators(actions, dispatch)
+}
 
 class TokenListPage extends React.Component<Props, State> {
   static async getInitialProps (ctx) {
@@ -42,11 +49,11 @@ class TokenListPage extends React.Component<Props, State> {
     }
   }
 
-  constructor (props) {
-    super()
+  constructor (props, context) {
+    super(props, context)
     this.state = {
       isAddTokenModal: false,
-      data: props.tokens,
+      tokens: [],
       navBarItems: [
         { value: 'Home', to: '/', icon: 'home' },
         { value: 'Tokens', to: '/tokens', icon: 'database' }
@@ -60,6 +67,10 @@ class TokenListPage extends React.Component<Props, State> {
 
   handleCloseAddTokenModal = () => {
     this.setState({ isAddTokenModal: false })
+  }
+
+  handleSubmit = () => {
+    this.props.addToken()
   }
 
   render () {
@@ -81,7 +92,7 @@ class TokenListPage extends React.Component<Props, State> {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {this.state.data.map(p => {
+                      {this.props.tokens.map(p => {
                         return (
                           <Table.Row key={p.id}>
                             <Table.Col>{ p.name }</Table.Col>
@@ -90,7 +101,7 @@ class TokenListPage extends React.Component<Props, State> {
                             <Table.Col>{ p.contract_address }</Table.Col>
                             <Table.Col alignContent='right'>
                               <Button.List>
-                                <Button onClick={this.handleOpenAddTokenModal} color='danger'>Remove</Button>
+                                <Button onClick={this.handleSubmit} color='danger'>Remove</Button>
                               </Button.List>
                             </Table.Col>
                           </Table.Row>
@@ -100,7 +111,7 @@ class TokenListPage extends React.Component<Props, State> {
                   </Table>
                   <Button.List>
                     <Button.List align='center'>
-                      <Button onClick={this.handleOpenAddTokenModal} block icon='plus-circle' color='success' outline>
+                      <Button onClick={this.handleSubmit} block icon='plus-circle' color='success' outline>
                         Add new token
                       </Button>
                       <AddTokenModal
@@ -118,4 +129,4 @@ class TokenListPage extends React.Component<Props, State> {
   }
 }
 
-export default connect(mapStateToProps, actions)(TokenListPage)
+export default connect(mapStateToProps, mapDispachToProps)(TokenListPage)
