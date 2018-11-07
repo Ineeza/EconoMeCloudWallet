@@ -42,9 +42,9 @@ class TokenListPage extends React.Component<Props, State> {
     })
     if (token) {
       const response = await axios.get(`/api/token`)
-      const tokens = response.data.tokens
+      const initialTokens = response.data.tokens
       return {
-        tokens
+        initialTokens
       }
     }
   }
@@ -53,7 +53,6 @@ class TokenListPage extends React.Component<Props, State> {
     super(props, context)
     this.state = {
       isAddTokenModal: false,
-      tokens: props.tokens,
       navBarItems: [
         { value: 'Home', to: '/', icon: 'home' },
         { value: 'Tokens', to: '/tokens', icon: 'database' }
@@ -78,6 +77,12 @@ class TokenListPage extends React.Component<Props, State> {
   }
 
   render () {
+    var tokenList = []
+    if (this.props.tokens.length === 0) {
+      tokenList = this.props.initialTokens
+    } else {
+      tokenList = this.props.tokens
+    }
     return (
       <div>
         <BaseLayout>
@@ -96,21 +101,22 @@ class TokenListPage extends React.Component<Props, State> {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {this.props.tokens.map(p => {
-                        return (
-                          <Table.Row key={p.id}>
-                            <Table.Col>{ p.name }</Table.Col>
-                            <Table.Col>{ p.symbol }</Table.Col>
-                            <Table.Col>{ p.decimal }</Table.Col>
-                            <Table.Col>{ p.contract_address }</Table.Col>
-                            <Table.Col alignContent='right'>
-                              <Button.List>
-                                <Button onClick={this.removeToken} color='danger'>Remove</Button>
-                              </Button.List>
-                            </Table.Col>
-                          </Table.Row>
-                        )
-                      })}
+                      {
+                        tokenList.map(p => {
+                          return (
+                            <Table.Row key={p.id}>
+                              <Table.Col>{ p.name }</Table.Col>
+                              <Table.Col>{ p.symbol }</Table.Col>
+                              <Table.Col>{ p.decimal }</Table.Col>
+                              <Table.Col>{ p.contract_address }</Table.Col>
+                              <Table.Col alignContent='right'>
+                                <Button.List>
+                                  <Button onClick={this.removeToken} color='danger'>Remove</Button>
+                                </Button.List>
+                              </Table.Col>
+                            </Table.Row>
+                          )
+                        })}
                     </Table.Body>
                   </Table>
                   <Button.List>
