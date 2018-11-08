@@ -24,17 +24,15 @@ const reqGen = (jwt) => {
 }
 
 const getTokenList = (jwt) => {
-  if (jwt) {
-    const request = reqGen(jwt)
-    return (dispatch) => {
-      request.get(`/api/token`)
-        .then((response) => {
-          dispatch({ type: GET_TOKEN_LIST, payload: response.data.tokens })
-        })
-        .catch((err) => {
-          throw new Error(err)
-        })
-    }
+  const request = reqGen(jwt)
+  return (dispatch) => {
+    request.get(`/api/token`)
+      .then((response) => {
+        dispatch({ type: GET_TOKEN_LIST, payload: response.data.tokens })
+      })
+      .catch((err) => {
+        throw new Error(err)
+      })
   }
 }
 
