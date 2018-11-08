@@ -13,16 +13,21 @@ const response = [
   }
 ]
 
-const getTokenList = (jwt) => {
+const reqGen = (jwt) => {
   const axios = axiosBase.create({
     baseURL: apiHost,
     headers: {
       'X-ECW-ACCESS-TOKEN': jwt
     }
   })
+  return axios
+}
+
+const getTokenList = (jwt) => {
   if (jwt) {
+    const request = reqGen(jwt)
     return (dispatch) => {
-      axios.get(`/api/token`)
+      request.get(`/api/token`)
         .then((response) => {
           dispatch({ type: GET_TOKEN_LIST, payload: response.data.tokens })
         })
