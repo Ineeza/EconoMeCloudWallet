@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import { bindActionCreators } from 'redux'
+import { getCookieFromBrowser } from '../utils/cookie'
 import actions from '../actions'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
@@ -33,24 +34,25 @@ const mapDispachToProps = (dispatch) => {
 class TokenListPage extends React.Component<Props, State> {
   static async getInitialProps (ctx) {
     initialize(ctx)
-    const token = ctx.store.getState().authentication.token
+    const jwt = ctx.store.getState().authentication.token
     const axios = axiosBase.create({
       baseURL: apiHost,
       headers: {
-        'X-ECW-ACCESS-TOKEN': token
+        'X-ECW-ACCESS-TOKEN': jwt
       }
     })
-    if (token) {
+    if (jwt) {
       const response = await axios.get(`/api/token`)
-      const initialTokens = response.data.tokens
+      const tokenList = response.data.tokens
       return {
-        initialTokens
+        tokenList,
+        jwt
       }
     }
   }
 
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props)
     this.state = {
       isAddTokenModal: false,
       navBarItems: [
@@ -58,6 +60,7 @@ class TokenListPage extends React.Component<Props, State> {
         { value: 'Tokens', to: '/tokens', icon: 'database' }
       ]
     }
+    this.props.getTokenList(props.jwt)
   }
 
   handleOpenAddTokenModal = () => {
@@ -77,12 +80,6 @@ class TokenListPage extends React.Component<Props, State> {
   }
 
   render () {
-    var tokenList = []
-    if (this.props.tokens.length === 0) {
-      tokenList = this.props.initialTokens
-    } else {
-      tokenList = this.props.tokens
-    }
     return (
       <div>
         <BaseLayout>
@@ -102,7 +99,7 @@ class TokenListPage extends React.Component<Props, State> {
                     </Table.Header>
                     <Table.Body>
                       {
-                        tokenList.map(p => {
+                        this.props.tokens.map(p => {
                           return (
                             <Table.Row key={p.id}>
                               <Table.Col>{ p.name }</Table.Col>

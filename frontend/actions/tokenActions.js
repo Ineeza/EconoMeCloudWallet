@@ -1,4 +1,6 @@
-import { ADD_TOKEN, REMOVE_TOKEN } from '../constants/types'
+import { GET_TOKEN_LIST, ADD_TOKEN, REMOVE_TOKEN } from '../constants/types'
+import axiosBase from 'axios'
+import { apiHost } from '../../backend/config'
 
 const response = [
   {
@@ -10,6 +12,26 @@ const response = [
     decimal: '18'
   }
 ]
+
+const getTokenList = (jwt) => {
+  const axios = axiosBase.create({
+    baseURL: apiHost,
+    headers: {
+      'X-ECW-ACCESS-TOKEN': jwt
+    }
+  })
+  if (jwt) {
+    return (dispatch) => {
+      axios.get(`/api/token`)
+        .then((response) => {
+          dispatch({ type: GET_TOKEN_LIST, payload: response.data.tokens })
+        })
+        .catch((err) => {
+          throw new Error(err)
+        })
+    }
+  }
+}
 
 const addToken = () => {
   return (dispatch) => {
@@ -24,6 +46,7 @@ const removeToken = () => {
 }
 
 export default {
+  getTokenList,
   addToken,
   removeToken
 }
