@@ -54,6 +54,11 @@ class TokenListPage extends React.Component<Props, State> {
     super(props)
     this.state = {
       isAddTokenModal: false,
+      contractAddress: '',
+      name: '',
+      symbol: '',
+      decimal: '',
+      tokens: [],
       navBarItems: [
         { value: 'Home', to: '/', icon: 'home' },
         { value: 'Tokens', to: '/tokens', icon: 'database' }
@@ -117,7 +122,7 @@ class TokenListPage extends React.Component<Props, State> {
                   </Table>
                   <Button.List>
                     <Button.List align='center'>
-                      <Button onClick={this.addToken} block icon='plus-circle' color='success' outline>
+                      <Button onClick={this.handleOpenAddTokenModal} block icon='plus-circle' color='success' outline>
                         Add new token
                       </Button>
                       <AddTokenModal

@@ -2,17 +2,6 @@ import { GET_TOKEN_LIST, ADD_TOKEN, REMOVE_TOKEN } from '../constants/types'
 import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 
-const response = [
-  {
-    id: '3',
-    account_id: '19',
-    contract_address: '0x66e3e42a6f0f2690a1a5207047c26f5f6d73ecdb',
-    name: 'Poke Coin',
-    symbol: 'TSC',
-    decimal: '18'
-  }
-]
-
 const reqGen = (jwt) => {
   const axios = axiosBase.create({
     baseURL: apiHost,
@@ -36,15 +25,20 @@ const getTokenList = (jwt) => {
   }
 }
 
-const addToken = () => {
+const addToken = (jwt, { contractAddress, name, symbol, decimal }) => {
+  const request = reqGen(jwt)
   return (dispatch) => {
-    dispatch({ type: ADD_TOKEN, payload: response })
+    request.post(`/api/token`, { contractAddress, name, symbol, decimal }).then((response) => {
+      dispatch({ type: ADD_TOKEN, payload: response.data.token })
+    }).catch((err) => {
+      throw new Error(err)
+    })
   }
 }
 
 const removeToken = () => {
   return (dispatch) => {
-    dispatch({ type: REMOVE_TOKEN, payload: response })
+    dispatch({ type: REMOVE_TOKEN, payload: [] })
   }
 }
 
