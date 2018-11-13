@@ -6,7 +6,7 @@ const { Account, Token } = require('../model')
 module.exports = (app, server) => {
   router.get('/', (req, res, next) => {
     Account.findOne({ where: { email: req.user.email } }).then(account => {
-      Token.findAll().then(tokens => {
+      Token.findAll({ where: { account_id: account.id } }).then(tokens => {
         res.json({
           message: 'Get token',
           account: req.user,
@@ -38,10 +38,13 @@ module.exports = (app, server) => {
           symbol: req.body.symbol,
           decimal: req.body.decimal
         } }).then(token => {
-        res.json({
-          message: 'Post token',
-          account: req.user,
-          token: token
+        Token.findAll({ where: { account_id: account.id } }).then(tokens => {
+          res.json({
+            message: 'Get token',
+            account: req.user,
+            tokens: tokens,
+            newToken: token
+          })
         })
       })
     })

@@ -29,7 +29,7 @@ const addToken = (jwt, { contractAddress, name, symbol, decimal }) => {
   const request = reqGen(jwt)
   return (dispatch) => {
     request.post(`/api/token`, { contractAddress, name, symbol, decimal }).then((response) => {
-      dispatch({ type: ADD_TOKEN, payload: response.data.token })
+      dispatch({ type: ADD_TOKEN, payload: response.data.tokens })
     }).catch((err) => {
       throw new Error(err)
     })
