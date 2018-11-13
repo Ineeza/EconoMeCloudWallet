@@ -46,7 +46,7 @@ class AddTokenModal extends React.Component<Props, State> {
       symbol: this.state.symbol,
       decimal: this.state.decimal
     })
-    this.props.handleCloseAddTokenModal
+    this.props.handleCloseAddTokenModal()
   }
 
   render () {
