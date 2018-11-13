@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     case ADD_TOKEN:
       return { tokens: action.payload }
     case REMOVE_TOKEN:
-      return { tokens: [] }
+      return { tokens: action.payload }
     default:
       return state
   }

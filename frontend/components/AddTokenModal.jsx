@@ -38,8 +38,6 @@ class AddTokenModal extends React.Component<Props, State> {
   }
 
   addToken = () => {
-    console.log(this.state)
-    console.log(this.props)
     this.props.addToken(this.state.jwt, {
       contractAddress: this.state.contractAddress,
       name: this.state.name,

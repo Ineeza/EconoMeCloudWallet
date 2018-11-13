@@ -59,6 +59,7 @@ class TokenListPage extends React.Component<Props, State> {
       symbol: '',
       decimal: '',
       tokens: [],
+      jwt: props.jwt,
       navBarItems: [
         { value: 'Home', to: '/', icon: 'home' },
         { value: 'Tokens', to: '/tokens', icon: 'database' }
@@ -79,8 +80,8 @@ class TokenListPage extends React.Component<Props, State> {
     this.props.addToken()
   }
 
-  removeToken = () => {
-    this.props.removeToken()
+  removeToken (id) {
+    this.props.removeToken(this.state.jwt, id)
   }
 
   render () {
@@ -112,7 +113,7 @@ class TokenListPage extends React.Component<Props, State> {
                               <Table.Col>{ p.contract_address }</Table.Col>
                               <Table.Col alignContent='right'>
                                 <Button.List>
-                                  <Button onClick={this.removeToken} color='danger'>Remove</Button>
+                                  <Button onClick={(id) => this.removeToken(p.id)} color='danger'>Remove</Button>
                                 </Button.List>
                               </Table.Col>
                             </Table.Row>

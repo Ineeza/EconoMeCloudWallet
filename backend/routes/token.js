@@ -83,10 +83,13 @@ module.exports = (app, server) => {
           account_id: account.id
         }
       }).then((result) => {
-        res.json({
-          message: 'Delete token',
-          account: req.user,
-          resourceId: req.params.id
+        Token.findAll({ where: { account_id: account.id } }).then(tokens => {
+          res.json({
+            message: 'Delete token',
+            account: req.user,
+            resourceId: req.params.id,
+            tokens: tokens
+          })
         })
       })
     })

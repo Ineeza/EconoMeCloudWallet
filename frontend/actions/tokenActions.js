@@ -36,9 +36,14 @@ const addToken = (jwt, { contractAddress, name, symbol, decimal }) => {
   }
 }
 
-const removeToken = () => {
+const removeToken = (jwt, id) => {
+  const request = reqGen(jwt)
   return (dispatch) => {
-    dispatch({ type: REMOVE_TOKEN, payload: [] })
+    request.delete(`/api/token/${id}`).then((response) => {
+      dispatch({ type: REMOVE_TOKEN, payload: response.data.tokens })
+    }).catch((err) => {
+      throw new Error(err)
+    })
   }
 }
 
