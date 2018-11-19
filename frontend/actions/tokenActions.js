@@ -1,4 +1,4 @@
-import { GET_TOKEN_LIST, ADD_TOKEN, REMOVE_TOKEN } from '../constants/types'
+import { GET_TOKEN_LIST, ADD_TOKEN, SEND_TOKEN, REMOVE_TOKEN } from '../constants/types'
 import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 
@@ -36,6 +36,17 @@ const addToken = (jwt, { contractAddress, name, symbol, decimal }) => {
   }
 }
 
+const sendToken = (jwt, { password, recipientAddress, amount, contractAddress }) => {
+  const request = reqGen(jwt)
+  return (dispatch) => {
+    request.post(`/api/tx`, { password, recipientAddress, amount, contractAddress }).then((response) => {
+      dispatch({ type: SEND_TOKEN, payload: response.data.transactionHash })
+    }).catch((err) => {
+      throw new Error(err)
+    })
+  }
+}
+
 const removeToken = (jwt, id) => {
   const request = reqGen(jwt)
   return (dispatch) => {
@@ -50,5 +61,6 @@ const removeToken = (jwt, id) => {
 export default {
   getTokenList,
   addToken,
+  sendToken,
   removeToken
 }

@@ -10,7 +10,6 @@ const ERC20_TOKEN = require('../json/TestCoin.json')
 const tokenRouter = require('./token')
 
 // FIXME Get values from database
-const CONTRACT_ADDRESS = '0x66e3e42a6f0f2690a1a5207047c26f5f6d73ecdb'
 const DECIMAL = 18
 
 module.exports = (app, server) => {
@@ -119,7 +118,7 @@ module.exports = (app, server) => {
           console.log('contract: ' + contract)
           // Signed Transaction
           let toAddress = recipientAddress
-          const decimalAmount = amount * (10 ** DECIMAL)
+          const decimalAmount = amount * (10 ** DECIMAL) // Get the decimals from contract
           console.log('===== Creating Transaction =====')
           console.log('  amount: ' + decimalAmount)
           console.log('  toAddress: ' + toAddress)
@@ -131,7 +130,7 @@ module.exports = (app, server) => {
             'from': myWalletAddress,
             'gasPrice': web3.utils.toHex(2 * 1e9),
             'gasLimit': web3.utils.toHex(210000),
-            'to': CONTRACT_ADDRESS,
+            'to': contractAddress,
             'value': '0x0',
             'data': contract.methods.transfer(toAddress, decimalAmount).encodeABI(),
             'nonce': web3.utils.toHex(nonce)
