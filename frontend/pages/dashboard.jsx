@@ -4,7 +4,6 @@ import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
-import AddTokenModal from '../components/AddTokenModal'
 import SendTokenModal from '../components/SendTokenModal'
 import {
   Page,
@@ -125,14 +124,6 @@ class MainPage extends React.Component {
                     })}
                   </Table.Body>
                 </Table>
-                <Button.List>
-                  <Button onClick={this.handleOpenAddTokenModal} block icon='plus-circle' color='success' outline>
-                    Add new token
-                  </Button>
-                  <AddTokenModal
-                    isAddTokenModal={this.state.isAddTokenModal}
-                    handleCloseAddTokenModal={this.handleCloseAddTokenModal} />
-                </Button.List>
               </Card.Body>
             </Card>
           </Page.Content>

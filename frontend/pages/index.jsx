@@ -26,7 +26,7 @@ const Index = () => (
   <BaseLayout>
     <Card>
       <Card.Body>
-        <h1 style={titleStyle}>Create a wallet in seconds, using EconoMe API</h1>
+        <h1 style={titleStyle}>Create a wallet in seconds, using EconoMe</h1>
         <p style={subTitleStyle}>Cryptocurrencies and Collectibles</p>
         <img style={imgStyle} src={titleImg} />
       </Card.Body>

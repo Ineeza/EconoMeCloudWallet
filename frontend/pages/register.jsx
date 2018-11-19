@@ -40,11 +40,11 @@ class Signup extends React.Component {
               className='container'
             >
               <Form.FieldSet>
-                <Form.Group label='Unique Username' isRequired>
+                <Form.Group label='Username' isRequired>
                   <Form.Input
                     className='input'
                     type='text'
-                    placeholder='Unique Username'
+                    placeholder='Username'
                     required
                     value={this.state.email}
                     onChange={(e) => this.setState({ email: e.target.value })}

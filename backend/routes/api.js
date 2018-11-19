@@ -45,6 +45,10 @@ module.exports = (app, server) => {
                 const contract = new web3.eth.Contract(ERC20_TOKEN.abi, token.contract_address)
                 const promise = new Promise((resolve, reject) =>
                   contract.methods.balanceOf(myWalletAddress).call((error, balance) => {
+                    // TODO get decimal from contract address
+                    contract.methods.decimals().call((error, decimals) => {
+                      console.log(decimals)
+                    })
                     if (!error) {
                       resolve(balance)
                     } else {

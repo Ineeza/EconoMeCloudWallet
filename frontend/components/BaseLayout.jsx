@@ -6,9 +6,9 @@ import { Page, Site } from 'tabler-react'
 import PropTypes from 'prop-types'
 import 'tabler-react/dist/Tabler.css'
 
-const mapStateToProps = (state) => (
-  { isAuthenticated: !!state.authentication.token }
-)
+const mapStateToProps = (state) => ({
+  isAuthenticated: !!state.authentication.token
+})
 
 class BaseLayout extends React.Component {
   constructor (props) {
@@ -35,6 +35,7 @@ class BaseLayout extends React.Component {
     }
     this.state = navBarItems
   }
+
   render () {
     return (
       <div>
