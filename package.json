@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
-    "local": "nodemon ./backend/server.js",
+    "local": "ECW_ENV=local nodemon ./backend/server.js",
     "test": "ECW_ENV=test jest --verbose",
     "build": "next build frontend",
     "flow": "flow",

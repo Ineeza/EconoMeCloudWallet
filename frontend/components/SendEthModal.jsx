@@ -16,13 +16,12 @@ const mapDispachToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch)
 }
 
-class SendTokenModal extends React.Component {
+class SendEthModal extends React.Component {
   constructor (props) {
     super(props)
     const jwt = cookie.get('X-ECW-ACCESS-TOKEN')
     this.state = {
       jwt: jwt,
-      contractAddress: '',
       name: '',
       symbol: '',
       decimal: ''
@@ -34,15 +33,13 @@ class SendTokenModal extends React.Component {
       password: this.state.password,
       recipientAddress: this.state.recipientAddress,
       amount: this.state.amount,
-      // TODO Pass parameters
-      contractAddress: '0x66e3E42A6f0f2690A1a5207047c26f5F6D73EcdB'
     })
-    this.props.handleCloseSendTokenModal()
+    this.props.handleCloseSendEthModal()
   }
 
   render () {
     return (
-      <Modal isOpen={this.props.isSendTokenModal} contentLabel='Modal'>
+      <Modal isOpen={this.props.isSendEthModal} contentLabel='Modal'>
         <Form.FieldSet>
           <Form.Group label='Recipient Address' isRequired>
             <Form.Input
@@ -52,7 +49,7 @@ class SendTokenModal extends React.Component {
               onChange={(e) => this.setState({ recipientAddress: e.target.value })}
             />
           </Form.Group>
-          <Form.Group label='Amount' isRequired>
+          <Form.Group label='Amount(ETH)' isRequired>
             <Form.Input
               name='amount'
               placeholder=''
@@ -70,12 +67,12 @@ class SendTokenModal extends React.Component {
           </Form.Group>
         </Form.FieldSet>
         <Button.List align='center'>
-          <Button onClick={this.props.handleCloseSendTokenModal} icon='x-circle' color='secondary'>Cancel</Button>
-          <Button onClick={this.sendToken} icon='plus-circle' color='success'>Send tokens</Button>
+          <Button onClick={this.props.handleCloseSendEthModal} icon='x-circle' color='secondary'>Cancel</Button>
+          <Button onClick={this.sendToken} icon='plus-circle' color='success'>Send ETH</Button>
         </Button.List>
       </Modal>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispachToProps)(SendTokenModal)
+export default connect(mapStateToProps, mapDispachToProps)(SendEthModal)

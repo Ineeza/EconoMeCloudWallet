@@ -4,8 +4,7 @@ const passport = require('passport')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-
-const front = next({ dev: process.env.ECW_ENV !== undefined, dir: './frontend' })
+const front = next({ dev: process.env.ECW_ENV === 'local', dir: './frontend' })
 const handle = front.getRequestHandler()
 
 require('./middleware/passport')

@@ -5,13 +5,8 @@ import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
 import SendTokenModal from '../components/SendTokenModal'
-import {
-  Page,
-  Button,
-  Card,
-  Table,
-  Form
-} from 'tabler-react'
+import SendEthModal from '../components/SendEthModal'
+import { Page, Button, Card, Table, Form } from 'tabler-react'
 
 class MainPage extends React.Component {
   static async getInitialProps (ctx) {
@@ -37,8 +32,18 @@ class MainPage extends React.Component {
     this.state = {
       isAddTokenModal: false,
       isSendTokenModal: false,
+      isSendEthModal: false,
       data: []
     }
+  }
+
+  // Send-Ether Modal
+  handleOpenSendEthModal = () => {
+    this.setState({ isSendEthModal: true })
+  }
+
+  handleCloseSendEthModal = () => {
+    this.setState({ isSendEthModal: false })
   }
 
   // Send-Token Modal
@@ -91,10 +96,10 @@ class MainPage extends React.Component {
                   />
                 </Form.Group>
                 <Button.List>
-                  <Button onClick={this.handleOpenSendTokenModal} block color='primary'>Send ETH</Button>
-                  <SendTokenModal
-                    isSendTokenModal={this.state.isSendTokenModal}
-                    handleCloseSendTokenModal={this.handleCloseSendTokenModal} />
+                  <Button onClick={this.handleOpenSendEthModal} block color='primary'>Send ETH</Button>
+                  <SendEthModal
+                    isSendEthModal={this.state.isSendEthModal}
+                    handleCloseSendEthModal={this.handleCloseSendEthModal} />
                 </Button.List>
                 <hr />
                 <Table hasOutline='true' responsive='true'>
