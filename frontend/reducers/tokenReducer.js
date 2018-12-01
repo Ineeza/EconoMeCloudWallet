@@ -1,4 +1,4 @@
-import { GET_TOKEN_LIST, ADD_TOKEN, SEND_TOKEN, REMOVE_TOKEN } from '../constants/types'
+import { GET_TOKEN_LIST, ADD_TOKEN, SEND_TOKEN, SEND_ETH, REMOVE_TOKEN } from '../constants/types'
 
 const initialState = {
   tokens: [],
@@ -12,6 +12,8 @@ export default (state = initialState, action) => {
     case ADD_TOKEN:
       return { tokens: action.payload }
     case SEND_TOKEN:
+      return { txHash: action.payload }
+    case SEND_ETH:
       return { txHash: action.payload }
     case REMOVE_TOKEN:
       return { tokens: action.payload }

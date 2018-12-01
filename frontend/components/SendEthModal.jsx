@@ -26,10 +26,11 @@ class SendEthModal extends React.Component {
       symbol: '',
       decimal: ''
     }
+    console.log(props)
   }
 
-  sendToken = () => {
-    this.props.sendToken(this.state.jwt, {
+  sendEth = () => {
+    this.props.sendEth(this.state.jwt, {
       password: this.state.password,
       recipientAddress: this.state.recipientAddress,
       amount: this.state.amount,
@@ -68,7 +69,7 @@ class SendEthModal extends React.Component {
         </Form.FieldSet>
         <Button.List align='center'>
           <Button onClick={this.props.handleCloseSendEthModal} icon='x-circle' color='secondary'>Cancel</Button>
-          <Button onClick={this.sendToken} icon='plus-circle' color='success'>Send ETH</Button>
+          <Button onClick={this.sendEth} icon='plus-circle' color='success'>Send ETH</Button>
         </Button.List>
       </Modal>
     )
