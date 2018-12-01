@@ -7,3 +7,6 @@ export const ADD_TOKEN = 'ADD_TOKEN'
 export const SEND_TOKEN = 'SEND_TOKEN'
 export const SEND_ETH = 'SEND_ETH'
 export const REMOVE_TOKEN = 'REMOVE_TOKEN'
+
+// Modal
+export const SET_TARGET_CONTRACT = 'SET_TARGET_CONTRACT'

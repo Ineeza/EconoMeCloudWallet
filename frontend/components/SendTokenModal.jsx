@@ -8,7 +8,8 @@ import actions from '../actions'
 
 const mapStateToProps = (state) => {
   return {
-    tokens: state.tokenList.tokens
+    tokens: state.tokenList.tokens,
+    targetContract: state.tokenList.targetContract
   }
 }
 
@@ -34,8 +35,7 @@ class SendTokenModal extends React.Component {
       password: this.state.password,
       recipientAddress: this.state.recipientAddress,
       amount: this.state.amount,
-      // TODO Pass parameters
-      contractAddress: '0x66e3E42A6f0f2690A1a5207047c26f5F6D73EcdB'
+      contractAddress: this.props.targetContract
     })
     this.props.handleCloseSendTokenModal()
   }

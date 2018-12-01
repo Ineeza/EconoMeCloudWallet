@@ -1,4 +1,4 @@
-import { GET_TOKEN_LIST, ADD_TOKEN, SEND_TOKEN, SEND_ETH, REMOVE_TOKEN } from '../constants/types'
+import { GET_TOKEN_LIST, ADD_TOKEN, SEND_TOKEN, SEND_ETH, REMOVE_TOKEN, SET_TARGET_CONTRACT } from '../constants/types'
 import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 
@@ -69,10 +69,17 @@ const removeToken = (jwt, id) => {
   }
 }
 
+const setTargetContract = (contractAddress) => {
+  return (dispatch) => {
+    dispatch({ type: SET_TARGET_CONTRACT, payload: contractAddress })
+  }
+}
+
 export default {
   getTokenList,
   addToken,
   sendToken,
   sendEth,
-  removeToken
+  removeToken,
+  setTargetContract
 }

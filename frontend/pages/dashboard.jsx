@@ -6,7 +6,13 @@ import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
 import SendTokenModal from '../components/SendTokenModal'
 import SendEthModal from '../components/SendEthModal'
+import actions from '../actions'
+import { bindActionCreators } from 'redux'
 import { Page, Button, Card, Table, Form } from 'tabler-react'
+
+const mapDispachToProps = (dispatch) => {
+  return bindActionCreators(actions, dispatch)
+}
 
 class MainPage extends React.Component {
   static async getInitialProps (ctx) {
@@ -33,6 +39,7 @@ class MainPage extends React.Component {
       isAddTokenModal: false,
       isSendTokenModal: false,
       isSendEthModal: false,
+      targetContractAddress: '',
       data: []
     }
   }
@@ -47,7 +54,8 @@ class MainPage extends React.Component {
   }
 
   // Send-Token Modal
-  handleOpenSendTokenModal = () => {
+  handleOpenSendTokenModal = (contractAddress) => {
+    this.props.setTargetContract(contractAddress)
     this.setState({ isSendTokenModal: true })
   }
 
@@ -118,7 +126,7 @@ class MainPage extends React.Component {
                           <Table.Col>{p.balance}</Table.Col>
                           <Table.Col alignContent='right'>
                             <Button.List>
-                              <Button onClick={this.handleOpenSendTokenModal} color='primary'>Send</Button>
+                              <Button onClick={() => this.handleOpenSendTokenModal(p.info.contract_address)} color='primary'>Send</Button>
                               <SendTokenModal
                                 isSendTokenModal={this.state.isSendTokenModal}
                                 handleCloseSendTokenModal={this.handleCloseSendTokenModal} />
@@ -138,4 +146,4 @@ class MainPage extends React.Component {
   }
 }
 
-export default connect()(MainPage)
+export default connect(null, mapDispachToProps)(MainPage)
