@@ -9,9 +9,6 @@ const networks = require('../middleware/web3').networks
 const ERC20_TOKEN = require('../json/TestCoin.json')
 const tokenRouter = require('./token')
 
-// FIXME Get values from database
-const DECIMAL = 18
-
 module.exports = (app, server) => {
   // Routing secure api
   router.use('/token', tokenRouter(app, server))
@@ -44,9 +41,9 @@ module.exports = (app, server) => {
                 const contract = new web3.eth.Contract(ERC20_TOKEN.abi, token.contract_address)
                 const promise = new Promise((resolve, reject) =>
                   contract.methods.balanceOf(myWalletAddress).call((error, balance) => {
-                    // TODO get decimal from contract address
+                    // Get decimal from contract address
                     contract.methods.decimals().call((error, decimals) => {
-                      console.log(decimals)
+                      if (error) { console.log(error) }
                     })
                     if (!error) {
                       resolve(balance)
@@ -118,27 +115,32 @@ module.exports = (app, server) => {
           console.log('contract: ' + contract)
           // Signed Transaction
           let toAddress = recipientAddress
-          const decimalAmount = amount * (10 ** DECIMAL) // Get the decimals from contract
-          console.log('===== Creating Transaction =====')
-          console.log('  amount: ' + decimalAmount)
-          console.log('  toAddress: ' + toAddress)
-          console.log('  gasPrice: ' + web3.utils.toHex(4.8 * 1e9))
-          console.log('  gasLimit: ' + web3.utils.toHex(210000))
-          console.log('  nounce: ' + web3.utils.toHex(nonce))
-          // DEBUG
-          const rawTransaction = {
-            'from': myWalletAddress,
-            'gasPrice': web3.utils.toHex(2 * 1e9),
-            'gasLimit': web3.utils.toHex(210000),
-            'to': contractAddress,
-            'value': '0x0',
-            'data': contract.methods.transfer(toAddress, decimalAmount).encodeABI(),
-            'nonce': web3.utils.toHex(nonce)
-          }
-          const transaction = new Tx(rawTransaction)
-          transaction.sign(privateKey)
-          web3.eth.sendSignedTransaction('0x' + transaction.serialize().toString('hex'))
-            .on('transactionHash', (hash) => res.json({ 'transactionHash': hash }))
+
+          // Get the decimals from the contract
+          contract.methods.decimals().call((error, decimals) => {
+            if (error) { console.log(error) }
+            const decimalAmount = amount * (10 ** decimals)
+            console.log('===== Creating Transaction =====')
+            console.log('  amount: ' + decimalAmount)
+            console.log('  toAddress: ' + toAddress)
+            console.log('  gasPrice: ' + web3.utils.toHex(4.8 * 1e9))
+            console.log('  gasLimit: ' + web3.utils.toHex(210000))
+            console.log('  nounce: ' + web3.utils.toHex(nonce))
+            // DEBUG
+            const rawTransaction = {
+              'from': myWalletAddress,
+              'gasPrice': web3.utils.toHex(2 * 1e9),
+              'gasLimit': web3.utils.toHex(210000),
+              'to': contractAddress,
+              'value': '0x0',
+              'data': contract.methods.transfer(toAddress, decimalAmount).encodeABI(),
+              'nonce': web3.utils.toHex(nonce)
+            }
+            const transaction = new Tx(rawTransaction)
+            transaction.sign(privateKey)
+            web3.eth.sendSignedTransaction('0x' + transaction.serialize().toString('hex'))
+              .on('transactionHash', (hash) => res.json({ 'transactionHash': hash }))
+          })
         })
       })
     })
