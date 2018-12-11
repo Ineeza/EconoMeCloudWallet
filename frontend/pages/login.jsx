@@ -3,11 +3,7 @@ import actions from '../actions'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
 import { connect } from 'react-redux'
-import {
-  Button,
-  Card,
-  Form
-} from 'tabler-react'
+import { Button, Card, Form } from 'tabler-react'
 
 class Login extends React.Component {
   constructor (props) {

@@ -10,7 +10,16 @@ import actions from '../actions'
 
 type Props = {
   isAddTokenModal: boolean,
+  addToken: Function,
   handleCloseAddTokenModal: Function
+}
+
+type State = {
+  jwt: ?string,
+  contractAddress: string,
+  name: string,
+  symbol: string,
+  decimal: string
 }
 
 const mapStateToProps = (state) => {

@@ -26,7 +26,6 @@ class SendEthModal extends React.Component {
       symbol: '',
       decimal: ''
     }
-    console.log(props)
   }
 
   sendEth = () => {
