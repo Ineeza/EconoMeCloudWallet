@@ -3,19 +3,26 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import { bindActionCreators } from 'redux'
+import type { Dispatch } from 'redux'
 import actions from '../actions'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
 import AddTokenModal from '../components/AddTokenModal'
+import { JWT_KEY } from '../constants/keys'
 // $FlowFixMe
 import { Page, Button, Card, Container, Table } from 'tabler-react'
 
 type Props = {
-  tokens: Array<Object>
+  jwt: string,
+  tokens: Array<Object>,
+  getTokenList: Function,
+  addToken: Function,
+  removeToken: Function
 }
 
 type State = {
+  jwt: string,
   isAddTokenModal: boolean,
   navBarItems: Array<Object>
 }
@@ -26,7 +33,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispachToProps = (dispatch) => {
+const mapDispachToProps = (dispatch: Dispatch<*>) => {
   return bindActionCreators(actions, dispatch)
 }
 
@@ -37,7 +44,7 @@ class TokenListPage extends React.Component<Props, State> {
     const axios = axiosBase.create({
       baseURL: apiHost,
       headers: {
-        'X-ECW-ACCESS-TOKEN': jwt
+        [JWT_KEY]: jwt
       }
     })
     if (jwt) {

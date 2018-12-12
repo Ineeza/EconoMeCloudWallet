@@ -4,9 +4,11 @@ import Modal from 'react-modal'
 // $FlowFixMe
 import { Form, Button } from 'tabler-react'
 import { bindActionCreators } from 'redux'
+import type { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import cookie from 'js-cookie'
 import actions from '../actions'
+import { JWT_KEY } from '../constants/keys'
 
 type Props = {
   isAddTokenModal: boolean,
@@ -15,7 +17,7 @@ type Props = {
 }
 
 type State = {
-  jwt: ?string,
+  jwt: Object,
   contractAddress: string,
   name: string,
   symbol: string,
@@ -28,14 +30,14 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispachToProps = (dispatch) => {
+const mapDispachToProps = (dispatch: Dispatch<*>) => {
   return bindActionCreators(actions, dispatch)
 }
 
 class AddTokenModal extends React.Component<Props, State> {
   constructor (props) {
     super(props)
-    const jwt = cookie.get('X-ECW-ACCESS-TOKEN')
+    const jwt = cookie.get(JWT_KEY)
     this.state = {
       jwt: jwt,
       contractAddress: '',
