@@ -7,6 +7,7 @@ import BaseLayout from '../components/BaseLayout'
 import SendTokenModal from '../components/SendTokenModal'
 import SendEthModal from '../components/SendEthModal'
 import actions from '../actions'
+import { JWT_KEY } from '../constants/keys'
 import { bindActionCreators } from 'redux'
 import { Page, Button, Card, Table, Form } from 'tabler-react'
 
@@ -21,7 +22,7 @@ class MainPage extends React.Component {
     const axios = axiosBase.create({
       baseURL: apiHost,
       headers: {
-        'X-ECW-ACCESS-TOKEN': token
+        [JWT_KEY]: token
       }
     })
     if (token) {

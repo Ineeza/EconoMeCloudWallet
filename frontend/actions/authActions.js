@@ -3,6 +3,7 @@ import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 import { AUTHENTICATE, DEAUTHENTICATE } from '../constants/types'
 import { setCookie, removeCookie } from '../utils/cookie'
+import { JWT_KEY } from '../constants/keys'
 
 // gets token from the api and stores it in the redux store and in cookie
 const authenticate = ({ email, password }, type) => {
@@ -17,7 +18,7 @@ const authenticate = ({ email, password }, type) => {
       })
       axios.post(`/auth/${type}`, { email, password })
         .then((response) => {
-          setCookie('X-ECW-ACCESS-TOKEN', response.data.token)
+          setCookie(JWT_KEY, response.data.token)
           Router.push('/whoami')
           dispatch({ type: AUTHENTICATE, payload: response.data.token })
         })
@@ -55,7 +56,7 @@ const reauthenticate = (token) => {
 const deauthenticate = () => {
   console.log('==== Deauthenticate ====')
   return (dispatch) => {
-    removeCookie('X-ECW-ACCESS-TOKEN')
+    removeCookie(JWT_KEY)
     dispatch({ type: DEAUTHENTICATE })
   }
 }

@@ -1,15 +1,22 @@
+// @flow
 import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../actions'
 import initialize from '../utils/initialize'
 import Layout from '../components/BaseLayout'
-import {
-  Button,
-  Card,
-  Form
-} from 'tabler-react'
+// $FlowFixMe
+import { Button, Card, Form } from 'tabler-react'
 
-class Signup extends React.Component {
+type Props = {
+  authenticate: Function
+}
+
+type State = {
+  email: string,
+  password: string
+}
+
+class Signup extends React.Component<Props, State> {
   constructor (props) {
     super(props)
     this.state = {
@@ -22,7 +29,7 @@ class Signup extends React.Component {
     initialize(ctx)
   }
 
-  handleSubmit (e) {
+  handleSubmit = (e) => {
     e.preventDefault()
     this.props.authenticate({ email: this.state.email, password: this.state.password }, 'signup')
   }
@@ -36,7 +43,7 @@ class Signup extends React.Component {
           </Card.Header>
           <Card.Body>
             <Form
-              onSubmit={this.handleSubmit.bind(this)}
+              onSubmit={this.handleSubmit(this)}
               className='container'
             >
               <Form.FieldSet>

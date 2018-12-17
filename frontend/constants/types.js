@@ -10,3 +10,7 @@ export const REMOVE_TOKEN = 'REMOVE_TOKEN'
 
 // Modal
 export const SET_TARGET_CONTRACT = 'SET_TARGET_CONTRACT'
+
+// Register
+export const SET_EMAIL = 'SET_EMAIL'
+export const SET_PASSWORD = 'SET_PASSWORD'

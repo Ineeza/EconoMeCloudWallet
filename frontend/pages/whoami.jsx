@@ -5,6 +5,7 @@ import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import Layout from '../components/BaseLayout'
+import { JWT_KEY } from '../constants/keys'
 // $FlowFixMe
 import { Alert, Card } from 'tabler-react'
 
@@ -27,7 +28,7 @@ Whoami.getInitialProps = async (ctx) => {
   const axios = axiosBase.create({
     baseURL: apiHost,
     headers: {
-      'X-ECW-ACCESS-TOKEN': token
+      [JWT_KEY]: token
     }
   })
   if (token) {

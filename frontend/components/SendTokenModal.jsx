@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import cookie from 'js-cookie'
 import actions from '../actions'
+import { JWT_KEY } from '../constants/keys'
 
 const mapStateToProps = (state) => {
   return {
@@ -20,7 +21,7 @@ const mapDispachToProps = (dispatch) => {
 class SendTokenModal extends React.Component {
   constructor (props) {
     super(props)
-    const jwt = cookie.get('X-ECW-ACCESS-TOKEN')
+    const jwt = cookie.get(JWT_KEY)
     this.state = {
       jwt: jwt,
       contractAddress: '',

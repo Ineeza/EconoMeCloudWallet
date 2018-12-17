@@ -1,12 +1,13 @@
 import { GET_TOKEN_LIST, ADD_TOKEN, SEND_TOKEN, SEND_ETH, REMOVE_TOKEN, SET_TARGET_CONTRACT } from '../constants/types'
 import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
+import { JWT_KEY } from '../constants/keys'
 
 const reqGen = (jwt) => {
   const axios = axiosBase.create({
     baseURL: apiHost,
     headers: {
-      'X-ECW-ACCESS-TOKEN': jwt
+      [JWT_KEY]: jwt
     }
   })
   return axios
