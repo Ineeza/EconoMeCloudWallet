@@ -6,7 +6,7 @@ module.exports = (app, server) => {
     if (req.cookies.token) {
       res.redirect('/')
     } else {
-      return app.render(req, res, '/register', req.query)
+      return app.render(req, res, '/signup', req.query)
     }
   })
 
