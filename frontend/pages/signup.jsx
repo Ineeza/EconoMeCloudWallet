@@ -1,6 +1,8 @@
 // @flow
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import type { Dispatch } from 'redux'
 import actions from '../actions'
 import initialize from '../utils/initialize'
 import Layout from '../components/BaseLayout'
@@ -8,30 +10,39 @@ import Layout from '../components/BaseLayout'
 import { Button, Card, Form } from 'tabler-react'
 
 type Props = {
-  authenticate: Function
-}
-
-type State = {
   email: string,
-  password: string
+  password: string,
+  authenticate: Function,
+  setEmail: Function,
+  setPassword: Function
 }
 
-class Signup extends React.Component<Props, State> {
-  constructor (props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: ''
-    }
+const mapStateToProps = (state) => {
+  return {
+    email: state.signupForm.email,
+    password: state.signupForm.password
   }
+}
 
+const mapDispachToProps = (dispatch: Dispatch<*>) => {
+  return bindActionCreators(actions, dispatch)
+}
+
+class Signup extends React.Component<Props> {
   static getInitialProps (ctx) {
     initialize(ctx)
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    this.props.authenticate({ email: this.state.email, password: this.state.password }, 'signup')
+  handleSubmit (e) {
+    this.props.authenticate({ email: this.props.email, password: this.props.password }, 'signup')
+  }
+
+  setEmail (email) {
+    this.props.setEmail(email)
+  }
+
+  setPassword (password) {
+    this.props.setPassword(password)
   }
 
   render () {
@@ -43,7 +54,7 @@ class Signup extends React.Component<Props, State> {
           </Card.Header>
           <Card.Body>
             <Form
-              onSubmit={this.handleSubmit(this)}
+              onSubmit={() => this.handleSubmit(this)}
               className='container'
             >
               <Form.FieldSet>
@@ -53,8 +64,8 @@ class Signup extends React.Component<Props, State> {
                     type='text'
                     placeholder='Username'
                     required
-                    value={this.state.email}
-                    onChange={(e) => this.setState({ email: e.target.value })}
+                    value={this.props.email}
+                    onChange={(e) => this.setEmail(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group label='Password' isRequired>
@@ -63,8 +74,8 @@ class Signup extends React.Component<Props, State> {
                     type='password'
                     placeholder='Password'
                     required
-                    value={this.state.password}
-                    onChange={(e) => this.setState({ password: e.target.value })}
+                    value={this.props.password}
+                    onChange={(e) => this.setPassword(e.target.value)}
                   />
                 </Form.Group>
                 <Button type='submit' color='primary'>
@@ -79,4 +90,4 @@ class Signup extends React.Component<Props, State> {
   }
 }
 
-export default connect(null, actions)(Signup)
+export default connect(mapStateToProps, mapDispachToProps)(Signup)

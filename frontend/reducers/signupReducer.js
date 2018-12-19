@@ -1,3 +1,4 @@
+import update from 'react-addons-update'
 import { SET_EMAIL, SET_PASSWORD } from '../constants/types'
 
 const initialState = {
@@ -8,9 +9,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_EMAIL:
-      return { tokens: action.payload }
+      return update(state, { email: { $set: action.payload } })
     case SET_PASSWORD:
-      return { tokens: action.payload }
+      return update(state, { password: { $set: action.payload } })
     default:
       return state
   }

@@ -25,6 +25,12 @@ const setPassword = (password) => {
   }
 }
 
+const setEmailPassword = (password) => {
+  return (dispatch) => {
+    dispatch({ type: SET_PASSWORD, payload: password })
+  }
+}
+
 export default {
   setEmail,
   setPassword

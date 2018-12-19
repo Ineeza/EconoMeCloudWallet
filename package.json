@@ -45,6 +45,7 @@
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
+    "react-addons-update": "^15.6.2",
     "react-c3js": "^0.1.20",
     "react-dom": "^16.5.2",
     "react-modal": "^3.6.1",
