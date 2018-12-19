@@ -1,33 +1,14 @@
-import { SET_EMAIL, SET_PASSWORD } from '../constants/types'
-import axiosBase from 'axios'
-import { apiHost } from '../../backend/config'
-import { JWT_KEY } from '../constants/keys'
-
-const reqGen = (jwt) => {
-  const axios = axiosBase.create({
-    baseURL: apiHost,
-    headers: {
-      [JWT_KEY]: jwt
-    }
-  })
-  return axios
-}
+import { SET_EMAIL_SIGNUP, SET_PASSWORD_SIGNUP } from '../constants/types'
 
 const setEmail = (email) => {
   return (dispatch) => {
-    dispatch({ type: SET_EMAIL, payload: email })
+    dispatch({ type: SET_EMAIL_SIGNUP, payload: email })
   }
 }
 
 const setPassword = (password) => {
   return (dispatch) => {
-    dispatch({ type: SET_PASSWORD, payload: password })
-  }
-}
-
-const setEmailPassword = (password) => {
-  return (dispatch) => {
-    dispatch({ type: SET_PASSWORD, payload: password })
+    dispatch({ type: SET_PASSWORD_SIGNUP, payload: password })
   }
 }
 

@@ -3,7 +3,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import type { Dispatch } from 'redux'
-import Router from 'next/router'
 import actions from '../actions'
 import initialize from '../utils/initialize'
 import Layout from '../components/BaseLayout'
@@ -35,7 +34,7 @@ class Signup extends React.Component<Props> {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault() // Router doesn't redirect without this
     this.props.authenticate({ email: this.props.email, password: this.props.password }, 'signup')
   }
 
