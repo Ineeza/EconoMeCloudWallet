@@ -13,8 +13,8 @@ type Props = {
   email: string,
   password: string,
   authenticate: Function,
-  setEmail: Function,
-  setPassword: Function
+  setEmailOnLogin: Function,
+  setPasswordOnLogin: Function
 }
 
 const mapStateToProps = (state) => {
@@ -39,11 +39,11 @@ class Login extends React.Component<Props> {
   }
 
   setEmail (email) {
-    this.props.setEmailLogin(email)
+    this.props.setEmailOnLogin(email)
   }
 
   setPassword (password) {
-    this.props.setPasswordLogin(password)
+    this.props.setPasswordOnLogin(password)
   }
 
   render () {

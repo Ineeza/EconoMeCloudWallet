@@ -1,18 +1,18 @@
-import { SET_EMAIL_LOGIN, SET_PASSWORD_LOGIN } from '../constants/types'
+import { SET_EMAIL_ON_LOGIN, SET_PASSWORD_ON_LOGIN } from '../constants/types'
 
-const setEmailLogin = (email) => {
+const setEmailOnLogin = (email) => {
   return (dispatch) => {
-    dispatch({ type: SET_EMAIL_LOGIN, payload: email })
+    dispatch({ type: SET_EMAIL_ON_LOGIN, payload: email })
   }
 }
 
-const setPasswordLogin = (password) => {
+const setPasswordOnLogin = (password) => {
   return (dispatch) => {
-    dispatch({ type: SET_PASSWORD_LOGIN, payload: password })
+    dispatch({ type: SET_PASSWORD_ON_LOGIN, payload: password })
   }
 }
 
 export default {
-  setEmailLogin,
-  setPasswordLogin
+  setEmailOnLogin,
+  setPasswordOnLogin
 }
