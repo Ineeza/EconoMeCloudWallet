@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "local": "ECW_ENV=local nodemon ./backend/server.js",
-    "test": "ECW_ENV=test jest --verbose --forceExit --detectOpenHandles",
+    "test": "next build frontend && ECW_ENV=test jest --verbose --forceExit --detectOpenHandles",
     "build": "next build frontend",
     "flow": "flow",
     "start": "node ./backend/server.js"
