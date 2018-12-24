@@ -4,8 +4,8 @@
 
 ## Requirements
 ```
-Node: 8.12.0 (LTS)
-Yarn: 1.10.1
+Node: 8.14.1 (LTS)
+Yarn: 1.12.3
 npm: 6.4.1
 ```
 
@@ -32,7 +32,7 @@ If you want generate specific model from table,
 sequelize-auto -o "./backend/model" -d econome -h localhost -u postgres -p 5432 -e postgres -t [tableName]
 ```
 
-### Local Development Mode
+### Local Development mode
 ```
 yarn
 yarn local
