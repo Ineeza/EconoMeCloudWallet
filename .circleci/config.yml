@@ -179,11 +179,11 @@ workflows:
             - build
           filters:
             branches:
-              only: feature/ci-develop
+              only: develop
       - deploy_on_dev:
           requires:
             - test
             - build_container_on_dev
           filters:
             branches:
-              only: feature/ci-develop
+              only: develop
