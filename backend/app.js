@@ -1,10 +1,14 @@
+const env =
+    (process.env.ECW_ENV === undefined || process.env.ECW_ENV === '')
+      ? 'local' : process.env.ECW_ENV
+
 const express = require('express')
 const next = require('next')
 const passport = require('passport')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const front = next({ dev: process.env.ECW_ENV === 'local', dir: './frontend' })
+const front = next({ dev: env === 'local', dir: './frontend' })
 const handle = front.getRequestHandler()
 
 require('./middleware/passport')

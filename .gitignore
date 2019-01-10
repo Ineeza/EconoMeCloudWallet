@@ -2,6 +2,7 @@
 node_modules
 npm-debug.log
 junit/*
+junit.xml
 package-lock.json
 yarn-error.log
 
