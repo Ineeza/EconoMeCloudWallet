@@ -24,7 +24,8 @@ passport.use('signup', new LocalStrategy({
           // Save keystore to database
           const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
           const keystoreStr = JSON.stringify(keyObject)
-          Keystore.findOrCreate({ where: { account_id: account.id }, defaults: { account_id: account.id, content: keystoreStr } })
+          Keystore.findOrCreate({ where: { account_id: account.id },
+                                  defaults: { account_id: account.id, content: keystoreStr } })
             .then(keystore => {
               return done(null, { email: email })
             })

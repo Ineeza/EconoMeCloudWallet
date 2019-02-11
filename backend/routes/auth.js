@@ -17,7 +17,7 @@ module.exports = (app, server) => {
     passport.authenticate('login', async (err, account, info) => {
       try {
         if (err || !account) {
-          return res.json({ error: 'Something happen' })
+          return res.json({ error: 'Something happen', error_code: 20 })
         }
         req.login(account, { session: false }, async (error) => {
           if (error) return next(error)
@@ -26,7 +26,7 @@ module.exports = (app, server) => {
           return res.json({ token })
         })
       } catch (error) {
-        return res.json({ error: 'Something happen' })
+        return res.json({ error: 'Something happen', error_code: 29 })
       }
     })(req, res, next)
   })
