@@ -28,7 +28,7 @@ jobs:
       - run:
           name: Build application
           command: |
-            yarn build
+            ECW_ENV=dev yarn build
       - save_cache:
           key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
