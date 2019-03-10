@@ -7,6 +7,11 @@ module.exports = (app, server) => {
   router.post('/signup',
     passport.authenticate('signup', { session: false }),
     async (req, res, next) => {
+      if (req.user.error !== undefined) {
+        if (req.user.error === '409') {
+          return res.send(409)
+        }
+      }
       res.json({
         message: 'Signup successful',
         account: req.user

@@ -38,7 +38,8 @@ test('[POST /auth/signup] reject if username is already used', (done) => {
       password: password,
     })
     .then((response) => {
-      expect(response.statusCode).toBe(200)
+      // 409 Conflict
+      expect(response.statusCode).toBe(409)
       done()
     })
 })

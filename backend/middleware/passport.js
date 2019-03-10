@@ -13,13 +13,17 @@ passport.use('signup', new LocalStrategy({
 }, async (email, password, done) => {
   try {
     bcrypt.hash(password, 10).then((hash) => {
-      Account.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
-        .spread((account, created) => {
-          const params = { keyBytes: 32, ivBytes: 16 }
-          const dk = keythereum.create(params)
+      Account.findAndCountAll({ where: { email: email } }).then(result => {
+        if (result.count > 0) {
+          done(null, { error: '409' })
+        }
+        Account.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
+          .spread((account, created) => {
+            const params = { keyBytes: 32, ivBytes: 16 }
+            const dk = keythereum.create(params)
 
-          // Pass userName and password as Http POST paramters
-          console.log('Account ID: ' + account.id)
+            // Pass userName and password as Http POST paramters
+            console.log('Account ID: ' + account.id)
 
           // Save keystore to database
           const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
