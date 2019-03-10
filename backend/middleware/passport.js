@@ -17,7 +17,8 @@ passport.use('signup', new LocalStrategy({
         if (result.count > 0) {
           done(null, { error: '409' })
         }
-        Account.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
+        Account.findOrCreate({ where: { email: email },
+                               defaults: { email: email, password: hash } })
           .spread((account, created) => {
             const params = { keyBytes: 32, ivBytes: 16 }
             const dk = keythereum.create(params)
@@ -25,15 +26,15 @@ passport.use('signup', new LocalStrategy({
             // Pass userName and password as Http POST paramters
             console.log('Account ID: ' + account.id)
 
-          // Save keystore to database
-          const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
-          const keystoreStr = JSON.stringify(keyObject)
-          Keystore.findOrCreate({ where: { account_id: account.id },
-                                  defaults: { account_id: account.id, content: keystoreStr } })
-            .then(keystore => {
-              return done(null, { email: email })
-            })
-        })
+            // Save keystore to database
+            const keyObject = keythereum.dump(password,
+                                              dk.privateKey, dk.salt, dk.iv, ethereum.options)
+            const keystoreStr = JSON.stringify(keyObject)
+            Keystore.findOrCreate({ where: { account_id: account.id },
+                                    defaults: { account_id: account.id, content: keystoreStr } })
+              .then(keystore => { return done(null, { email: email }) })
+          })
+      })
     })
   } catch (error) {
     done(error)
