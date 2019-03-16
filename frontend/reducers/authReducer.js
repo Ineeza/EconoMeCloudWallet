@@ -1,7 +1,8 @@
-import { AUTHENTICATE, DEAUTHENTICATE } from '../constants/types'
+import { AUTHENTICATE, DEAUTHENTICATE, ERROR_ALERT } from '../constants/types'
 
 const initialState = {
-  token: null
+  token: null,
+  status: null
 }
 
 export default (state = initialState, action) => {
@@ -10,6 +11,8 @@ export default (state = initialState, action) => {
       return { token: action.payload }
     case DEAUTHENTICATE:
       return { token: null }
+    case ERROR_ALERT:
+      return { status: action.error }
     default:
       return state
   }

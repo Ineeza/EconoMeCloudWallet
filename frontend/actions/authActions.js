@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import axiosBase from 'axios'
 import { apiHost } from '../../backend/config'
-import { AUTHENTICATE, DEAUTHENTICATE } from '../constants/types'
+import { AUTHENTICATE, DEAUTHENTICATE, ERROR_ALERT } from '../constants/types'
 import { setCookie, removeCookie } from '../utils/cookie'
 import { JWT_KEY } from '../constants/keys'
 
@@ -40,7 +40,8 @@ const authenticate = ({ email, password }, type) => {
         })
         .catch((err) => {
           // TODO 409 user already exists
-          throw new Error(err)
+          dispatch({ type: ERROR_ALERT, error: err.response.status })
+          // throw new Error(err)
         })
     }
   }
