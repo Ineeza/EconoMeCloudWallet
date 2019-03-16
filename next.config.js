@@ -4,6 +4,9 @@ const withImages = require('next-images')
 const withFonts = require('next-fonts')
 const webpack = require('webpack')
 
+console.log('==== Next config ====')
+console.log('ECW_ENV: ' + process.env.ECW_ENV)
+
 module.exports =
     withCSS(withImages(withFonts({
 

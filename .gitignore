@@ -4,6 +4,7 @@ npm-debug.log
 junit/*
 junit.xml
 package-lock.json
+reports/
 yarn-error.log
 
 # NextJS

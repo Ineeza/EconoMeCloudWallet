@@ -3,11 +3,8 @@
 # EconoMe Cloud Wallet
 
 ## Requirements
-```
-Node: 8.14.1 (LTS)
-Yarn: 1.12.3
-npm: 6.4.1
-```
+
+- Node: [8.x (LTS, Carbon)](https://github.com/nodejs/Release#release-schedule)
 
 ## Getting Started
 ### PostgreSQL on Docker
@@ -43,7 +40,6 @@ yarn local
 #### Check flow types
 ```
 yarn global add flow-typed
-flow-typed install
 yarn flow
 ```
 
@@ -58,10 +54,10 @@ psql -U postgres test_econome < db/V1__Init.sql
 yarn test
 ```
 
-### Production Mode
+### Development Mode
 ```
-yarn install --production
-yarn build
-ECW_ENV=<environment name> yarn start
+yarn
+ECW_ENV=dev yarn build
+ECW_ENV=dev yarn start
 ```
 
