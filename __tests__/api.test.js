@@ -5,12 +5,12 @@ const ethereum = require('web3')
 const { app } = require('../backend/app')
 const { Account, Keystore } = require('../backend/model')
 
-const email = 'test@test.com'
+const email = 'test1@api-test.com'
 const password = '123'
 
-beforeAll((done) => {
+beforeAll(async (done) => {
   // Create a user and keystore
-  bcrypt.hash(password, 10).then((hash) => {
+  await bcrypt.hash(password, 10).then(async (hash) => {
     Account.findOrCreate({
       where: { email: email },
       defaults: { email: email, password: hash }
@@ -27,10 +27,12 @@ beforeAll((done) => {
   })
 })
 
-afterAll(() => {
-  // Delete all records
-  Keystore.destroy({ where: {}, truncate: true })
-  Account.destroy({ where: {}, truncate: true })
+afterAll(async () => {
+  // Delete test records
+  await Account.findOne({ where: { email: email } }).then(async (account) => {
+    await Keystore.destroy({ where: { account_id: account.id }, truncate: false })
+    await Account.destroy({ where: { email: email }, truncate: false })
+  })
 })
 
 test('[GET /api/balance] return token balances', (done) => {

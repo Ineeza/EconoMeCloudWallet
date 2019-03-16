@@ -3,13 +3,12 @@ jobs:
   build:
     docker:
       # https://hub.docker.com/_/node/
-      - image: node:8.14.1-alpine
+      - image: node:8.15.1-alpine
+    working_directory: ~/app
     steps:
       - checkout
-      - setup_remote_docker:
-         docker_layer_caching: true
       - run:
-          name: Install packages for wordspace
+          name: Install packages for restore_cache
           command: apk --no-cache add ca-certificates
       - restore_cache:
           key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
@@ -17,45 +16,60 @@ jobs:
           name: Install packages for build application
           command: apk --no-cache add bash build-base git lcms2-dev libpng-dev python
       - run:
-          name: Print node.js version
+          name: Print component version
           command: |
             node --version
             npm --version
             yarn --version
       - run:
           name: Install node modules
-          command: yarn --frozen-lockfile
+          command: yarn
       - run:
           name: Build application
           command: |
+            case "$CIRCLE_BRANCH" in
+            develop)
+              export ECW_ENV=dev
+              ;;
+            stage)
+              export ECW_ENV=stg
+              ;;
+            master)
+              export ECW_ENV=prd
+              ;;
+            *)
+              export ECW_ENV=lcl
+              ;;
+            esac
+            echo "Building application on ECW_ENV=$ECW_ENV"
             yarn build
       - save_cache:
           key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-            - /root/.npm
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+            - ~/.npm
+            - frontend/.next
 
   test:
     docker:
-      - image: node:8.14.1-alpine
+      - image: node:8.15.1-alpine
         environment:
           ECW_ENV: test
-      - image: circleci/postgres:10.4-alpine
+        # https://github.com/CircleCI-Public/circleci-dockerfiles/tree/master/postgres/images
+      - image: circleci/postgres:10.5-alpine
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: test_econome
+    working_directory: ~/app
     steps:
       - setup_remote_docker:
          docker_layer_caching: true
+      - checkout
       - run:
-          name: Install ca-certificates package - required for attach_workspace
+          name: Install packages for restore_cache
           command: apk --no-cache add ca-certificates
-      - attach_workspace:
-          at: ./
+      - restore_cache:
+          key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install packages for postgres
           command: apk --no-cache add bash git postgresql
@@ -64,7 +78,8 @@ jobs:
           command: ./.circleci/wait-for-it.sh localhost:5432
       - run:
           name: Create db schema
-          command: psql -h localhost -U postgres test_econome < db/V1__Init.sql
+          command: |
+            psql -h localhost -U postgres test_econome < db/V1__Init.sql
       - run:
           name: Install packages for flow
           command: |
@@ -79,7 +94,7 @@ jobs:
             yarn flow
       - run:
           name: Test
-          command: yarn jest --ci --reporters=default --reporters=jest-junit
+          command: yarn test -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
       - store_test_results:
@@ -93,23 +108,26 @@ jobs:
     environment:
       ECW_ENV: dev
       ECW_INFRA_BRANCH: master
+      ECW_APP_VERSION: 8.15.1
+    working_directory: ~/app
     steps:
-      - attach_workspace:
-          at: ./ecw-app
       - setup_remote_docker
+      - checkout
+      - restore_cache:
+          key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install packages for build container
           command: |
-            apk --no-cache add make py-pip curl
+            apk --no-cache add make py-pip curl docker
             pip install awscli
       - run:
           name: Build container
           command: |
-            git clone https://$GITHUB_USER:$GITHUB_TOKEN@$GITHUB_REPO_INFRA infra
-            cd infra
+            git clone https://$GITHUB_USER:$GITHUB_TOKEN@$GITHUB_REPO_INFRA ~/infra
+            cd ~/infra
             git checkout $ECW_INFRA_BRANCH
-            cp -r ../ecw-app ./aws/ecs/app/
-            cp -r ../ecw-app ./aws/ecs/web/
+            cp -r ~/app ./aws/ecs/app/ecw-app
+            cp -r ~/app ./aws/ecs/web/ecw-app
             cd aws/ecs
 
             if [ -n "$CIRCLE_TAG" ]; then
@@ -119,17 +137,17 @@ jobs:
             export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_ECR
             export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_ECR
             if [ -n "$CIRCLE_TAG" ]; then
-                ECW_APP_TAG=$CIRCLE_TAG ECW_APP=app make build
-                ECW_WEB_TAG=1.15.7 ECW_APP=web make build
+                ECW_APP=app ECW_APP_TAG=$CIRCLE_TAG ECW_APP_VERSION=$ECW_APP_VERSION make build
+            else
+                ECW_APP=app ECW_APP_TAG=latest ECW_APP_VERSION=$ECW_APP_VERSION make build
             fi
-            ECW_APP_TAG=latest ECW_WEB_TAG=latest ECW_APP=app-all make build
 
-            cd ~/project/ecw-app
+            cd ~/app
             commit=$(git rev-parse HEAD)
             text=":github: <https://$GITHUB_REPO_APP/commit/$commit|Commit URL - $commit>"
             ./.circleci/post-slack.sh "Build successfully on $CIRCLE_BRANCH" "$text"
       - persist_to_workspace:
-          root: .
+          root: ~/infra
           paths:
             - .
 
@@ -139,32 +157,28 @@ jobs:
     environment:
       ECW_ENV: dev
       ECW_INFRA_BRANCH: master
+    working_directory: ~/app
     steps:
+      - checkout
       - attach_workspace:
-          at: ./ecw-app
+          at: ~/infra
       - run:
           name: Install packages for deploy container
           command: |
             sudo pip install awscli
-      - run:
-          name: Checkout infra repository
-          command: |
-            git clone https://$GITHUB_USER:$GITHUB_TOKEN@$GITHUB_REPO_INFRA infra
-            cd infra
-            git checkout $ECW_INFRA_BRANCH
       - run:
           name: Deploy application container
           command: |
             export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_DEPLOY
             export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_DEPLOY
 
-            cd infra/aws/ecs
+            cd ~/infra/aws/ecs
             ECW_APP=app ECW_APP_TAG=latest make deploy
 
-            cd ~/project/ecw-app
+            cd ~/app
             commit=$(git rev-parse HEAD)
             text=":github: <https://$GITHUB_REPO_APP/commit/$commit|Commit URL - $commit>"
-            ./.circleci/post-slack.sh "Deploy successfully on $CIRCLE_BRANCH" "$text"
+            .circleci/post-slack.sh "Deploy successfully on $CIRCLE_BRANCH" "$text"
 
 workflows:
   version: 2
@@ -176,13 +190,12 @@ workflows:
             - build
       - build_container_on_dev:
           requires:
-            - build
+            - test
           filters:
             branches:
               only: develop
       - deploy_on_dev:
           requires:
-            - test
             - build_container_on_dev
           filters:
             branches:
