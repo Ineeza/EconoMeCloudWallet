@@ -14,6 +14,7 @@ passport.use('signup', new LocalStrategy({
   try {
     bcrypt.hash(password, 10).then((hash) => {
       Account.findAndCountAll({ where: { email: email } }).then(result => {
+        // If user already exsits, return error
         if (result.count > 0) {
           done(null, { error: '409' })
         }
