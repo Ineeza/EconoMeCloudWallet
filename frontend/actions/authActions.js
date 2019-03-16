@@ -39,6 +39,7 @@ const authenticate = ({ email, password }, type) => {
           dispatch({ type: AUTHENTICATE, payload: response.data.token })
         })
         .catch((err) => {
+          // TODO 409 user already exists
           throw new Error(err)
         })
     }
