@@ -48,7 +48,6 @@ beforeAll(async (done) => {
         ]).then(() => {
           return Token.findAll()
         }).then(tokens => {
-          console.log(tokens)
           done()
         })
       })
