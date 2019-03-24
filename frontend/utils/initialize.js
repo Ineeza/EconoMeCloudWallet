@@ -5,9 +5,9 @@ import actions from '../actions'
 export default function (ctx) {
   if (ctx.isServer) {
     if (ctx.req.headers.cookie) {
-      // FIXME getCookie doesn't work
-      const cookieStr = ctx.req.headers.cookie.replace('X-ECW-ACCESS-TOKEN=', '')
-      ctx.store.dispatch(actions.reauthenticate(cookieStr))
+      var cookie = require('cookie')
+      var cookies = cookie.parse(ctx.req.headers.cookie)
+      ctx.store.dispatch(actions.reauthenticate(cookies['X-ECW-ACCESS-TOKEN']))
     }
   } else {
     const token = ctx.store.getState().authentication.token
