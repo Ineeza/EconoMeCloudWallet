@@ -9,11 +9,11 @@ const options = {
 }
 
 const networks = {
-  mainnet: 'https://mainnet.infura.io/xyji23ngACpAtbvoO0MZ',
-  ropsten: 'https://ropsten.infura.io/xyji23ngACpAtbvoO0MZ',
-  rinkeby: 'https://rinkeby.infura.io/xyji23ngACpAtbvoO0MZ',
-  kovan: 'https://kovan.infura.io/xyji23ngACpAtbvoO0MZ',
-  infuranet: 'https://infuranet.infura.io/xyji23ngACpAtbvoO0MZ'
+  mainnet: 'https://mainnet.infura.io/v3/a3e73419953548babeebc5a327f62f56',
+  ropsten: 'https://ropsten.infura.io/v3/a3e73419953548babeebc5a327f62f56',
+  rinkeby: 'https://rinkeby.infura.io/v3/a3e73419953548babeebc5a327f62f56',
+  kovan: 'https://kovan.infura.io/v3/a3e73419953548babeebc5a327f62f56',
+  infuranet: 'https://infuranet.infura.io/v3/a3e73419953548babeebc5a327f62f56'
 }
 
 module.exports = {
