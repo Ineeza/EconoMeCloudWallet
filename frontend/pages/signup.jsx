@@ -7,20 +7,22 @@ import actions from '../actions'
 import initialize from '../utils/initialize'
 import Layout from '../components/BaseLayout'
 // $FlowFixMe
-import { Button, Card, Form } from 'tabler-react'
+import { Button, Card, Form, Alert } from 'tabler-react'
 
 type Props = {
   email: string,
   password: string,
   authenticate: Function,
   setEmailOnSignup: Function,
-  setPasswordOnSignup: Function
+  setPasswordOnSignup: Function,
+  auth: JSON
 }
 
 const mapStateToProps = (state) => {
   return {
     email: state.signupForm.email,
-    password: state.signupForm.password
+    password: state.signupForm.password,
+    auth: state.authentication
   }
 }
 
@@ -54,6 +56,9 @@ class Signup extends React.Component<Props> {
             <Card.Title>User Signup</Card.Title>
           </Card.Header>
           <Card.Body>
+            {
+              !(this.props.auth.status === 409) || <Alert type='danger'>User already exists.</Alert>
+            }
             <Form
               onSubmit={this.handleSubmit}
               className='container'
