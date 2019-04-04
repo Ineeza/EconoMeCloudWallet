@@ -15,7 +15,7 @@ type Props = {
   authenticate: Function,
   setEmailOnSignup: Function,
   setPasswordOnSignup: Function,
-  auth: JSON
+  auth: Object
 }
 
 const mapStateToProps = (state) => {
