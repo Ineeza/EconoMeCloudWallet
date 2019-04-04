@@ -42,7 +42,7 @@ class BaseLayout extends React.Component {
         <Site.Wrapper
           headerProps={{ alt: 'EconoMe', imageURL: logo }}
           navProps={{ itemsObjects: this.state.navBarItems }}
-          footerProps={{ copyright: 'Copyright © 2018 Ineeza, Inc.' }}
+          footerProps={{ copyright: 'Copyright © 2019 Ineeza, Inc.' }}
         >
           <Page.Content>
             <div>
