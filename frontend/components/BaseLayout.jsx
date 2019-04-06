@@ -5,6 +5,7 @@ import logo from '../static/econome-logo.png'
 import { Page, Site } from 'tabler-react'
 import PropTypes from 'prop-types'
 import 'tabler-react/dist/Tabler.css'
+import { initGA, logPageView } from '../utils/analytics'
 
 const mapStateToProps = (state) => ({
   isAuthenticated: !!state.authentication.token
@@ -34,6 +35,14 @@ class BaseLayout extends React.Component {
       }
     }
     this.state = navBarItems
+  }
+
+  componentDidMount () {
+    if (!window.GA_INITIALIZED) {
+      initGA()
+      window.GA_INITIALIZED = true
+    }
+    logPageView()
   }
 
   render () {
