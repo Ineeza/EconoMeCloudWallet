@@ -11,7 +11,8 @@ jobs:
           name: Install packages for restore_cache
           command: apk --no-cache add ca-certificates
       - restore_cache:
-          key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          keys:
+            - cache-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Install packages for build application
           command: apk --no-cache add bash build-base git lcms2-dev libpng-dev python
@@ -44,7 +45,7 @@ jobs:
             echo "Building application on ECW_ENV=$ECW_ENV"
             yarn build
       - save_cache:
-          key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: cache-{{ .Branch }}-{{ .Revision }}
           paths:
             - node_modules
             - ~/.npm
@@ -69,7 +70,8 @@ jobs:
           name: Install packages for restore_cache
           command: apk --no-cache add ca-certificates
       - restore_cache:
-          key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          keys:
+            - cache-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Install packages for postgres
           command: apk --no-cache add bash git postgresql
@@ -114,7 +116,8 @@ jobs:
       - setup_remote_docker
       - checkout
       - restore_cache:
-          key: node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          keys:
+            - cache-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Install packages for build container
           command: |
