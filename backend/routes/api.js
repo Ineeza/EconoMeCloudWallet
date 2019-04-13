@@ -38,21 +38,25 @@ module.exports = (app, server) => {
               // Prepare promises for parallel requests
               let promises = []
               tokens.forEach((token) => {
-                const contract = new web3.eth.Contract(ERC20_TOKEN.abi, token.contract_address)
-                const promise = new Promise((resolve, reject) =>
-                  contract.methods.balanceOf(myWalletAddress).call((error, balance) => {
-                    // Get decimal from contract address
-                    contract.methods.decimals().call((error, decimals) => {
-                      if (error) { console.log(error) }
+                if (web3.utils.isAddress(token.contract_address)) {
+                  const contract = new web3.eth.Contract(ERC20_TOKEN.abi, token.contract_address)
+                  const promise = new Promise((resolve, reject) =>
+                    contract.methods.balanceOf(myWalletAddress).call((error, balance) => {
+                      // Get decimal from contract address
+                      contract.methods.decimals().call((error, decimals) => {
+                        if (error) { console.log(error) }
+                      })
+                      if (!error) {
+                        resolve(balance)
+                      } else {
+                        console.error(error)
+                      }
+                    }).catch((error) => {
+                      resolve()
                     })
-                    if (!error) {
-                      resolve(balance)
-                    } else {
-                      console.error(error)
-                    }
-                  })
-                )
-                promises.push(promise)
+                  )
+                  promises.push(promise)
+                }
               })
 
               Promise.all(promises).then(balances => {
@@ -68,6 +72,9 @@ module.exports = (app, server) => {
                   ethBalance: ethBalance,
                   tokens: tokensWithBalances
                 })
+              }).catch((err) => {
+                // In here we will get the higher-level error.
+                res.json({})
               })
             })
           } else {

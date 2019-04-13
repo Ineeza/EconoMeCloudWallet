@@ -26,10 +26,17 @@ class MainPage extends React.Component {
       }
     })
     if (token) {
-      const response = await axios.get(`/api/balance`)
-      const wallet = response.data
-      return {
-        wallet
+      try {
+        const response = await axios.get(`/api/balance`)
+        const wallet = response.data
+        return {
+          wallet
+        }
+      } catch (error) {
+        const wallet = []
+        return {
+          wallet
+        }
       }
     }
   }
