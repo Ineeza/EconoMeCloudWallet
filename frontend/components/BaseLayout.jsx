@@ -30,6 +30,7 @@ class BaseLayout extends React.Component {
           { value: 'Wallet', to: '/dashboard', icon: 'credit-card' },
           { value: 'Tokens', to: '/tokens', icon: 'database' },
           { value: 'Profile', to: '/whoami', icon: 'flag' },
+          { value: 'Mnemonic', to: '/mnemonic', icon: 'edit' },
           { value: 'Logout', to: '/logout', icon: 'log-out' }
         ]
       }

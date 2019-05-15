@@ -33,7 +33,7 @@ class SendEthModal extends React.Component {
     this.props.sendEth(this.state.jwt, {
       password: this.state.password,
       recipientAddress: this.state.recipientAddress,
-      amount: this.state.amount,
+      amount: this.state.amount
     })
     this.props.handleCloseSendEthModal()
   }
