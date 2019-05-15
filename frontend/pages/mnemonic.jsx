@@ -9,10 +9,11 @@ import { JWT_KEY } from '../constants/keys'
 // $FlowFixMe
 import { Card } from 'tabler-react'
 
-const Mnemonic = ({ user }: Object) => (
+const Mnemonic = ({ user, mnemonic }: Object) => (
   <Layout title='Mnemonic'>
     <Card title='Mnemonic Code'>
       <Card.Body>
+        <strong>{mnemonic}</strong>
       </Card.Body>
     </Card>
   </Layout>
@@ -27,11 +28,19 @@ Mnemonic.getInitialProps = async (ctx) => {
       [JWT_KEY]: token
     }
   })
+
+  // TODO Create Mnemonic
+  // FIXME Use globally imported bip39 module
+  var bip39 = require('bip39')
+  const mnemonic = bip39.generateMnemonic()
+  console.log(mnemonic)
+
   if (token) {
     const response = await axios.get(`/api/profile`)
     const user = response.data.account.email
     return {
-      user
+      user,
+      mnemonic
     }
   }
 }

@@ -1,6 +1,6 @@
 const env =
-    (process.env.ECW_ENV === undefined || process.env.ECW_ENV === '')
-      ? 'local' : process.env.ECW_ENV
+  (process.env.ECW_ENV === undefined || process.env.ECW_ENV === '')
+  ? 'local' : process.env.ECW_ENV
 
 const express = require('express')
 const next = require('next')
