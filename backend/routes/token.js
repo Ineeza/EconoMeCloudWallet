@@ -5,13 +5,11 @@ const { Account, Token } = require('../model')
 
 module.exports = (app, server) => {
   router.get('/', (req, res, next) => {
-    Account.findOne({ where: { email: req.user.email } }).then(account => {
-      Token.findAll({ where: { account_id: account.id } }).then(tokens => {
-        res.json({
-          message: 'Get token',
-          account: req.user,
-          tokens: tokens
-        })
+    Token.findAll({ where: { account_id: req.user.id } }).then(tokens => {
+      res.json({
+        message: 'Get token',
+        account: req.user,
+        tokens: tokens
       })
     })
   })
@@ -26,7 +24,7 @@ module.exports = (app, server) => {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() })
     }
-    Account.findOne({ where: { email: req.user.email } }).then(account => {
+    Account.findOne({ where: { id: req.user.id } }).then(account => {
       Token.findOrCreate({
         where: {
           contract_address: req.body.contractAddress
@@ -51,7 +49,7 @@ module.exports = (app, server) => {
   })
 
   router.patch('/:id', (req, res, next) => {
-    Account.findOne({ where: { email: req.user.email } }).then(account => {
+    Account.findOne({ where: { id: req.user.id } }).then(account => {
       Token.update({
         account_id: account.id,
         contract_address: req.body.contractAddress,
@@ -76,7 +74,7 @@ module.exports = (app, server) => {
   })
 
   router.delete('/:id', (req, res, next) => {
-    Account.findOne({ where: { email: req.user.email } }).then(account => {
+    Account.findOne({ where: { id: req.user.id } }).then(account => {
       Token.destroy({
         where: {
           id: req.params.id,
