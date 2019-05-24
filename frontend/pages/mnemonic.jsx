@@ -31,7 +31,7 @@ Mnemonic.getInitialProps = async (ctx) => {
 
   // TODO Create Mnemonic
   // FIXME Use globally imported bip39 module
-  var bip39 = require('bip39')
+  const bip39 = require('bip39')
   const mnemonic = bip39.generateMnemonic()
   console.log(mnemonic)
 
