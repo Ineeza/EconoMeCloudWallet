@@ -9,7 +9,7 @@ import initialize from '../utils/initialize'
 import Layout from '../components/BaseLayout'
 import { JWT_KEY } from '../constants/keys'
 // $FlowFixMe
-import { Card } from 'tabler-react'
+import { Button, Card } from 'tabler-react'
 
 const mapStateToProps = (state) => {
   return {}
@@ -30,17 +30,11 @@ class MnemonicPage extends React.Component<Props, State> {
       }
     })
 
-    // TODO Create Mnemonic
-    // FIXME Use globally imported bip39 module
-    var bip39 = require('bip39')
-    const mnemonic = bip39.generateMnemonic()
-
     if (token) {
       const response = await axios.get(`/api/profile`)
       const user = response.data.account.email
       return {
-        user,
-        mnemonic
+        user
       }
     }
   }
@@ -53,12 +47,25 @@ class MnemonicPage extends React.Component<Props, State> {
     }
   }
 
+  genPrivateKey = () => {
+    // FIXME Use globally imported bip39 module
+    const bip39 = require('bip39')
+    const mnemonic = bip39.generateMnemonic()
+    console.log('Generated a mnemonic')
+    console.log(mnemonic)
+
+    // TODO Generate a private key
+    // TODO Create a keystore by password (like PIN code)
+    // TODO Save the key into cookie (We shouldn't use local storage to store sensitive data)
+  }
+
   render () {
     return (
       <Layout title='Mnemonic'>
         <Card title='Mnemonic Code'>
           <Card.Body>
             <strong>{this.state.mnemonic}</strong>
+            <Button onClick={this.genPrivateKey} block icon='plus-circle' color='success' outline>Create new wallet</Button>
           </Card.Body>
         </Card>
       </Layout>
