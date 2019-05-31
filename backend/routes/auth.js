@@ -26,7 +26,8 @@ module.exports = (app, server) => {
         }
         req.login(account, { session: false }, async (error) => {
           if (error) return next(error)
-          const body = { _id: account._id, email: account.email }
+          const body = { id: account.id }
+          // TODO use secure string key instead of 'top_secret'
           const token = jwt.sign({ account: body }, 'top_secret')
           return res.json({ token })
         })

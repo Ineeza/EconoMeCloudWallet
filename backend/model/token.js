@@ -26,14 +26,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.BIGINT,
       allowNull: true
     },
-    created_date: {
+    createdAt: {
+      field: 'created_date',
       type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: sequelize.fn('now')
     },
-    updated_date: {
-      type: DataTypes.DATE,
-      allowNull: true
+    updatedAt: {
+      field: 'updated_date',
+      type: DataTypes.DATE
     },
     created_by: {
       type: DataTypes.TEXT,
@@ -45,6 +44,8 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'token'
+    tableName: 'token',
+    timestamps: true,
+    underscore: true
   })
 }
