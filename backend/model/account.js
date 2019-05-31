@@ -23,14 +23,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    created_date: {
+    createdAt: {
+      field: 'created_date',
       type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: sequelize.fn('now')
     },
-    updated_date: {
-      type: DataTypes.DATE,
-      allowNull: true
+    updatedAt: {
+      field: 'updated_date',
+      type: DataTypes.DATE
     },
     created_by: {
       type: DataTypes.TEXT,
@@ -42,6 +41,8 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'account'
+    tableName: 'account',
+    timestamps: true,
+    underscore: true
   })
 }
