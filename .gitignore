@@ -1,11 +1,10 @@
 # Node build artifacts
 node_modules
-npm-debug.log
+*.log
 junit/*
 junit.xml
 package-lock.json
 reports/
-yarn-error.log
 
 # NextJS
 frontend/.next
