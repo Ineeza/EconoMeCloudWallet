@@ -9,12 +9,12 @@ import { JWT_KEY } from '../constants/keys'
 // $FlowFixMe
 import { Alert, Card } from 'tabler-react'
 
-const Whoami = ({ user }: Object) => (
+const Whoami = ({ account }: Object) => (
   <Layout title='Who Am I'>
     <Card title='User Status'>
       <Card.Body>
         {
-          (user && <Alert type='success'>You are logged in as <strong>{user}</strong></Alert>) ||
+          (account && <Alert type='success'>You are logged in as <strong>{account.email}</strong></Alert>) ||
           <Alert type='danger'>You are not authenticated.</Alert>
         }
       </Card.Body>
@@ -33,9 +33,9 @@ Whoami.getInitialProps = async (ctx) => {
   })
   if (token) {
     const response = await axios.get(`/api/profile`)
-    const user = response.data.account.email
+    const account = response.data.account
     return {
-      user
+      account
     }
   }
 }
