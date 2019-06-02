@@ -14,6 +14,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.18.0",
@@ -60,6 +61,7 @@
     "store": "^2.0.12",
     "tabler-react": "^1.18.0",
     "web3": "1.0.0-beta.34",
+    "webpack": "^4.0.0",
     "yarn": "^1.10.1"
   },
   "devDependencies": {
