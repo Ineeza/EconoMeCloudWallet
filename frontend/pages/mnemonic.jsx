@@ -3,6 +3,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import { bindActionCreators } from 'redux'
+import bcrypt from 'bcryptjs'
+import keythereum from 'keythereum'
+//import ethereum from 'web3'
 import actions from '../actions'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
@@ -53,8 +56,19 @@ class MnemonicPage extends React.Component<Props, State> {
     const mnemonic = bip39.generateMnemonic()
     console.log('Generated a mnemonic')
     console.log(mnemonic)
+    const password = 'test'
 
     // TODO Generate a private key
+    bcrypt.hash(password, 10).then((hash) => {
+      const params = { keyBytes: 32, ivBytes: 16 }
+      const dk = keythereum.create(params)
+
+      // Save keystore to database
+      const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
+      const keystoreStr = JSON.stringify(keyObject)
+      console.log(keystoreStr)
+    })
+
     // TODO Create a keystore by password (like PIN code)
     // TODO Save the key into cookie (We shouldn't use local storage to store sensitive data)
   }

@@ -16,6 +16,7 @@ module.exports =
             'process.env.ECW_ENV': JSON.stringify(process.env.ECW_ENV)
           })
         )
+        config.node = { fs: 'empty' }
         return config
       }
     })))
