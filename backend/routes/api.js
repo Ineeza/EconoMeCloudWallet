@@ -8,6 +8,7 @@ const { Account, Keystore, Token } = require('../model')
 const networks = require('../middleware/web3').networks
 const ERC20_TOKEN = require('../json/TestCoin.json')
 const tokenRouter = require('./token')
+const logger = require('../middleware/logger')
 
 module.exports = (app, server) => {
   // Routing secure api
@@ -30,7 +31,7 @@ module.exports = (app, server) => {
     Keystore.findOne({ where: { account_id: userId } }).then(keystore => {
       const myKeyObject = JSON.parse(keystore.content)
       let myWalletAddress = '0x' + myKeyObject.address
-      console.log('My Wallet Address: ' + myWalletAddress)
+      logger.info('My Wallet Address: ' + myWalletAddress)
 
       const web3 = new Web3(new Web3.providers.HttpProvider(networks.rinkeby))
       web3.eth.getBalance(myWalletAddress, (error, weiBalance) => {
@@ -46,12 +47,12 @@ module.exports = (app, server) => {
                   contract.methods.balanceOf(myWalletAddress).call((error, balance) => {
                     // Get decimal from contract address
                     contract.methods.decimals().call((error, decimals) => {
-                      if (error) { console.log(error) }
+                      if (error) { logger.error(error) }
                     })
                     if (!error) {
                       resolve(balance)
                     } else {
-                      console.error(error)
+                      logger.error(error)
                     }
                   }).catch((error) => {
                     resolve()
@@ -80,7 +81,7 @@ module.exports = (app, server) => {
             })
           })
         } else {
-          console.error(error)
+          logger.error(error)
         }
       })
     })
@@ -98,41 +99,41 @@ module.exports = (app, server) => {
       return res.status(422).json({ errors: errors.array() })
     }
     const userId = req.user.id
-    console.log('==== POST /tx ====')
-    console.log(req.body)
+    logger.info('==== POST /tx ====')
+    logger.info(req.body)
     const password = req.body.password
     const recipientAddress = req.body.recipientAddress
     const amount = req.body.amount
     const contractAddress = req.body.contractAddress
-    console.log('userId: ' + userId)
-    console.log('recipientAddress: ' + recipientAddress)
-    console.log('amount: ' + amount)
+    logger.info('userId: ' + userId)
+    logger.info('recipientAddress: ' + recipientAddress)
+    logger.info('amount: ' + amount)
 
     Keystore.findOne({ where: { account_id: userId } }).then(keystore => {
       const myKeyObject = JSON.parse(keystore.content)
       let myWalletAddress = '0x' + myKeyObject.address
-      console.log('My Wallet Address: ' + myWalletAddress)
+      logger.info('My Wallet Address: ' + myWalletAddress)
       // Nonce
       const web3 = new Web3(new Web3.providers.HttpProvider(networks.rinkeby))
       const contract = new web3.eth.Contract(ERC20_TOKEN.abi, contractAddress)
       web3.eth.getTransactionCount(myWalletAddress).then((nonce) => {
-        console.log('Nonce: ' + nonce)
+        logger.info('Nonce: ' + nonce)
         // Private Key
         const privateKey = keythereum.recover(password, myKeyObject)
-        console.log('contract: ' + contract)
+        logger.info('contract: ' + contract)
         // Signed Transaction
         let toAddress = recipientAddress
 
         // Get the decimals from the contract
         contract.methods.decimals().call((error, decimals) => {
-          if (error) { console.log(error) }
+          if (error) { logger.info(error) }
           const decimalAmount = amount * (10 ** decimals)
-          console.log('===== Creating Transaction =====')
-          console.log('  amount: ' + decimalAmount)
-          console.log('  toAddress: ' + toAddress)
-          console.log('  gasPrice: ' + web3.utils.toHex(4.8 * 1e9))
-          console.log('  gasLimit: ' + web3.utils.toHex(210000))
-          console.log('  nounce: ' + web3.utils.toHex(nonce))
+          logger.info('===== Creating Transaction =====')
+          logger.info('  amount: ' + decimalAmount)
+          logger.info('  toAddress: ' + toAddress)
+          logger.info('  gasPrice: ' + web3.utils.toHex(4.8 * 1e9))
+          logger.info('  gasLimit: ' + web3.utils.toHex(210000))
+          logger.info('  nounce: ' + web3.utils.toHex(nonce))
           // DEBUG
           const rawTransaction = {
             'from': myWalletAddress,
@@ -162,36 +163,36 @@ module.exports = (app, server) => {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() })
     }
-    console.log('==== POST /eth ====')
-    console.log(req.body)
+    logger.info('==== POST /eth ====')
+    logger.info(req.body)
     const userId = req.user.id
     const password = req.body.password
     const recipientAddress = req.body.recipientAddress
     const amount = req.body.amount
-    console.log('userId: ' + userId)
-    console.log('recipientAddress: ' + recipientAddress)
-    console.log('amount: ' + amount)
+    logger.info('userId: ' + userId)
+    logger.info('recipientAddress: ' + recipientAddress)
+    logger.info('amount: ' + amount)
 
     Keystore.findOne({ where: { account_id: userId } }).then(keystore => {
       const myKeyObject = JSON.parse(keystore.content)
       let myWalletAddress = '0x' + myKeyObject.address
-      console.log('My Wallet Address: ' + myWalletAddress)
+      logger.info('My Wallet Address: ' + myWalletAddress)
       // Nonce
       const web3 = new Web3(new Web3.providers.HttpProvider(networks.rinkeby))
       web3.eth.getTransactionCount(myWalletAddress).then((nonce) => {
-        console.log('Nonce: ' + nonce)
+        logger.info('Nonce: ' + nonce)
         // Private Key
         const privateKey = keythereum.recover(password, myKeyObject)
         // Signed Transaction
         let toAddress = recipientAddress
         const decimalAmount = web3.utils.toWei(amount, 'ether')
-        console.log('===== Creating Transaction =====')
-        console.log('  amount(Wei): ' + decimalAmount)
-        console.log('  amount(Hex): ' + web3.utils.toHex(decimalAmount))
-        console.log('  toAddress: ' + toAddress)
-        console.log('  gasPrice: ' + web3.utils.toHex(4.8 * 1e9))
-        console.log('  gasLimit: ' + web3.utils.toHex(210000))
-        console.log('  nounce: ' + web3.utils.toHex(nonce))
+        logger.info('===== Creating Transaction =====')
+        logger.info('  amount(Wei): ' + decimalAmount)
+        logger.info('  amount(Hex): ' + web3.utils.toHex(decimalAmount))
+        logger.info('  toAddress: ' + toAddress)
+        logger.info('  gasPrice: ' + web3.utils.toHex(4.8 * 1e9))
+        logger.info('  gasLimit: ' + web3.utils.toHex(210000))
+        logger.info('  nounce: ' + web3.utils.toHex(nonce))
         // DEBUG
         const rawTransaction = {
           'from': myWalletAddress,

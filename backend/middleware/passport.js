@@ -7,6 +7,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt
 const keythereum = require('keythereum')
 const ethereum = require('web3')
 const { Account, Keystore } = require('../model')
+const logger = require('./logger')
 
 passport.use('signup', new LocalStrategy({
   usernameField: 'email',
@@ -25,7 +26,7 @@ passport.use('signup', new LocalStrategy({
             const dk = keythereum.create(params)
 
             // Pass userName and password as Http POST paramters
-            console.log('Account ID: ' + account.id)
+            logger.info('Signup Account ID: ' + account.id)
 
             // Save keystore to database
             const keyObject = keythereum.dump(password,
