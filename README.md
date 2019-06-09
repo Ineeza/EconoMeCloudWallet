@@ -29,6 +29,15 @@ If you want generate specific model from table,
 sequelize-auto -o "./backend/model" -d econome -h localhost -u postgres -p 5432 -e postgres -t [tableName]
 ```
 
+### Environment variables
+
+| Name | Description |
+| --- | --- |
+| ECW_ENV | Environment name, local or test or dev etc... |
+| ECW_JWT_SECRET | JWT secret token (default: `top_secret`) |
+| ECW_LOG_LEVEL | Logger level, info debug etc... |
+| ECW_LOG_QUERY | Logging db query, If you want to log db query define it |
+
 ### Local Development mode
 ```
 yarn
