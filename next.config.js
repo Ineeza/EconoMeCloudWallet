@@ -3,11 +3,12 @@ const withCSS = require('@zeit/next-css')
 const withImages = require('next-images')
 const withFonts = require('next-fonts')
 const webpack = require('webpack')
+const logger = require('./backend/middleware/logger')
 
-console.log('==== Next config ====')
-console.log('ECW_ENV: ' + process.env.ECW_ENV)
-console.log('ECW_LOG_LEVEL: ' + process.env.ECW_LOG_LEVEL)
-console.log('ECW_LOG_QUERY: ' + process.env.ECW_LOG_QUERY)
+logger.debug('==== Next config ====')
+logger.debug('ECW_ENV: ' + process.env.ECW_ENV)
+logger.debug('ECW_LOG_LEVEL: ' + process.env.ECW_LOG_LEVEL)
+logger.debug('ECW_LOG_QUERY: ' + process.env.ECW_LOG_QUERY)
 
 module.exports =
     withCSS(withImages(withFonts({

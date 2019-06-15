@@ -56,7 +56,6 @@ const reauthenticate = (token) => {
 
 // removing the token
 const deauthenticate = () => {
-  console.log('==== Deauthenticate ====')
   return (dispatch) => {
     removeCookie(JWT_KEY)
     dispatch({ type: DEAUTHENTICATE })
