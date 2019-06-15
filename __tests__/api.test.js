@@ -80,7 +80,7 @@ test('[GET /api/profile] return account information', (done) => {
         })
         .then((response) => {
           expect(response.body).toHaveProperty('account')
-          expect(response.body.account.email).toEqual(email)
+          expect(response.body).toHaveProperty('account.id')
           expect(response.body).toHaveProperty('message')
           expect(response.statusCode).toBe(200)
           done()

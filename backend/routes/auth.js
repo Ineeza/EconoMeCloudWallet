@@ -1,6 +1,7 @@
 const express = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const jwtSecret = require('../middleware/jwtSecret')
 const router = express.Router()
 
 module.exports = (app, server) => {
@@ -26,8 +27,8 @@ module.exports = (app, server) => {
         }
         req.login(account, { session: false }, async (error) => {
           if (error) return next(error)
-          const body = { _id: account._id, email: account.email }
-          const token = jwt.sign({ account: body }, 'top_secret')
+          const body = { id: account.id }
+          const token = jwt.sign({ account: body }, jwtSecret)
           return res.json({ token })
         })
       } catch (error) {
