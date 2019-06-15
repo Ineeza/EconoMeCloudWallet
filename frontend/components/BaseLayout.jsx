@@ -27,7 +27,8 @@ class BaseLayout extends React.Component {
       navBarItems = {
         navBarItems: [
           { value: 'Home', to: '/', icon: 'home' },
-          { value: 'Wallet', to: '/dashboard', icon: 'credit-card' },
+         // { value: 'Dashboard', to: '/dashboard', icon: 'grid' },
+          { value: 'Wallet', to: '/wallet', icon: 'credit-card' },
           { value: 'Tokens', to: '/tokens', icon: 'database' },
           { value: 'Profile', to: '/whoami', icon: 'flag' },
           { value: 'Mnemonic', to: '/mnemonic', icon: 'edit' },
