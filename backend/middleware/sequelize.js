@@ -10,7 +10,6 @@ const sequelize = new Sequelize(
   {
     host: config.db.host,
     dialect: 'postgres',
-    operatorsAliases: false,
     pool: {
       max: config.db.max,
       min: 0,
