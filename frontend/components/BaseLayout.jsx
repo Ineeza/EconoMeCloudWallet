@@ -7,9 +7,11 @@ import PropTypes from 'prop-types'
 import 'tabler-react/dist/Tabler.css'
 import { initGA, logPageView } from '../utils/analytics'
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: !!state.authentication.token
-})
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: !!state.authentication.token
+  }
+}
 
 class BaseLayout extends React.Component {
   constructor (props) {

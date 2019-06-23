@@ -1,3 +1,4 @@
+// Authenticate
 export const AUTHENTICATE = 'authenticate'
 export const DEAUTHENTICATE = 'deauthenticate'
 
@@ -11,11 +12,12 @@ export const REMOVE_TOKEN = 'REMOVE_TOKEN'
 // Modal
 export const SET_TARGET_CONTRACT = 'SET_TARGET_CONTRACT'
 
-// Signup and Login
+// Signup and Login and Logout
 export const SET_EMAIL_ON_SIGNUP = 'SET_EMAIL_ON_SIGNUP'
 export const SET_PASSWORD_ON_SIGNUP = 'SET_PASSWORD_ON_SIGNUP'
 export const SET_EMAIL_ON_LOGIN = 'SET_EMAIL_ON_LOGIN'
 export const SET_PASSWORD_ON_LOGIN = 'SET_PASSWORD_ON_LOGIN'
+export const SET_LOGOUT = 'SET_LOGOUT'
 
 // Alerts
 export const ERROR_ALERT = 'ERROR_ALERT'
