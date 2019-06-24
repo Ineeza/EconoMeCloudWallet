@@ -18,9 +18,10 @@ passport.use('signup', new LocalStrategy({
       Account.findAndCountAll({ where: { email: email } }).then(result => {
         // If user already exsits, return error
         if (result.count > 0) {
-          done(null, { error: '409' })
+          done(null, { error: 409 })
         }
-        Account.findOrCreate({ where: { email: email }, defaults: { email: email, password: hash } })
+        Account.findOrCreate({ where: { email: email },
+                               defaults: { email: email, password: hash } })
           .spread((account, created) => {
             const params = { keyBytes: 32, ivBytes: 16 }
             const dk = keythereum.create(params)
