@@ -84,7 +84,7 @@ class Signup extends React.Component<Props> {
                     onChange={(e) => this.setPassword(e.target.value)}
                   />
                 </Form.Group>
-                <Button type='submit' color='primary'>
+                <Button pill type='submit' color='primary' size='lg' block>
                   Signup
                 </Button>
               </Form.FieldSet>
