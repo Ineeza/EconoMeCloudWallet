@@ -77,9 +77,9 @@ class Login extends React.Component<Props> {
                     required
                     value={this.props.password}
                     onChange={(e) => this.setPassword(e.target.value)}
-                  />
+      />
                 </Form.Group>
-                <Button type='submit' color='primary'>
+                <Button pill type='submit' color='primary' size='lg' block>
                   Login
                 </Button>
               </Form.FieldSet>
