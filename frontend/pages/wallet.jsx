@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import bcrypt from 'bcryptjs'
 import keythereum from 'keythereum'
+import { setCookie, removeCookie } from '../utils/cookie'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
@@ -81,15 +82,19 @@ class WalletPage extends React.Component {
     this.setState({ isAddTokenModal: false })
   }
 
+  getWalletFromCookie = () => {
+    //TODO Store keystores from cookie
+  }
+
   genPrivateKey = () => {
     // FIXME Use globally imported bip39 module
     const bip39 = require('bip39')
     const mnemonic = bip39.generateMnemonic()
     console.log('Generated a mnemonic')
     console.log(mnemonic)
-    const password = 'test'
 
-    // TODO Generate a private key
+    // TODO Create a keystore by password (like PIN code)
+    const password = 'test'
     bcrypt.hash(password, 10).then((hash) => {
       const params = { keyBytes: 32, ivBytes: 16 }
       const dk = keythereum.create(params)
@@ -98,10 +103,11 @@ class WalletPage extends React.Component {
       const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, ethereum.options)
       const keystoreStr = JSON.stringify(keyObject)
       console.log(keystoreStr)
+      // TODO Save the key into cookie (We shouldn't use local storage to store sensitive data)
+      setCookie('WALLET-1', keystoreStr)
+      setCookie('WALLET-2', keystoreStr)
+      setCookie('WALLET-3', keystoreStr)
     })
-
-    // TODO Create a keystore by password (like PIN code)
-    // TODO Save the key into cookie (We shouldn't use local storage to store sensitive data)
   }
 
   render () {
