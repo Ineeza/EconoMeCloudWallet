@@ -23,10 +23,6 @@ const sequelize = new Sequelize(
     // FIXME default false
     benchmark: process.env.ECW_LOG_QUERY || true,
     logging: (logStr, execTime, options) => {
-      if (!options) {
-        options = execTime
-        execTime = undefined
-      }
       let col = null
       switch (options.type) {
         case 'SELECT':

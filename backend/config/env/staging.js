@@ -1,3 +1,5 @@
+// @flow strict
+
 module.exports = {
   db: {
     user: process.env.DB_USER,

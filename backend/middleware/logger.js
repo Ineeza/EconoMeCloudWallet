@@ -1,7 +1,11 @@
+// @flow strict
+
 const log4js = require('log4js')
 const logger = log4js.getLogger()
 
-logger.level = process.env.ECW_LOG_LEVEL || 'info'
+logger.level =
+    (typeof(process.env.ECW_LOG_LEVEL) != 'undefined' &&
+     process.env.ECW_LOG_LEVEL != null) ? process.env.ECW_LOG_LEVEL : 'info'
 
 log4js.configure({
   appenders: {

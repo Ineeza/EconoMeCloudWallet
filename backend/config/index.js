@@ -1,6 +1,7 @@
-const env =
-    (process.env.ECW_ENV === undefined || process.env.ECW_ENV === '')
-      ? 'localEnv' : process.env.ECW_ENV + 'Env'
+// @flow strict
+
+const envName = (typeof(process.env.ECW_ENV) != 'undefined' && process.env.ECW_ENV != null) ? process.env.ECW_ENV : ''
+const env = (envName === '') ? envName + 'Env' : 'localEnv'
 
 const localEnv = require('./env/local')
 const testEnv = require('./env/testing')

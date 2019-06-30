@@ -1,3 +1,5 @@
+// @flow strict
+
 const options = {
   kdf: 'pbkdf2',
   cipher: 'aes-128-ctr',
