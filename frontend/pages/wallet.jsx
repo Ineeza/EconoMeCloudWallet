@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import axiosBase from 'axios'
 import bcrypt from 'bcryptjs'
 import keythereum from 'keythereum'
+import ethereum from 'web3'
 import { setCookie, removeCookie } from '../utils/cookie'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
@@ -82,8 +83,16 @@ class WalletPage extends React.Component {
     this.setState({ isAddTokenModal: false })
   }
 
+  // TODO Store keystores from cookie
   getWalletFromCookie = () => {
-    //TODO Store keystores from cookie
+    // Do something
+  }
+
+  // TODO Store keystores from cookie
+  removeWallet = () => {
+    removeCookie('WALLET-1')
+    removeCookie('WALLET-2')
+    removeCookie('WALLET-3')
   }
 
   genPrivateKey = () => {
@@ -131,7 +140,7 @@ class WalletPage extends React.Component {
                 <Button.List>
                   <Button onClick={this.genPrivateKey} color='success'>Create a wallet</Button>
                   <Button color='info'>Import a wallet</Button>
-                  <Button color='danger'>Delete a wallet</Button>
+                  <Button onClick={this.removeWallet} color='danger'>Delete a wallet</Button>
                 </Button.List>
               </Card.Body>
             </Card>
