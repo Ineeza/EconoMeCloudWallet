@@ -4,7 +4,7 @@ import axiosBase from 'axios'
 import bcrypt from 'bcryptjs'
 import keythereum from 'keythereum'
 import ethereum from 'web3'
-import { setCookie, removeCookie } from '../utils/cookie'
+import { setCookie, removeCookie, getWalletsFromCookie} from '../utils/cookie'
 import { apiHost } from '../../backend/config'
 import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
@@ -84,11 +84,6 @@ class WalletPage extends React.Component {
   }
 
   // TODO Store keystores from cookie
-  getWalletFromCookie = () => {
-    // Do something
-  }
-
-  // TODO Store keystores from cookie
   removeWallet = () => {
     removeCookie('WALLET-1')
     removeCookie('WALLET-2')
@@ -116,6 +111,9 @@ class WalletPage extends React.Component {
       setCookie('WALLET-1', keystoreStr)
       setCookie('WALLET-2', keystoreStr)
       setCookie('WALLET-3', keystoreStr)
+
+      // TODO Get wallets from cookies
+      console.log(getWalletsFromCookie())
     })
   }
 

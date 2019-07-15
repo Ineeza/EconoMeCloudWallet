@@ -38,3 +38,23 @@ const getCookieFromServer = (key, req) => {
     return undefined
   }
 }
+
+// Get wallet's cookies by prefix 'WALLET-'
+export const getWalletsFromCookie = () => {
+  console.log('==== Get wallets !! ====')
+
+  const data = cookie.get()
+  const dataKeys = Object.keys(data)
+  const groupedData = dataKeys.reduce((result, currKey) => {
+    // Pull out the group name from the key
+    const group = currKey.split('-')[0]
+    // Check if the group exists, if not, create it
+    const hasGroup = result[group] !== undefined
+    if (!hasGroup) { result[group] = {} }
+    // Add the current entry to the result
+    result[group][currKey] = data[currKey]
+    return result
+  }, {})
+
+  return groupedData['WALLET']
+}
