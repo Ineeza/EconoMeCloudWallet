@@ -10,6 +10,7 @@ import initialize from '../utils/initialize'
 import BaseLayout from '../components/BaseLayout'
 import SendTokenModal from '../components/SendTokenModal'
 import SendEthModal from '../components/SendEthModal'
+import CreateWalletModal from '../components/CreateWalletModal'
 import actions from '../actions'
 import { JWT_KEY } from '../constants/keys'
 import { bindActionCreators } from 'redux'
@@ -50,6 +51,7 @@ class WalletPage extends React.Component {
       isAddTokenModal: false,
       isSendTokenModal: false,
       isSendEthModal: false,
+      isCreateWalletModal: false,
       targetContractAddress: '',
       data: []
     }
@@ -81,6 +83,15 @@ class WalletPage extends React.Component {
 
   handleCloseAddTokenModal = () => {
     this.setState({ isAddTokenModal: false })
+  }
+
+  // TODO Open Create-Wallet Modal
+  handleCreateWalletModal = () => {
+    this.setState({ isCreateWalletModal: true })
+  }
+
+  handleCloseCreateWalletModal = () => {
+    this.setState({ isCreateWalletModal: false })
   }
 
   // TODO Store keystores from cookie
@@ -136,7 +147,10 @@ class WalletPage extends React.Component {
                   </Form.Select>
                 </Form.Group>
                 <Button.List>
-                  <Button onClick={this.genPrivateKey} color='success'>Create a wallet</Button>
+                  <Button onClick={this.handleOpenSendEthModal} color='success'>Create a wallet</Button>
+                  <CreateWalletModal
+                    isCreateWalletModal={this.state.isCreateWalletModal}
+                    handleCloseSendTokenModal={this.handleCloseCreateWalletModal} />
                   <Button color='info'>Import a wallet</Button>
                   <Button onClick={this.removeWallet} color='danger'>Delete a wallet</Button>
                 </Button.List>
@@ -184,20 +198,20 @@ class WalletPage extends React.Component {
                   </Table.Header>
                   <Table.Body>
                     {this.props.wallet.tokens.map(p => {
-                      return (
-                        <Table.Row key={p.info.id}>
-                          <Table.Col>{p.info.name}</Table.Col>
-                          <Table.Col>{p.balance}</Table.Col>
-                          <Table.Col alignContent='right'>
-                            <Button.List>
-                              <Button onClick={() => this.handleOpenSendTokenModal(p.info.contract_address)} color='primary'>Send</Button>
-                              <SendTokenModal
-                                isSendTokenModal={this.state.isSendTokenModal}
-                                handleCloseSendTokenModal={this.handleCloseSendTokenModal} />
-                            </Button.List>
-                          </Table.Col>
-                        </Table.Row>
-                      )
+                       return (
+                         <Table.Row key={p.info.id}>
+                           <Table.Col>{p.info.name}</Table.Col>
+                           <Table.Col>{p.balance}</Table.Col>
+                           <Table.Col alignContent='right'>
+                             <Button.List>
+                               <Button onClick={() => this.handleOpenSendTokenModal(p.info.contract_address)} color='primary'>Send</Button>
+                               <SendTokenModal
+                                 isSendTokenModal={this.state.isSendTokenModal}
+                                 handleCloseSendTokenModal={this.handleCloseSendTokenModal} />
+                             </Button.List>
+                           </Table.Col>
+                         </Table.Row>
+                       )
                     })}
                   </Table.Body>
                 </Table>
